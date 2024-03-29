@@ -62,8 +62,8 @@ public class GenerateControllerEntity {
         ConfigORM [] listConfigORM = configORM.listORMConfig();
         for (int i = 0; i < listConfigORM.length; i++) {
             ConfigORM configORMIndex = listConfigORM[i];
-            String parentEntity = configORMIndex.getTable_name_parent();
-            String childEntity = configORMIndex.getTable_name_child();
+            String parentEntity = configORMIndex.getName_table_parent();
+            String childEntity = configORMIndex.getName_table_child();
             String childEntityUpper = FunctionUtils.firstLetterToUpperCase(childEntity);
             if(entityName.equals(parentEntity)){
                 newValue += String.format("|| %s.get%s() == null", entityName,childEntityUpper);
@@ -81,11 +81,11 @@ public class GenerateControllerEntity {
         for (int i = 0; i < listConfigORM.length; i++) {
             ConfigORM configORMIndex = listConfigORM[i];
             String idTypeEntity = this.controllerEnity.getIdTypEntity();
-            String parentEntity = configORMIndex.getTable_name_parent();
-            String childEntity = configORMIndex.getTable_name_child();
+            String parentEntity = configORMIndex.getName_table_parent();
+            String childEntity = configORMIndex.getName_table_child();
             String childEntityUpper = FunctionUtils.firstLetterToUpperCase(childEntity);
-            String assocParent = configORMIndex.getAssoc_parent();
-            String assocChild = configORMIndex.getAssoc_child();
+            String assocParent = configORMIndex.getAssoc_parent_child();
+            String assocChild = configORMIndex.getAssoc_child_parent();
             if(blocksName.equals("Autowired") && nameEntity.equals(parentEntity)&& assocParent.equals("@OneToOne") && assocChild.equals("")){
                 value += String.format("@Autowired\r\n\tprivate %sService %sService;",childEntityUpper, childEntity);
                 break;

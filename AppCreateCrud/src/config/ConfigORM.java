@@ -92,8 +92,7 @@ public class ConfigORM {
 		List<ConfigORM> list = new ArrayList<>();
 		
 		// @OneToOne unidirectional
-		list.add(new ConfigORM("region", "person", "1-N", "1-1",true,false,"","2"));
-		list.add(new ConfigORM("person", "address", "1-1", "1-1",true,false,"","2"));
+		list.add(new ConfigORM("region", "person", "1-1", "1-1",true,false,"","1"));
 
 		// Cascade
 			// PERSIST
