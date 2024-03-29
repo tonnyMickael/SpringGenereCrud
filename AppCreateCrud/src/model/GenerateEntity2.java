@@ -3,7 +3,7 @@ package model;
 import java.io.File;
 
 import config.Config;
-import config.ConfigORM2;
+import config.ConfigORM;
 import function.FunctionUtils;
 
 public class GenerateEntity2 {
@@ -44,8 +44,8 @@ public class GenerateEntity2 {
 
     private String generateAnnotationsORMV3(){
         String tableName = this.entityTable.getName();
-        ConfigORM2 cORM = new ConfigORM2();
-        ConfigORM2 [] listConfigOrm = cORM.listORMConfig();
+        ConfigORM cORM = new ConfigORM();
+        ConfigORM [] listConfigOrm = cORM.listORMConfig();
         String value = "";
 
         for (int j = 0; j < listConfigOrm.length; j++) {
@@ -273,8 +273,8 @@ public class GenerateEntity2 {
     private String generateSetGetORM(){
         String value = "";
         String tableName = this.entityTable.getName();
-        ConfigORM2 configORM = new ConfigORM2();
-        ConfigORM2 [] listConfigORMs = configORM.listORMConfig();
+        ConfigORM configORM = new ConfigORM();
+        ConfigORM [] listConfigORMs = configORM.listORMConfig();
         for (int i = 0; i < listConfigORMs.length; i++) {
             String parentNameConfigORM = listConfigORMs[i].getName_table_parent();
             String childNameConfigORM = listConfigORMs[i].getName_table_child();
