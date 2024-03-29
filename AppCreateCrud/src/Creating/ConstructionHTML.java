@@ -110,8 +110,8 @@ public class ConstructionHTML {
         ConfigORM [] listConfigORM = configORM.listORMConfig();
         for (int i = 0; i < listConfigORM.length; i++) {
             ConfigORM configORMIndex = listConfigORM[i];
-            String parentEntity = configORMIndex.getTable_name_parent();
-            String childEntityConfig = configORMIndex.getTable_name_child();
+            String parentEntity = configORMIndex.getName_table_parent();
+            String childEntityConfig = configORMIndex.getName_table_child();
             // String secondAttribut = this.getTheSecondAttributFromTable(childEntity);
             String childEntityUpper = FunctionUtils.firstLetterToUpperCase(childEntityConfig);
             // String childEntity = configORMIndex.getTable_name_child();

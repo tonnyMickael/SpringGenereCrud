@@ -64,34 +64,28 @@ public class GenerateService {
         return value;
     }
 
-    private String generateSetChildTable(String name){
+    private String generateSetChildTable(ConfigORM configORM,String name){
         // produitUpdated.setTag(produit.getTag());
         String value = "";
-        ConfigORM configORM = new ConfigORM();
-        ConfigORM [] listConfigORM = configORM.listORMConfig(); 
-        for (int i = 0; i < listConfigORM.length; i++) {
-            ConfigORM configORMIndex = listConfigORM[i];
-            String parentTable = configORMIndex.getTable_name_parent();
-            String childTable = configORMIndex.getTable_name_child();
-            String childTableUpper = FunctionUtils.firstLetterToUpperCase(childTable);
-            if(parentTable.equals(name)){
-                value += String.format("\n\t\t%sUpdated.set%s(%s.get%s());\r",name,childTableUpper,name,childTableUpper);
-                break;
-            }
-            else {
-                value = "";
-            }
+        String parentTable = configORM.getName_table_parent();
+        String childTable = configORM.getName_table_child();
+        String childTableUpper = FunctionUtils.firstLetterToUpperCase(childTable);
+        if(parentTable.equals(name)){
+            value += String.format("\n\t\t%sUpdated.set%s(%s.get%s());\r",name,childTableUpper,name,childTableUpper);
+        }
+        else {
+            value = "";
         }
         return value;
     }
 
-    private String generateUpdate(String generateMethodInUpdate){
+    private String generateUpdate(ConfigORM configORM,String generateMethodInUpdate){
         String className = FunctionUtils.firstLetterToUpperCase(this.service.getName());
         String varClassName = this.service.getName();
         String idType = this.service.getIdType();
         String newValue = String.format("public %s update (%s %s, %s id) {\r\n" + //
                         "\t\t%s %sUpdated = new %s();\r\n" + //
-                        "\t\t%sUpdated.setId(id);\r" + generateMethodInUpdate + generateSetChildTable(this.service.getName())+
+                        "\t\t%sUpdated.setId(id);\r" + generateMethodInUpdate + generateSetChildTable(configORM,this.service.getName())+
                         "\t\treturn this.%sRepository.save(%sUpdated);\r\n" + //
                         "\t}",className,className,varClassName,idType,className,varClassName,className,varClassName,varClassName,varClassName);
         return newValue;
@@ -118,7 +112,7 @@ public class GenerateService {
         return newValue;
     }
 
-    private String []listRealValues(String argGenerateUpdate){
+    private String []listRealValues(ConfigORM configORM, String argGenerateUpdate){
         String className = FunctionUtils.firstLetterToUpperCase(this.service.getName());
         String varClassName = this.service.getName();
         String [] values = {
@@ -126,7 +120,7 @@ public class GenerateService {
             varClassName,
             generateAdd(),
             generateFetch(),
-            generateUpdate(argGenerateUpdate),
+            generateUpdate(configORM,argGenerateUpdate),
             generateDelete(),
             generateDetail()
         };
@@ -137,11 +131,11 @@ public class GenerateService {
         return this.service.getName()+"Service";
     }
 
-    public void createServiceEntity(String argGenerateUpdate){
+    public void createServiceEntity(ConfigORM configORM,String argGenerateUpdate){
         File destinationFile = new File(Config.SERVICE_DESTINATION_FOLDER_PATH, FunctionUtils.formatToFileJava(formatClassNameService()));
         
         if(!destinationFile.exists()){
-            FunctionUtils.replacePholders(FunctionUtils.formatToFileJava(formatClassNameService()), Config.placeHoldersService, listRealValues(argGenerateUpdate),Config.TEMPLATE_SOURCE_FOLDER_PATH,Config.TEMPLATE_SERVICE_SOURCE_FILE_NAME,Config.SERVICE_DESTINATION_FOLDER_PATH);
+            FunctionUtils.replacePholders(FunctionUtils.formatToFileJava(formatClassNameService()), Config.placeHoldersService, listRealValues(configORM,argGenerateUpdate),Config.TEMPLATE_SOURCE_FOLDER_PATH,Config.TEMPLATE_SERVICE_SOURCE_FILE_NAME,Config.SERVICE_DESTINATION_FOLDER_PATH);
         }
         else{
             System.out.println(FunctionUtils.formatToFileJava(formatClassNameService())+" :File Already exist...");

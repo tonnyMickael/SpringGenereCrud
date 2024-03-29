@@ -95,8 +95,8 @@ public class ViewDetailGenerate {
         }
         for (int i = 0; i < listConfigORM.length; i++) {
             ConfigORM configORMIndex = listConfigORM[i];
-            String parentTable = configORMIndex.getTable_name_parent();
-            String childTable = configORMIndex.getTable_name_child();
+            String parentTable = configORMIndex.getName_table_parent();
+            String childTable = configORMIndex.getName_table_child();
             if(nameEntity.equals(parentTable)){
                 value += this.templateFieldChildTable(nameEntity,childTable);
             }
