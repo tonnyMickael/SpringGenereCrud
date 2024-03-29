@@ -1,0 +1,23 @@
+<!DOCTYPE HTML>
+<html>
+    <head>
+        <meta charset="UTF-8" />
+        <title>Détail</title>
+    </head>
+    <body>
+        <h1>Détail: </h1>
+        <a href="/[nameEntity]/list">Retour</a>
+        <br/><br/>
+        <#if [nameEntity]??>
+            <table border="0">
+[fieldsTable]
+
+[fieldChildTable]
+
+            </table>
+            <br/><br/>
+        <#else>
+            <p>Aucun résultat...</p>
+        </#if>
+    </body>
+</html>
