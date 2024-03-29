@@ -1,0 +1,23 @@
+<!DOCTYPE HTML>
+<HTML>
+    <head>
+        <meta charset="UTF-8">
+        <title>formulaire</title>
+    </head>
+    <body>
+        <div>
+            <h1>formulaire</h1>
+            <form name="[nametable]" action="add" method="post">
+                [formulaire]
+
+                <select name="[childEntity]_id">
+                    <#list list[childEntityMaj] as [childEntity]>
+                        <option value="${[childEntity].id}">${[childEntity].name}</option>
+                    </#list>
+                </select>
+
+                <input type="submit" value="valided">
+            </form>
+        </div>
+    </body>
+</HTML>
