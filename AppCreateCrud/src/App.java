@@ -3,7 +3,7 @@ import java.util.List;
 import java.util.Scanner;
 
 import config.ConfigORM;
-
+import config.ConfigSystem;
 import Creating.ConstructionHTML;
 import MetaData.Meta;
 import MetaData.MetaTable;
@@ -28,6 +28,24 @@ import view.ViewModife;
 import view.ViewModifeGenerate;
 public class App {
     public static void main(String[] args) throws Exception {
+
+        //scanner de configuration systeme 
+        Scanner system = new Scanner(System.in);
+        System.out.println("emplacement du projet");
+        String path = system.nextLine();
+        ConfigSystem.path = path;
+        System.out.println("le port de la base de donnée");
+        System.out.println("port standard pour postgres: 5432");
+        System.out.println("port personnaliser: votre port");
+        String port = system.nextLine();
+        System.out.println("la base de donnée");
+        String database = system.nextLine();
+        System.out.println("l'utilisateur de la base de donnée");
+        String user = system.nextLine();
+        System.out.println("le mot de passe");
+        String password = system.nextLine();
+        system.close();
+
         Scanner saisie = new Scanner(System.in);
         String continued = "no";
         List<ConfigORM> initConfiguration = new ArrayList<>();
@@ -101,7 +119,7 @@ public class App {
         // ConfigORM configORM = new ConfigORM();
         ConfigORM[] listConfigORM = initConfiguration.toArray(new ConfigORM[0]);
         
-        DBConnection dbConnection = new DBConnection("5432","dbconfigcrudgenere","postgres","1234");
+        DBConnection dbConnection = new DBConnection(port,database,user,password);
         DBManager dbManager = new DBManager(dbConnection);
 
         try {
