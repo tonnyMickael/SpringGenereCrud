@@ -4,6 +4,7 @@ import java.io.File;
 
 import config.Config;
 import config.ConfigORM;
+import config.ConfigSystem;
 import function.FunctionUtils;
 import model.EntityField;
 
@@ -130,10 +131,10 @@ public class GenerateControllerEntity {
     }
 
     public void createControllerEntity(){
-        File destinationFile = new File(Config.CONTROLLER_DESTINATION_FOLDER_PATH, FunctionUtils.formatToFileJava(formatClassNameController()));
+        File destinationFile = new File(ConfigSystem.path + Config.CONTROLLER_DESTINATION_FOLDER_PATH, FunctionUtils.formatToFileJava(formatClassNameController()));
         
         if(!destinationFile.exists()){
-            FunctionUtils.replacePholders(FunctionUtils.formatToFileJava(formatClassNameController()), Config.placeHoldersController, listRealValues(),Config.TEMPLATE_SOURCE_FOLDER_PATH,Config.TEMPLATE_CONTROLLER_SOURCE_FILE_NAME,Config.CONTROLLER_DESTINATION_FOLDER_PATH);
+            FunctionUtils.replacePholders(FunctionUtils.formatToFileJava(formatClassNameController()), Config.placeHoldersController, listRealValues(),ConfigSystem.path + Config.TEMPLATE_SOURCE_FOLDER_PATH,ConfigSystem.path + Config.TEMPLATE_CONTROLLER_SOURCE_FILE_NAME,ConfigSystem.path + Config.CONTROLLER_DESTINATION_FOLDER_PATH);
         }
         else{
             System.out.println(FunctionUtils.formatToFileJava(formatClassNameController())+" :File Already exist...");
