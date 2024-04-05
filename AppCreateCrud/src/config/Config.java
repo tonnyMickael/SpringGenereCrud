@@ -9,45 +9,45 @@ public class Config {
      */
 
     // utiliser le fichier MetaDataTypeHTML pour la convertion en type de champ html des input 
-    public static final String DATATYPE_HTML_PATH = "C:\\Users\\PC2-Johns-Irintsoa\\Documents\\Dev\\Java\\AppCreateCrud\\lib"; 
+    public static final String DATATYPE_HTML_PATH = "\\AppCreateCrud\\lib"; 
 
     // Template
-    public static final String TEMPLATE_SOURCE_FOLDER_PATH="C:\\Users\\PC2-Johns-Irintsoa\\Documents\\Dev\\Java\\AppCreateCrud\\src\\template";
+    public static final String TEMPLATE_SOURCE_FOLDER_PATH="\\AppCreateCrud\\src\\template";
     // Model
-    public static final String MODEL_DESTINATION_FOLDER_PATH="C:\\Users\\PC2-Johns-Irintsoa\\Documents\\Dev\\Java\\AppCreateCrud\\template_crud\\src\\main\\java\\com\\dev\\template_crud\\model";
+    public static final String MODEL_DESTINATION_FOLDER_PATH="\\AppCreateCrud\\template_crud\\src\\main\\java\\com\\dev\\template_crud\\model";
     public static final String TEMPLATE_MODEL_SOURCE_FILE_NAME="Model.tmpl";
     // Repository
-    public static final String REPOSITORY_DESTINATION_FOLDER_PATH="C:\\Users\\PC2-Johns-Irintsoa\\Documents\\Dev\\Java\\AppCreateCrud\\template_crud\\src\\main\\java\\com\\dev\\template_crud\\repository";
+    public static final String REPOSITORY_DESTINATION_FOLDER_PATH="\\AppCreateCrud\\template_crud\\src\\main\\java\\com\\dev\\template_crud\\repository";
     public static final String TEMPLATE_REPOSITORY_SOURCE_FILE_NAME="Repository.tmpl";
     //Service
-    public static final String SERVICE_DESTINATION_FOLDER_PATH="C:\\Users\\PC2-Johns-Irintsoa\\Documents\\Dev\\Java\\AppCreateCrud\\template_crud\\src\\main\\java\\com\\dev\\template_crud\\service";
+    public static final String SERVICE_DESTINATION_FOLDER_PATH="\\AppCreateCrud\\template_crud\\src\\main\\java\\com\\dev\\template_crud\\service";
     public static final String TEMPLATE_SERVICE_SOURCE_FILE_NAME="Service.tmpl";
 
     //Views
     // List
-    public static final String VIEWSLIST_DESTINATION_FOLDER_PATH="C:\\Users\\PC2-Johns-Irintsoa\\Documents\\Dev\\Java\\AppCreateCrud\\template_crud\\src\\main\\resources\\templates";
+    public static final String VIEWSLIST_DESTINATION_FOLDER_PATH="\\AppCreateCrud\\template_crud\\src\\main\\resources\\templates";
     public static final String TEMPLATE_VIEWSLIST_SOURCE_FILE_NAME="ViewListe.tmpl";   
     // Form
-    public static final String TEMPLATE_FORMULAIRE_PAGE_PATH = "C:\\Users\\PC2-Johns-Irintsoa\\Documents\\Dev\\Java\\AppCreateCrud\\lib\\template";// utilise le fichier formulaire.txt dans template pour generer le contenu des formulaire et place les fichier creer dans ce repertoire 
-    public static final String VIEWFORM_PAGE_DESTINATION_FOLDER_PATH = "C:\\Users\\PC2-Johns-Irintsoa\\Documents\\Dev\\Java\\AppCreateCrud\\template_crud\\src\\main\\resources\\templates";
+    public static final String TEMPLATE_FORMULAIRE_PAGE_PATH = "\\AppCreateCrud\\lib\\template";// utilise le fichier formulaire.txt dans template pour generer le contenu des formulaire et place les fichier creer dans ce repertoire 
+    public static final String VIEWFORM_PAGE_DESTINATION_FOLDER_PATH = "\\AppCreateCrud\\template_crud\\src\\main\\resources\\templates";
     public static final String TEMPLATE_VIEWFORM_SOURCE_FILE_NAME="formulaire.txt";
 
     // ViewsUpdate
-    public static final String VIEWSUPDATE_DESTINATION_FOLDER_PATH="C:\\Users\\PC2-Johns-Irintsoa\\Documents\\Dev\\Java\\AppCreateCrud\\template_crud\\src\\main\\resources\\templates";
+    public static final String VIEWSUPDATE_DESTINATION_FOLDER_PATH="\\AppCreateCrud\\template_crud\\src\\main\\resources\\templates";
     public static final String TEMPLATE_VIEWSUPDATE_SOURCE_FILE_NAME="ViewModifier.tmpl";  
-    public static final String TEMPLATE_FORMULAIRE_PAGE1_PATH = "C:\\Users\\PC2-Johns-Irintsoa\\Documents\\Dev\\Java\\AppCreateCrud\\lib\\template";// utilise le fichier formulaire.txt dans template pour generer le contenu des formulaire et place les fichier creer dans ce repertoire 
-    public static final String VIEWFORM_PAGE_DESTINATION1_FOLDER_PATH = "C:\\Users\\PC2-Johns-Irintsoa\\Documents\\Dev\\Java\\AppCreateCrud\\template_crud\\src\\main\\resources\\templates";
+    public static final String TEMPLATE_FORMULAIRE_PAGE1_PATH = "\\AppCreateCrud\\lib\\template";// utilise le fichier formulaire.txt dans template pour generer le contenu des formulaire et place les fichier creer dans ce repertoire 
+    public static final String VIEWFORM_PAGE_DESTINATION1_FOLDER_PATH = "\\AppCreateCrud\\template_crud\\src\\main\\resources\\templates";
 
     
     // Detail
-    public static final String VIEWDETAIL_DESTINATION_FOLDER_PATH="C:\\Users\\PC2-Johns-Irintsoa\\Documents\\Dev\\Java\\AppCreateCrud\\template_crud\\src\\main\\resources\\templates";
+    public static final String VIEWDETAIL_DESTINATION_FOLDER_PATH="\\AppCreateCrud\\template_crud\\src\\main\\resources\\templates";
     public static final String TEMPLATE_VIEWDETAIL_SOURCE_FILE_NAME="DetailFromListe.tmpl";
 
     //Controller 
-    public static final String CONTROLLER_DESTINATION_FOLDER_PATH="C:\\Users\\PC2-Johns-Irintsoa\\Documents\\Dev\\Java\\AppCreateCrud\\template_crud\\src\\main\\java\\com\\dev\\template_crud\\controller";
+    public static final String CONTROLLER_DESTINATION_FOLDER_PATH="\\AppCreateCrud\\template_crud\\src\\main\\java\\com\\dev\\template_crud\\controller";
     public static final String TEMPLATE_CONTROLLER_SOURCE_FILE_NAME="Controller.tmpl";    
     // Tonny
-    public static final String TEMPLATE_CONTROLLER_PAGE_PATH = "C:\\Users\\PC2-Johns-Irintsoa\\Documents\\Dev\\Java\\AppCreateCrud\\template_crud\\src\\main\\java\\com\\dev\\template_crud\\controller";   // utilise le fichier model.txt pour generer le contenu des controller et place les fichier creer dans ce repertoire
+    public static final String TEMPLATE_CONTROLLER_PAGE_PATH = "\\AppCreateCrud\\template_crud\\src\\main\\java\\com\\dev\\template_crud\\controller";   // utilise le fichier model.txt pour generer le contenu des controller et place les fichier creer dans ce repertoire
 
     /*
      * Place Holders in Model.tmpl

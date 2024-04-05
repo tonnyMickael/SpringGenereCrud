@@ -12,6 +12,7 @@ import MetaData.MetaColumn;
 import MetaData.MetaTable;
 import config.Config;
 import config.ConfigORM;
+import config.ConfigSystem;
 import db.DBManager;
 import function.FunctionUtils;
 
@@ -28,7 +29,7 @@ public class ConstructionHTML {
         for (int i = 0; i < dataTable.size(); i++) {
             String nameForm = dataTable.get(i).getNameTable()+"-form";
             // Créer un objet File représentant le fichier à créer.
-            File fichier = new File(Config.VIEWFORM_PAGE_DESTINATION_FOLDER_PATH+"/"+nameForm+".ftl");
+            File fichier = new File(ConfigSystem.path + Config.VIEWFORM_PAGE_DESTINATION_FOLDER_PATH+"/"+nameForm+".ftl");
             // Si le fichier n'existe pas, le créer.
             if (!fichier.exists()) {
                 fichier.createNewFile();    
@@ -91,7 +92,7 @@ public class ConstructionHTML {
         // File paths (replace with your actual paths)
         // String templatePath = Config.DATATYPE_HTML_PATH+"/template/formulaire.txt";
         String templatePath = "";
-        String outputPath = Config.VIEWFORM_PAGE_DESTINATION_FOLDER_PATH+"/"+nameform+".ftl";
+        String outputPath = ConfigSystem.path + Config.VIEWFORM_PAGE_DESTINATION_FOLDER_PATH+"/"+nameform+".ftl";
 
         String childEntity = "";
         String childEntityMaj = "";
@@ -117,7 +118,7 @@ public class ConstructionHTML {
             // String childEntity = configORMIndex.getTable_name_child();
             if(nametable.equals(parentEntity)){
 
-                templatePath = Config.DATATYPE_HTML_PATH+"/template/formulaireWithSelect.txt";
+                templatePath = ConfigSystem.path + Config.DATATYPE_HTML_PATH+"/template/formulaireWithSelect.txt";
                 childEntity = childEntityConfig;
                 childEntityMaj = childEntityUpper;
                 replacements = new String[4][2];
@@ -132,7 +133,7 @@ public class ConstructionHTML {
                 break;
             }
             else {
-                templatePath = Config.DATATYPE_HTML_PATH+"/template/formulaire.txt";
+                templatePath = ConfigSystem.path + Config.DATATYPE_HTML_PATH+"/template/formulaire.txt";
                 replacements = new String[2][2];
                 replacements[0][0] = "[nametable]";
                 replacements[0][1] = nametable;
@@ -160,8 +161,8 @@ public class ConstructionHTML {
 
     private void WritePageList(String nameform) throws IOException{
         // File paths (replace with your actual paths)
-        String templatePath = Config.DATATYPE_HTML_PATH+"/template/liste.txt";
-        String outputPath = Config.VIEWFORM_PAGE_DESTINATION_FOLDER_PATH+"/"+nameform+".ftl";
+        String templatePath = ConfigSystem.path + Config.DATATYPE_HTML_PATH+"/template/liste.txt";
+        String outputPath = ConfigSystem.path + Config.VIEWFORM_PAGE_DESTINATION_FOLDER_PATH+"/"+nameform+".ftl";
 
         // Replacements (adjust key-value pairs as needed)
         String[][] replacements = {
