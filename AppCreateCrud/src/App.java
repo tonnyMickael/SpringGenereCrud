@@ -7,7 +7,6 @@ import config.ConfigSystem;
 import Creating.ConstructionHTML;
 import MetaData.Meta;
 import MetaData.MetaTable;
-import config.ConfigORM;
 import controller.ControllerEntity;
 import controller.GenerateControllerEntity;
 import db.DBConnection;
@@ -31,33 +30,33 @@ public class App {
 
         //scanner de configuration systeme 
         Scanner system = new Scanner(System.in);
-        System.out.println("emplacement du projet");
+        System.out.println("Emplacement du projet:");
         String path = system.nextLine();
         ConfigSystem.path = path;
-        System.out.println("le port de la base de donnée");
-        System.out.println("port standard pour postgres: 5432");
-        System.out.println("port personnaliser: votre port");
+        System.out.println("Le port de la base de donnée");
+        System.out.println("Port standard pour postgres: 5432");
+        System.out.println("Port personnaliser: votre port");
+        System.out.println("Le port:");
         String port = system.nextLine();
-        System.out.println("la base de donnée");
+        System.out.println("La base de donnée à utiliser:");
         String database = system.nextLine();
-        System.out.println("l'utilisateur de la base de donnée");
+        System.out.println("L'utilisateur de la base de donnée:");
         String user = system.nextLine();
-        System.out.println("le mot de passe");
+        System.out.println("Le mot de passe de la base de donnée:");
         String password = system.nextLine();
-        system.close();
-
+        
         Scanner saisie = new Scanner(System.in);
         String continued = "no";
         List<ConfigORM> initConfiguration = new ArrayList<>();
         while (continued.equals("no")) {
-           // saisie de la table parent qui a la cle primaire/ primary key
+            // saisie de la table parent qui a la cle primaire/ primary key
             System.out.print("Table parent:");
             String TableParent = saisie.nextLine();
         
             // saisie de la table child qui a la cle etrangére/ foreign key de la table parent
             System.out.print("Table child:");
             String Tablechild = saisie.nextLine(); 
-        
+            
             //saisie de l'association entre la table parent et la table child
             System.out.println("Association => table parent: "+TableParent+", table child: "+Tablechild);
             System.out.println(".1-N => relation table: one to many");
@@ -106,12 +105,13 @@ public class App {
         
             //list des configuration de table
             initConfiguration.add(new ConfigORM(TableParent, Tablechild, associateParentChild, associateChildParent, unidirectional, bidirectional, cascade, sense));
-        
+            
             //condition de fin de la configuration
             System.out.println("Configuration is finished ? choose yes or no");
             String poursuivre = saisie.nextLine();
             continued = poursuivre;
         }
+        system.close();
         saisie.close();
    
 
