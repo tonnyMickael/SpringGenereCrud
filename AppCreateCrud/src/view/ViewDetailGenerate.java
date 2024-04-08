@@ -4,6 +4,7 @@ import java.io.File;
 
 import config.Config;
 import config.ConfigORM;
+import config.ConfigSystem;
 import db.DBManager;
 import function.FunctionUtils;
 import model.EntityField;
@@ -125,7 +126,7 @@ public class ViewDetailGenerate {
         File destinationFile = new File(Config.VIEWDETAIL_DESTINATION_FOLDER_PATH, FunctionUtils.formatToFileFtl(this.formatEntityNameDetail()));
         
         if(!destinationFile.exists()){
-            FunctionUtils.replacePholders(FunctionUtils.formatToFileFtl(formatEntityNameDetail()), Config.placeHoldersViewDetail, listRealValues(),Config.TEMPLATE_SOURCE_FOLDER_PATH,Config.TEMPLATE_VIEWDETAIL_SOURCE_FILE_NAME,Config.VIEWDETAIL_DESTINATION_FOLDER_PATH);
+            FunctionUtils.replacePholders(FunctionUtils.formatToFileFtl(formatEntityNameDetail()), Config.placeHoldersViewDetail, listRealValues(),ConfigSystem.path + Config.TEMPLATE_SOURCE_FOLDER_PATH,ConfigSystem.path + Config.TEMPLATE_VIEWDETAIL_SOURCE_FILE_NAME,ConfigSystem.path + Config.VIEWDETAIL_DESTINATION_FOLDER_PATH);
         }
         else{
             System.out.println(FunctionUtils.formatToFileFtl(formatEntityNameDetail())+" :File Already exist...");

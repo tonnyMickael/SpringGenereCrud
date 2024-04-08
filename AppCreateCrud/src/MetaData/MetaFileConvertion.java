@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import config.Config;
+import config.ConfigSystem;
 
 public class MetaFileConvertion {
     private List<String> listTypeHTML = new ArrayList<String>();
@@ -19,7 +20,12 @@ public class MetaFileConvertion {
     }
 
     private void ReadFileTypeHTML(){
-        try (BufferedReader br = new BufferedReader(new FileReader(Config.DATATYPE_HTML_PATH+"/MetaDataTypeHTML.txt"))) {
+<<<<<<< Updated upstream
+=======
+        // String test = ConfigSystem.path + Config.DATATYPE_HTML_PATH+"/MetaDataTypeHTML.txt";
+        // System.out.println(test);
+>>>>>>> Stashed changes
+        try (BufferedReader br = new BufferedReader(new FileReader(ConfigSystem.path + Config.DATATYPE_HTML_PATH+"/MetaDataTypeHTML.txt"))) {
             List<String> lignes = new ArrayList<>();
             String ligne;
             while ((ligne = br.readLine()) != null) {

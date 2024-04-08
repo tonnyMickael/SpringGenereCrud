@@ -7,9 +7,9 @@
     <body>
         <div>
             <h1>formulaire</h1>
-            <form name="produit" action="add" method="post">
-                <label>designation: <input type = "text" name = "designation"> </label>
-<label>prix: <input type = "number" name = "prix"> </label>
+            <form name="address" action="add" method="post">
+                <label>street: <input type = "text" name = "street"> </label>
+<label>zipcode: <input type = "text" name = "zipcode"> </label>
 
 
                 [selectChildEntity]

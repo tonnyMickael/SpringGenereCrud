@@ -4,6 +4,7 @@ import java.io.File;
 
 
 import config.Config;
+import config.ConfigSystem;
 import function.FunctionUtils;
 import model.EntityField;
 
@@ -86,7 +87,7 @@ public class ViewListGenerate {
         File destinationFile = new File(Config.VIEWSLIST_DESTINATION_FOLDER_PATH, FunctionUtils.formatToFileFtl(this.formatEntityNameList()));
         
         if(!destinationFile.exists()){
-            FunctionUtils.replacePholders(FunctionUtils.formatToFileFtl(formatEntityNameList()), Config.placeHoldersViewList, listRealValues(),Config.TEMPLATE_SOURCE_FOLDER_PATH,Config.TEMPLATE_VIEWSLIST_SOURCE_FILE_NAME,Config.VIEWSLIST_DESTINATION_FOLDER_PATH);
+            FunctionUtils.replacePholders(FunctionUtils.formatToFileFtl(formatEntityNameList()), Config.placeHoldersViewList, listRealValues(),ConfigSystem.path + Config.TEMPLATE_SOURCE_FOLDER_PATH,ConfigSystem.path + Config.TEMPLATE_VIEWSLIST_SOURCE_FILE_NAME,ConfigSystem.path + Config.VIEWSLIST_DESTINATION_FOLDER_PATH);
         }
         else{
             System.out.println(FunctionUtils.formatToFileFtl(formatEntityNameList())+" :File Already exist...");

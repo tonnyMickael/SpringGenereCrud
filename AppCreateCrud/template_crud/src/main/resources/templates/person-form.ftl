@@ -8,10 +8,10 @@
         <div>
             <h1>formulaire</h1>
             <form name="person" action="add" method="post">
-                <label>firstname: <input type = "text" name = "firstname"> </label>
-<label>lastname: <input type = "text" name = "lastname"> </label>
-<label>birthday: <input type = "date" name = "birthday"> </label>
+                <label>birthday: <input type = "date" name = "birthday"> </label>
 <label>cin: <input type = "text" name = "cin"> </label>
+<label>firstname: <input type = "text" name = "firstname"> </label>
+<label>lastname: <input type = "text" name = "lastname"> </label>
 
 
                 [selectChildEntity]
