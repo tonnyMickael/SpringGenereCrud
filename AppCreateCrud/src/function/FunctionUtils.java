@@ -89,6 +89,7 @@ public class FunctionUtils {
      * Copy the file from ./template/Model.tmpl to ..[destinationFolder]/ maj([EntityName.java] 
      * */ 
     public static void copyAndRenameFile(String destinationFileName) throws IOException {
+        System.out.println(ConfigSystem.path + Config.TEMPLATE_SOURCE_FOLDER_PATH);
         File sourceFile = new File(ConfigSystem.path + Config.TEMPLATE_SOURCE_FOLDER_PATH, Config.TEMPLATE_MODEL_SOURCE_FILE_NAME);
         File destinationFile = new File(ConfigSystem.path + Config.MODEL_DESTINATION_FOLDER_PATH, destinationFileName);
 

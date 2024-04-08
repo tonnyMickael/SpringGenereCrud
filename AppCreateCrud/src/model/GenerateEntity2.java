@@ -4,6 +4,7 @@ import java.io.File;
 
 import config.Config;
 import config.ConfigORM;
+import config.ConfigSystem;
 import function.FunctionUtils;
 
 public class GenerateEntity2 {
@@ -483,7 +484,7 @@ public class GenerateEntity2 {
         File destinationFile = new File(Config.MODEL_DESTINATION_FOLDER_PATH, FunctionUtils.formatToFileJava(this.entityTable.getName()));
         
         if(!destinationFile.exists()){
-            FunctionUtils.replacePholders(FunctionUtils.formatToFileJava(this.entityTable.getName()), Config.placeHoldersModel, listRealValues(),Config.TEMPLATE_SOURCE_FOLDER_PATH,Config.TEMPLATE_MODEL_SOURCE_FILE_NAME,Config.MODEL_DESTINATION_FOLDER_PATH);
+            FunctionUtils.replacePholders(FunctionUtils.formatToFileJava(this.entityTable.getName()), Config.placeHoldersModel, listRealValues(),ConfigSystem.path + Config.TEMPLATE_SOURCE_FOLDER_PATH,ConfigSystem.path + Config.TEMPLATE_MODEL_SOURCE_FILE_NAME,ConfigSystem.path + Config.MODEL_DESTINATION_FOLDER_PATH);
         }
         else{
             System.out.println(FunctionUtils.formatToFileJava(this.entityTable.getName())+" :File Already exist...");

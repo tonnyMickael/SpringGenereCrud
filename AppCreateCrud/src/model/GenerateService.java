@@ -4,6 +4,7 @@ import java.io.File;
 
 import config.Config;
 import config.ConfigORM;
+import config.ConfigSystem;
 import function.FunctionUtils;
 
 public class GenerateService {
@@ -135,7 +136,7 @@ public class GenerateService {
         File destinationFile = new File(Config.SERVICE_DESTINATION_FOLDER_PATH, FunctionUtils.formatToFileJava(formatClassNameService()));
         
         if(!destinationFile.exists()){
-            FunctionUtils.replacePholders(FunctionUtils.formatToFileJava(formatClassNameService()), Config.placeHoldersService, listRealValues(configORM,argGenerateUpdate),Config.TEMPLATE_SOURCE_FOLDER_PATH,Config.TEMPLATE_SERVICE_SOURCE_FILE_NAME,Config.SERVICE_DESTINATION_FOLDER_PATH);
+            FunctionUtils.replacePholders(FunctionUtils.formatToFileJava(formatClassNameService()), Config.placeHoldersService, listRealValues(configORM,argGenerateUpdate),ConfigSystem.path + Config.TEMPLATE_SOURCE_FOLDER_PATH,ConfigSystem.path + Config.TEMPLATE_SERVICE_SOURCE_FILE_NAME,ConfigSystem.path + Config.SERVICE_DESTINATION_FOLDER_PATH);
         }
         else{
             System.out.println(FunctionUtils.formatToFileJava(formatClassNameService())+" :File Already exist...");

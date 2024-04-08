@@ -446,7 +446,11 @@ public class GenerateEntity {
         File destinationFile = new File(ConfigSystem.path + Config.MODEL_DESTINATION_FOLDER_PATH, FunctionUtils.formatToFileJava(this.entityTable.getName()));
         
         if(!destinationFile.exists()){
+<<<<<<< Updated upstream
             FunctionUtils.replacePholders(FunctionUtils.formatToFileJava(this.entityTable.getName()), Config.placeHoldersModel, listRealValues(configORM),ConfigSystem.path + Config.TEMPLATE_SOURCE_FOLDER_PATH,Config.TEMPLATE_MODEL_SOURCE_FILE_NAME,ConfigSystem.path + Config.MODEL_DESTINATION_FOLDER_PATH);
+=======
+            FunctionUtils.replacePholders(FunctionUtils.formatToFileJava(this.entityTable.getName()), Config.placeHoldersModel, listRealValues(configORM), ConfigSystem.path + Config.TEMPLATE_SOURCE_FOLDER_PATH, Config.TEMPLATE_MODEL_SOURCE_FILE_NAME,ConfigSystem.path + Config.MODEL_DESTINATION_FOLDER_PATH);
+>>>>>>> Stashed changes
         }
         else{
             System.out.println(FunctionUtils.formatToFileJava(this.entityTable.getName())+" :File Already exist...");

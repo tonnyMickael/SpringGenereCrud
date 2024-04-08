@@ -16,6 +16,13 @@ public class Address {
 	@Column(name = "zipcode", nullable = false)
 	private String zipcode;
 
+<<<<<<< Updated upstream
+=======
+
+	@ManyToOne
+	@JoinColumn(name = "person_id", foreignKey = @ForeignKey(name="fk_person_address"),nullable = false)
+	private Person person;
+>>>>>>> Stashed changes
   
     	public void setId(int id){
 		this.id = id;
@@ -35,5 +42,14 @@ public class Address {
 	public String getZipcode(){
 		return this.zipcode;
 	}
+<<<<<<< Updated upstream
+=======
+	public void setPerson(Person person){
+		this.person = person;
+	}
+	public Person getPerson(){
+		return this.person;
+	}
+>>>>>>> Stashed changes
 
 }

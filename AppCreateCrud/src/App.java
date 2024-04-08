@@ -35,14 +35,22 @@ public class App {
         ConfigSystem.path = path;
         System.out.println("Le port de la base de donnée");
         System.out.println("Port standard pour postgres: 5432");
+<<<<<<< Updated upstream
         System.out.println("Port personnaliser: votre port");
+=======
+        System.out.println("Port personnaliser: votre port personnalisé");
+>>>>>>> Stashed changes
         System.out.println("Le port:");
         String port = system.nextLine();
         System.out.println("La base de donnée à utiliser:");
         String database = system.nextLine();
         System.out.println("L'utilisateur de la base de donnée:");
         String user = system.nextLine();
+<<<<<<< Updated upstream
         System.out.println("Le mot de passe de la base de donnée:");
+=======
+        System.out.println("Le mot de passe:");
+>>>>>>> Stashed changes
         String password = system.nextLine();
         
         Scanner saisie = new Scanner(System.in);
@@ -86,7 +94,7 @@ public class App {
                     
             String sense ="";
             if (unidirectional == true) {
-            
+                
                 //saisie du sens de unidirectional entre la table parent et la table child
                 System.out.println("choose sense unidirectional:");
                 System.out.println("1: if you want acces the "+TableParent+" from a "+Tablechild);
@@ -94,7 +102,7 @@ public class App {
                 System.err.println("choose: 1 or 2");
                 sense = saisie.nextLine();
             }
-        
+            
             //saisie de la cascade pour les tables
             System.out.println("choose cascade for the tables");
             System.out.println("choice: ALL or presist or merge or delete or none");
