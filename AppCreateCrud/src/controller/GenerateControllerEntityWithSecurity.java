@@ -685,6 +685,7 @@ public class GenerateControllerEntityWithSecurity {
                 "\t\t\t\t\t"+childEntity+".setList"+parentEntityUpper+"(list"+parentEntityUpper+");\n"+
                 "\t\t\t\t\tthis."+childEntity+"Service.update("+childEntity+", "+childEntity+".getId());\n"+
                 "\t\t\t\t\treturn \"redirect:/person/detail/\"+"+childEntity+"_id;\n"+
+                "\t\t\t\t}\n"+
                 "\t\t\t}\n"+
                 "\t\t\telse {\n"+
                 "\t\t\t\treturn \"redirect:/login\";\n"+
