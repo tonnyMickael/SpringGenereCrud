@@ -20,11 +20,6 @@ public class MetaFileConvertion {
     }
 
     private void ReadFileTypeHTML(){
-<<<<<<< Updated upstream
-=======
-        // String test = ConfigSystem.path + Config.DATATYPE_HTML_PATH+"/MetaDataTypeHTML.txt";
-        // System.out.println(test);
->>>>>>> Stashed changes
         try (BufferedReader br = new BufferedReader(new FileReader(ConfigSystem.path + Config.DATATYPE_HTML_PATH+"/MetaDataTypeHTML.txt"))) {
             List<String> lignes = new ArrayList<>();
             String ligne;

@@ -28,7 +28,7 @@ public class ViewListGenerate {
      */
 
     private String templateColumn(String value){
-        return "\t\t\t\t\t<th>"+value+"</th>\n";
+        return "\t\t\t\t\t<th scope=\"col\">"+value+"</th>\n";
     }    
 
     public String generateColumns(){
@@ -49,7 +49,7 @@ public class ViewListGenerate {
         // newvalue.replace("[nameEntity]", nameEntity);
         // newvalue.replace("[fieldName]", FunctionUtils.firstLetterToUpperCase(fieldName));
         String fieldNameConvert = FunctionUtils.firstLetterToUpperCase(fieldName);
-        String newvalue = String.format("\t\t\t\t     \t<td>${%s.get%s()}</td>\r\n",nameEntity,fieldNameConvert);
+        String newvalue = String.format("\t\t\t\t     \t<td>${%s.%s}</td>\r\n",nameEntity,fieldName);
 
         return newvalue;
     }
@@ -87,7 +87,7 @@ public class ViewListGenerate {
         File destinationFile = new File(Config.VIEWSLIST_DESTINATION_FOLDER_PATH, FunctionUtils.formatToFileFtl(this.formatEntityNameList()));
         
         if(!destinationFile.exists()){
-            FunctionUtils.replacePholders(FunctionUtils.formatToFileFtl(formatEntityNameList()), Config.placeHoldersViewList, listRealValues(),ConfigSystem.path + Config.TEMPLATE_SOURCE_FOLDER_PATH,ConfigSystem.path + Config.TEMPLATE_VIEWSLIST_SOURCE_FILE_NAME,ConfigSystem.path + Config.VIEWSLIST_DESTINATION_FOLDER_PATH);
+            FunctionUtils.replacePholders(FunctionUtils.formatToFileFtl(formatEntityNameList()), Config.placeHoldersViewList, listRealValues(),ConfigSystem.path + Config.TEMPLATE_SOURCE_FOLDER_PATH,Config.TEMPLATE_VIEWSLIST_SOURCE_FILE_NAME,ConfigSystem.path + Config.VIEWSLIST_DESTINATION_FOLDER_PATH);
         }
         else{
             System.out.println(FunctionUtils.formatToFileFtl(formatEntityNameList())+" :File Already exist...");

@@ -1,1 +1,1 @@
-                <label> {namecolumn}: <input type="{type}" name="{namecolumn}"> </label>\n
+                <p> {namecolumn}: <input type="{type}" name="{namecolumn}" class="form-control"> </p>\n

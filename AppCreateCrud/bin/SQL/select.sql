@@ -163,5 +163,14 @@ WHERE tc.constraint_type = 'FOREIGN KEY'
     AND tc.table_schema = 'public'
     AND tc.table_name = 'person';
 
+-- Liste columns from table
+SELECT
+    c.COLUMN_NAME,
+    c.DATA_TYPE
+FROM
+INFORMATION_SCHEMA.COLUMNS AS c WHERE
+c.TABLE_SCHEMA = 'public'
+AND c.TABLE_NAME = 'person'
+AND c.COLUMN_NAME NOT LIKE '%\_id';
 
 SELECT cols.table_name, cols.column_name, cols.data_type, fk.foreign_table_name, fk.foreign_column_name, COALESCE(fk.is_primary, 'false') AS is_primary, COALESCE(fk.is_foreign, 'false') AS is_foreign , cols.is_nullable FROM information_schema.columns AS cols LEFT JOIN (SELECT tc.table_name, kcu.column_name, ccu.table_name AS foreign_table_name, ccu.column_name AS foreign_column_name, CASE WHEN tc.constraint_type='PRIMARY KEY' THEN 'true' ELSE 'false' END AS is_primary, CASE WHEN tc.constraint_type='FOREIGN KEY' THEN 'true' ELSE 'false' END AS is_foreign FROM information_schema.table_constraints AS tc JOIN information_schema.key_column_usage AS kcu ON tc.constraint_name = kcu.constraint_name AND tc.table_schema = kcu.table_schema JOIN information_schema.constraint_column_usage AS ccu ON ccu.constraint_name = tc.constraint_name WHERE tc.table_schema='public' AND tc.table_name='person' ) AS fk ON cols.column_name=fk.column_name AND cols.table_name=fk.table_name WHERE cols.table_name='person'

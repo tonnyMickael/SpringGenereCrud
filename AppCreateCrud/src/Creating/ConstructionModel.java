@@ -10,7 +10,6 @@ import java.util.ArrayList;
 
 import MetaData.MetaTable;
 import config.Config;
-import config.ConfigSystem;
 
 public class ConstructionModel {
 
@@ -27,7 +26,7 @@ public class ConstructionModel {
             String nameModel = sb.toString()+"Controller";
 
             // Créer un objet File représentant le fichier à créer.
-            File fichier = new File(ConfigSystem.path + Config.TEMPLATE_FORMULAIRE_PAGE_PATH+"/"+nameModel+".java");
+            File fichier = new File(Config.TEMPLATE_FORMULAIRE_PAGE_PATH+"/"+nameModel+".java");
 
             // Si le fichier n'existe pas, le créer.
             if (!fichier.exists()) {
@@ -39,8 +38,8 @@ public class ConstructionModel {
 
     private void WriteModel(String nameClass, String url) throws IOException{
         // File paths (replace with your actual paths)
-        String templatePath =ConfigSystem.path + Config.DATATYPE_HTML_PATH+"/Model/model.txt";
-        String outputPath =ConfigSystem.path + Config.TEMPLATE_CONTROLLER_PAGE_PATH+"/"+nameClass+".java";
+        String templatePath = Config.DATATYPE_HTML_PATH+"/Model/model.txt";
+        String outputPath = Config.TEMPLATE_CONTROLLER_PAGE_PATH+"/"+nameClass+".java";
 
         // Replacements (adjust key-value pairs as needed)
         String[][] replacements = {

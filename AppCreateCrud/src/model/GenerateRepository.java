@@ -3,6 +3,7 @@ package model;
 import java.io.File;
 
 import config.Config;
+import config.ConfigSystem;
 import function.FunctionUtils;
 
 /**
@@ -39,7 +40,7 @@ public class GenerateRepository {
         File destinationFile = new File(Config.REPOSITORY_DESTINATION_FOLDER_PATH, FunctionUtils.formatToFileJava(formatClassNameRepository()));
         
         if(!destinationFile.exists()){
-            FunctionUtils.replacePholders(FunctionUtils.formatToFileJava(formatClassNameRepository()), Config.placeHoldersRepository, listRealValues(),Config.TEMPLATE_SOURCE_FOLDER_PATH,Config.TEMPLATE_REPOSITORY_SOURCE_FILE_NAME,Config.REPOSITORY_DESTINATION_FOLDER_PATH);
+            FunctionUtils.replacePholders(FunctionUtils.formatToFileJava(formatClassNameRepository()), Config.placeHoldersRepository, listRealValues(),ConfigSystem.path + Config.TEMPLATE_SOURCE_FOLDER_PATH,Config.TEMPLATE_REPOSITORY_SOURCE_FILE_NAME,ConfigSystem.path + Config.REPOSITORY_DESTINATION_FOLDER_PATH);
         }
         else{
             System.out.println(FunctionUtils.formatToFileJava(formatClassNameRepository())+" :File Already exist...");

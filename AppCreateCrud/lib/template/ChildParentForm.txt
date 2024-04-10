@@ -1,0 +1,49 @@
+<!DOCTYPE HTML>
+<HTML>
+    <head>
+        <meta charset="UTF-8">
+        <title>Formulaire [parentEntity] dans [childEntity] </title>
+         <link rel="stylesheet" href="/assets/bootstrap/css/bootstrap.min.css">
+    </head>
+    <body>
+     <section class="py-5">
+         <div class="container py-5">
+            <div class="row mb-5">
+				<div class="col-md-8 col-xl-6 text-center mx-auto">
+                <p class="fw-bold text-success mb-2">[parentEntity]</p>
+            <h1>Formulaire [parentEntity] dans [childEntity]</h1>
+            <a href="${'/[childEntity]/detail/'+[childEntity].id}"><button class="btn btn-primary"> Retour</button></a>
+            <br/><br/>
+                       </div>
+                            </div>
+            <#if [childEntity]??>
+                <table border="0" class="table">
+                [fieldsTable]
+					<tr class="text-muted w-lg-50">
+						<td>[parentEntity]</td>
+						<td>:</td>
+						<td>
+                            <form name="[parentEntity]" action="/[childEntity]/detail/[parentEntity]/add" method="post">
+                                <input class="form-control" name="[childEntity]_id" type="hidden" value="${[childEntity].getId()}"/>
+                                <select name="id" class="form-control">
+                                    <#list list[parentEntityMaj] as [parentEntity]>
+                                        <option value="${[parentEntity].id}">${[parentEntity].[parentEntitySecondField]}</option>
+                                    </#list>
+                                </select>
+
+                                <input class="btn btn-primary" type="submit" value="valided">
+                            </form>
+						</td>
+					</tr>
+                </table>
+                <br/><br/>
+            <#else>
+                <p>Aucun résultat...</p>
+            </#if>
+                     </div>
+             </div>
+        </div>
+        	</section>
+    </body>
+</HTML>
+        

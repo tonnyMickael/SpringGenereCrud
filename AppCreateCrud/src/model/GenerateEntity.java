@@ -51,7 +51,7 @@ public class GenerateEntity {
         String childNameConfigORM = configORM.getName_table_child();
         String assoc_parent_child = configORM.getAssoc_parent_child();
         String assoc_child_parent = configORM.getAssoc_child_parent();
-        String type_cascade = configORM.getType_cascade();
+        String [] type_cascade = configORM.getType_cascade();
         // String ownerFkField = configORM.getOwnerFkfield();
         boolean isUniDirectionnal = configORM.isUniDirectionnal();
         boolean isBiDirectionnal = configORM.isBiDirectionnal();
@@ -75,8 +75,22 @@ public class GenerateEntity {
             isUniDirectionnal && optConfig.equals("2")){
                 String typeVariable = String.format("java.util.List<%s>",childNameConfigORMUpper);
                 String nameVariable = "list"+childNameConfigORMUpper;
-                value += "\n\t@OneToMany\n\t@JoinColumn(name = \""+ownerFkField+"_id\", foreignKey = @ForeignKey(name = \"fk_"+parentNameConfigORM+"_"+childNameConfigORM+"\"))\n\t"+this.generateField(typeVariable, nameVariable)+"\n";
-               
+                if(type_cascade != null && type_cascade.length > 1){
+                    String cascadeTypes = "";
+                    for (int i = 0; i < type_cascade.length; i++) {
+                        String tc = type_cascade[i];  
+                        cascadeTypes += "CascadeType."+tc+", ";  
+                    }
+                    cascadeTypes = cascadeTypes.trim().substring(0,cascadeTypes.length()-2);
+                    String realCascadeTypes = String.format("{%s}", cascadeTypes); 
+                    value += "\n\t@OneToMany(cascade = "+realCascadeTypes+")\n\t@JoinColumn(name = \""+childNameConfigORM+"_id\", foreignKey = @ForeignKey(name = \"fk_"+parentNameConfigORM+"_"+childNameConfigORM+"\"))\n\t"+this.generateField(typeVariable, nameVariable)+"\n";
+                }
+                else if (type_cascade != null && type_cascade.length == 1){
+                    value += "\n\t@OneToMany( cascade = CascadeType."+type_cascade[0]+")\n\t@JoinColumn(name = \""+childNameConfigORM+"_id\", foreignKey = @ForeignKey(name = \"fk_"+parentNameConfigORM+"_"+childNameConfigORM+"\"))\n\t"+this.generateField(typeVariable, nameVariable)+"\n";
+                }
+                else {
+                    value += "\n\t@OneToMany\n\t@JoinColumn(name = \""+childNameConfigORM+"_id\", foreignKey = @ForeignKey(name = \"fk_"+parentNameConfigORM+"_"+childNameConfigORM+"\"))\n\t"+this.generateField(typeVariable, nameVariable)+"\n";
+                }
             }   
         // TableName = child  
         else if(tableName.equals(childNameConfigORM) && 
@@ -97,8 +111,23 @@ public class GenerateEntity {
             isBiDirectionnal ){
                 String typeVariable = String.format("java.util.List<%s>",childNameConfigORMUpper);
                 String nameVariable = "list"+childNameConfigORMUpper;
-                value += "\n\t@OneToMany(mappedBy = \""+ownerFkField+"\")\n\t"+this.generateField(typeVariable, nameVariable)+"\n";
-               
+                if(type_cascade != null && type_cascade.length > 1 ){
+                    String cascadeTypes = "";
+                    for (int i = 0; i < type_cascade.length; i++) {
+                        String tc = type_cascade[i];  
+                        cascadeTypes += "CascadeType."+tc+", ";  
+                    }
+                    cascadeTypes = cascadeTypes.trim().substring(0,cascadeTypes.length()-2);
+                    String realCascadeTypes = String.format("{%s}", cascadeTypes); 
+                    value += "\n\t@OneToMany(mappedBy = \""+ownerFkField+"\", cascade = "+realCascadeTypes+", orphanRemoval = true)\n\t"+this.generateField(typeVariable, nameVariable)+"\n";
+                }
+                else if(type_cascade != null && type_cascade.length == 1){
+                    String tc = type_cascade[0];
+                    value += "\n\t@OneToMany(mappedBy = \""+ownerFkField+"\", cascade = CascadeType."+tc+", orphanRemoval = true)\n\t"+this.generateField(typeVariable, nameVariable)+"\n"; 
+                }
+                else {
+                    value += "\n\t@OneToMany(mappedBy = \""+ownerFkField+"\")\n\t"+this.generateField(typeVariable, nameVariable)+"\n";                    
+                }      
         }
         else if (tableName.equals(childNameConfigORM) && 
             assoc_parent_child.equals("1-N") && 
@@ -119,7 +148,24 @@ public class GenerateEntity {
             isUniDirectionnal && 
             optConfig.equals("2") ){
                 String nameTableReferenced = parentNameConfigORM+"_"+childNameConfigORM;
-                value += "\n\t@ManyToMany\n\t@JoinTable(name = \""+nameTableReferenced+"\", joinColumns= {@JoinColumn(name = \""+parentNameConfigORM+"_id\", referencedColumnName = \"id\")},  inverseJoinColumns = {@JoinColumn(name = \""+childNameConfigORM+"_id\",referencedColumnName = \"id\")})\n";
+                if (type_cascade != null && type_cascade.length > 1) {
+                    String cascadeTypes = "";
+                    for (int i = 0; i < type_cascade.length; i++) {
+                        String tc = type_cascade[i];  
+                        cascadeTypes += "CascadeType."+tc+", ";  
+                    }
+                    cascadeTypes = cascadeTypes.trim().substring(0,cascadeTypes.length()-2);
+                    String realCascadeTypes = String.format("{%s}", cascadeTypes); 
+                    value += "\n\t@ManyToMany(Cascade = "+realCascadeTypes+")\n\t@JoinTable(name = \""+nameTableReferenced+"\", joinColumns= {@JoinColumn(name = \""+parentNameConfigORM+"_id\", referencedColumnName = \"id\")},  inverseJoinColumns = {@JoinColumn(name = \""+childNameConfigORM+"_id\",referencedColumnName = \"id\")})\n";
+                }
+                else if(type_cascade != null && type_cascade.length == 1){
+                    String tc = type_cascade[0];
+                    value += "\n\t@ManyToMany(Cascade = CascadeType."+tc+")\n\t@JoinTable(name = \""+nameTableReferenced+"\", joinColumns= {@JoinColumn(name = \""+parentNameConfigORM+"_id\", referencedColumnName = \"id\")},  inverseJoinColumns = {@JoinColumn(name = \""+childNameConfigORM+"_id\",referencedColumnName = \"id\")})\n";
+                }
+                else {
+                    value += "\n\t@ManyToMany\n\t@JoinTable(name = \""+nameTableReferenced+"\", joinColumns= {@JoinColumn(name = \""+parentNameConfigORM+"_id\", referencedColumnName = \"id\")},  inverseJoinColumns = {@JoinColumn(name = \""+childNameConfigORM+"_id\",referencedColumnName = \"id\")})\n";
+                }
+                
                 String typeVariable = String.format("java.util.List<%s>",childNameConfigORMUpper);
                 String nameVariable = "list"+childNameConfigORMUpper;
                 value += this.generateField(typeVariable, nameVariable)+"\n";
@@ -131,7 +177,7 @@ public class GenerateEntity {
             optConfig.equals("1") ){
                 String nameTableReferenced = parentNameConfigORM+"_"+childNameConfigORM;
                 value += "\n\t@ManyToMany\n\t@JoinTable(name = \""+nameTableReferenced+"\", joinColumns= {@JoinColumn(name = \""+childNameConfigORM+"_id\", referencedColumnName = \"id\")},  inverseJoinColumns = {@JoinColumn(name = \""+parentNameConfigORM+"_id\",referencedColumnName = \"id\")})\n";
-                String typeVariable = String.format("java.util.List<%s>",parentNameConfigORM);
+                String typeVariable = String.format("java.util.List<%s>",parentNameConfigORMUpper);
                 String nameVariable = "list"+parentNameConfigORMUpper;
                 value += this.generateField(typeVariable, nameVariable)+"\n";
         }
@@ -144,7 +190,24 @@ public class GenerateEntity {
             isBiDirectionnal 
             ){
                 String mappedByName = "list"+FunctionUtils.firstLetterToUpperCase(parentNameConfigORM);
-                value += "\n\t@ManyToMany(mappedBy= \""+mappedByName+"\")\n\t";
+                if(type_cascade != null && type_cascade.length > 1){
+                    String cascadeTypes = "";
+                    for (int i = 0; i < type_cascade.length; i++) {
+                        String tc = type_cascade[i];  
+                        cascadeTypes += "CascadeType."+tc+", ";  
+                    }
+                    cascadeTypes = cascadeTypes.trim().substring(0,cascadeTypes.length()-2);
+                    String realCascadeTypes = String.format("{%s}", cascadeTypes); 
+                    value += "\n\t@ManyToMany(mappedBy= \""+mappedByName+"\", cascade = "+realCascadeTypes+")\n\t";
+                }
+                else if(type_cascade != null && type_cascade.length == 1){
+                    String tc = type_cascade[0];
+                    value += "\n\t@ManyToMany(mappedBy= \""+mappedByName+"\", cascade = CascadeType."+tc+")\n\t";
+                }
+                else {
+                    value += "\n\t@ManyToMany(mappedBy= \""+mappedByName+"\")\n\t";
+                }
+                
                 String typeVariable = String.format("java.util.List<%s>",childNameConfigORMUpper);
                 String nameVariable = "list"+childNameConfigORMUpper;
                 value += this.generateField(typeVariable, nameVariable)+"\n";
@@ -165,8 +228,23 @@ public class GenerateEntity {
             assoc_child_parent.equals("1-1") &&
             assoc_parent_child.equals("1-1") &&
             isUniDirectionnal && optConfig.equals("2")){
-                value += "\n\t@OneToOne\n\t@JoinColumn(name = \""+ownerFkField+"_id\", foreignKey = @ForeignKey(name = \"fk_"+parentNameConfigORM+"_"+childNameConfigORM+"\"))\n"+this.generateField(childNameConfigORMUpper, childNameConfigORM)+"\n";
-               
+                if(type_cascade != null && type_cascade.length > 1){
+                    String cascadeTypes = "";
+                    for (int i = 0; i < type_cascade.length; i++) {
+                        String tc = type_cascade[i];  
+                        cascadeTypes += "CascadeType."+tc+", ";  
+                    }
+                    cascadeTypes = cascadeTypes.trim().substring(0,cascadeTypes.length()-2);
+                    String realCascadeTypes = String.format("{%s}", cascadeTypes); 
+                    value += "\n\t@OneToOne(cascade = "+realCascadeTypes+")\n\t@JoinColumn(name = \""+childNameConfigORM+"_id\", foreignKey = @ForeignKey(name = \"fk_"+parentNameConfigORM+"_"+childNameConfigORM+"\"))\n"+this.generateField(childNameConfigORMUpper, childNameConfigORM)+"\n";
+                }
+                else if(type_cascade != null && type_cascade.length == 1){
+                    String tc = type_cascade[0];
+                    value += "\n\t@OneToOne(cascade = CascadeType."+tc+")\n\t@JoinColumn(name = \""+childNameConfigORM+"_id\", foreignKey = @ForeignKey(name = \"fk_"+parentNameConfigORM+"_"+childNameConfigORM+"\"))\n"+this.generateField(childNameConfigORMUpper, childNameConfigORM)+"\n";
+                }
+                else {
+                    value += "\n\t@OneToOne\n\t@JoinColumn(name = \""+childNameConfigORM+"_id\", foreignKey = @ForeignKey(name = \"fk_"+parentNameConfigORM+"_"+childNameConfigORM+"\"))\n"+this.generateField(childNameConfigORMUpper, childNameConfigORM)+"\n";
+                }  
         }    
         else if(tableName.equals(childNameConfigORM) &&
             assoc_child_parent.equals("1-1") &&
@@ -180,8 +258,23 @@ public class GenerateEntity {
             assoc_child_parent.equals("1-1") &&
             assoc_parent_child.equals("1-1") &&
             isBiDirectionnal ){
-                value += "\n\t@OneToOne(mappedBy = \""+ownerFkField+"\")\n\t"+this.generateField(childNameConfigORMUpper, childNameConfigORM)+"\n";
-               
+                if(type_cascade != null && type_cascade.length > 1){
+                    String cascadeTypes = "";
+                    for (int i = 0; i < type_cascade.length; i++) {
+                        String tc = type_cascade[i];  
+                        cascadeTypes += "CascadeType."+tc+", ";  
+                    }
+                    cascadeTypes = cascadeTypes.trim().substring(0,cascadeTypes.length()-2);
+                    String realCascadeTypes = String.format("{%s}", cascadeTypes);
+                    value += "\n\t@OneToOne(mappedBy = \""+ownerFkField+"\", cascade = "+realCascadeTypes+")\n\t"+this.generateField(childNameConfigORMUpper, childNameConfigORM)+"\n";
+                }
+                else if ( type_cascade != null && type_cascade.length == 1){
+                    String tc = type_cascade[0];
+                    value += "\n\t@OneToOne(mappedBy = \""+ownerFkField+"\", cascade = CascadeType."+tc+")\n\t"+this.generateField(childNameConfigORMUpper, childNameConfigORM)+"\n";
+                }
+                else {
+                    value += "\n\t@OneToOne(mappedBy = \""+ownerFkField+"\")\n\t"+this.generateField(childNameConfigORMUpper, childNameConfigORM)+"\n";
+                }
             }
         else if(tableName.equals(childNameConfigORM) &&
             assoc_child_parent.equals("1-1") &&
@@ -443,14 +536,10 @@ public class GenerateEntity {
      * function which replace all parameters in the file
      */
     public void createAndWriteClass(ConfigORM configORM){
-        File destinationFile = new File(ConfigSystem.path + Config.MODEL_DESTINATION_FOLDER_PATH, FunctionUtils.formatToFileJava(this.entityTable.getName()));
+        File destinationFile = new File(Config.MODEL_DESTINATION_FOLDER_PATH, FunctionUtils.formatToFileJava(this.entityTable.getName()));
         
         if(!destinationFile.exists()){
-<<<<<<< Updated upstream
             FunctionUtils.replacePholders(FunctionUtils.formatToFileJava(this.entityTable.getName()), Config.placeHoldersModel, listRealValues(configORM),ConfigSystem.path + Config.TEMPLATE_SOURCE_FOLDER_PATH,Config.TEMPLATE_MODEL_SOURCE_FILE_NAME,ConfigSystem.path + Config.MODEL_DESTINATION_FOLDER_PATH);
-=======
-            FunctionUtils.replacePholders(FunctionUtils.formatToFileJava(this.entityTable.getName()), Config.placeHoldersModel, listRealValues(configORM), ConfigSystem.path + Config.TEMPLATE_SOURCE_FOLDER_PATH, Config.TEMPLATE_MODEL_SOURCE_FILE_NAME,ConfigSystem.path + Config.MODEL_DESTINATION_FOLDER_PATH);
->>>>>>> Stashed changes
         }
         else{
             System.out.println(FunctionUtils.formatToFileJava(this.entityTable.getName())+" :File Already exist...");

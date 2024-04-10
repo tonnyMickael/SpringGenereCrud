@@ -10,11 +10,28 @@ public class ConfigORM {
 	private String assoc_child_parent;
 	private boolean isUniDirectionnal;
 	private boolean isBiDirectionnal; 
-	private String type_cascade; // ALL, PERSIT, MERGE,...
+	private String [] type_cascade; // ALL, PERSIT, MERGE,...
 	private String ownerFkfield;
+
+	private String inputFkParent;
+	private String inputFkChild;
+	
 // (1): Do we want access the table parent(region) from the table child(person) 
 // (2): Do we want access the table child(person) from the table parent(region)
 	private String optionConfiguration;
+
+	public String getInputFkParent() {
+		return inputFkParent;
+	}
+	public void setInputFkParent(String inputFkParent) {
+		this.inputFkParent = inputFkParent;
+	}
+	public String getInputFkChild() {
+		return inputFkChild;
+	}
+	public void setInputFkChild(String inputFkChild) {
+		this.inputFkChild = inputFkChild;
+	}
 	
 	public String getOptionConfiguration() {
 		return optionConfiguration;
@@ -58,10 +75,10 @@ public class ConfigORM {
 	public void setAssoc_child_parent(String assoc_child_parent) {
 		this.assoc_child_parent = assoc_child_parent;
 	}
-	public String getType_cascade() {
+	public String [] getType_cascade() {
 		return type_cascade;
 	}
-	public void setType_cascade(String type_cascade) {
+	public void setType_cascade(String [] type_cascade) {
 		this.type_cascade = type_cascade;
 	}
 	public String getOwnerFkfield() {
@@ -73,9 +90,23 @@ public class ConfigORM {
 
 
 
+	// public ConfigORM(String name_table_parent, String name_table_child, String assoc_parent_child,
+	// 		String assoc_child_parent, boolean isUniDirectionnal, boolean isBiDirectionnal, String [] type_cascade,
+	// 		String optionConfiguration) {
+	// 	this.name_table_parent = name_table_parent;
+	// 	this.name_table_child = name_table_child;
+	// 	this.assoc_parent_child = assoc_parent_child;
+	// 	this.assoc_child_parent = assoc_child_parent;
+	// 	this.isUniDirectionnal = isUniDirectionnal;
+	// 	this.isBiDirectionnal = isBiDirectionnal;
+	// 	this.type_cascade = type_cascade;
+	// 	this.optionConfiguration = optionConfiguration;
+	// }
+	public ConfigORM(){}
+
 	public ConfigORM(String name_table_parent, String name_table_child, String assoc_parent_child,
-			String assoc_child_parent, boolean isUniDirectionnal, boolean isBiDirectionnal, String type_cascade,
-			String optionConfiguration) {
+			String assoc_child_parent, boolean isUniDirectionnal, boolean isBiDirectionnal, String[] type_cascade,
+			String optionConfiguration, String inputFkParent, String inputFkChild ) {
 		this.name_table_parent = name_table_parent;
 		this.name_table_child = name_table_child;
 		this.assoc_parent_child = assoc_parent_child;
@@ -84,15 +115,39 @@ public class ConfigORM {
 		this.isBiDirectionnal = isBiDirectionnal;
 		this.type_cascade = type_cascade;
 		this.optionConfiguration = optionConfiguration;
+		this.inputFkParent = inputFkParent;
+		this.inputFkChild = inputFkChild;
 	}
-	public ConfigORM(){}
 
 
 	public ConfigORM [] listORMConfig() {
 		List<ConfigORM> list = new ArrayList<>();
 		
-		// @OneToOne unidirectional
-		list.add(new ConfigORM("region", "person", "1-1", "1-1",true,false,"","1"));
+		String [] arrayCascade = {};
+		// String [] arrayCascade = {"PERSIST", "MERGE", "DETACH"};
+		// String [] arrayCascade = {"ALL"};
+		
+		// // @OneToOne unidirectional
+		// // Region in  a person (1)
+		// list.add(new ConfigORM("region", "person", "1-1", "1-1",true,false,"","1"));
+
+		// // person in  a region (1)
+		// list.add(new ConfigORM("region", "person", "1-1", "1-1",true,false,"","2"));
+
+		// @OneToOne bidirectional
+			// list.add(new ConfigORM("region", "person", "1-1", "1-1",false,true,arrayCascade,""));
+
+		// @OneToMany  bidirectional mandeha
+		// list.add(new ConfigORM("region", "person", "1-N", "1-1",false,true,arrayCascade,"","","2"));
+
+		// @ManyToMany bidirectional
+		list.add(new ConfigORM("region", "person", "1-N", "1-N",false,true,arrayCascade,"","","2"));
+
+
+
+		// @OneToMany unidirectional
+		// region in a person (1)
+		// list.add(new ConfigORM("region", "person", "1-N", "1-1",true,false,"","1"));
 
 		// Cascade
 			// PERSIST
@@ -108,4 +163,5 @@ public class ConfigORM {
 
 		return list.toArray(new ConfigORM[0]);
 	}
+
 }

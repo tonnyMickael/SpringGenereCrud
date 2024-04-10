@@ -13,6 +13,6 @@ public class ConstructionField {
     private String getType(){ return type; }
 
     public String getInputHtml(){
-        return "<label>"+ getLabel() +": <input type = \""+getType()+"\" name = \""+ getLabel() +"\"> </label>"+"\n" ;
+        return "<p>"+ getLabel() +": <input class=\"form-control\" type = \""+getType()+"\" name = \""+ getLabel() +"\"> </p>"+"\n\t\t\t\t" ;
     }
 }

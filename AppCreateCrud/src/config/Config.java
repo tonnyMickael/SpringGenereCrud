@@ -26,7 +26,8 @@ public class Config {
     //Views
     // List
     public static final String VIEWSLIST_DESTINATION_FOLDER_PATH="\\AppCreateCrud\\template_crud\\src\\main\\resources\\templates";
-    public static final String TEMPLATE_VIEWSLIST_SOURCE_FILE_NAME="ViewListe.tmpl";   
+    public static final String TEMPLATE_VIEWSLIST_SOURCE_FILE_NAME="ViewListe.tmpl";  
+    public static final String TEMPLATE_VIEWSMODELSLIST_SOURCE_FILE_NAME="ViewModelsList.tmpl";  
     // Form
     public static final String TEMPLATE_FORMULAIRE_PAGE_PATH = "\\AppCreateCrud\\lib\\template";// utilise le fichier formulaire.txt dans template pour generer le contenu des formulaire et place les fichier creer dans ce repertoire 
     public static final String VIEWFORM_PAGE_DESTINATION_FOLDER_PATH = "\\AppCreateCrud\\template_crud\\src\\main\\resources\\templates";
@@ -37,7 +38,9 @@ public class Config {
     public static final String TEMPLATE_VIEWSUPDATE_SOURCE_FILE_NAME="ViewModifier.tmpl";  
     public static final String TEMPLATE_FORMULAIRE_PAGE1_PATH = "\\AppCreateCrud\\lib\\template";// utilise le fichier formulaire.txt dans template pour generer le contenu des formulaire et place les fichier creer dans ce repertoire 
     public static final String VIEWFORM_PAGE_DESTINATION1_FOLDER_PATH = "\\AppCreateCrud\\template_crud\\src\\main\\resources\\templates";
-
+    // // ViewsUpdateInParent
+    public static final String TEMPLATE_VIEWSUPDATE_CHILD_IN_PARENT_SOURCE_FILE_NAME="ViewModifieChildInParent.tmpl";  
+    public static final String TEMPLATE_VIEWSUPDATE_PARENT_IN_CHILD_SOURCE_FILE_NAME="ViewModifieParentInChild.tmpl";  
     
     // Detail
     public static final String VIEWDETAIL_DESTINATION_FOLDER_PATH="\\AppCreateCrud\\template_crud\\src\\main\\resources\\templates";
@@ -45,7 +48,8 @@ public class Config {
 
     //Controller 
     public static final String CONTROLLER_DESTINATION_FOLDER_PATH="\\AppCreateCrud\\template_crud\\src\\main\\java\\com\\dev\\template_crud\\controller";
-    public static final String TEMPLATE_CONTROLLER_SOURCE_FILE_NAME="Controller.tmpl";    
+    public static final String TEMPLATE_CONTROLLER_SOURCE_FILE_NAME="Controller.tmpl";  
+    public static final String TEMPLATE_CONTROLLER_WITH_SECURITY_SOURCE_FILE_NAME="ControllerSecurity.tmpl";  
     // Tonny
     public static final String TEMPLATE_CONTROLLER_PAGE_PATH = "\\AppCreateCrud\\template_crud\\src\\main\\java\\com\\dev\\template_crud\\controller";   // utilise le fichier model.txt pour generer le contenu des controller et place les fichier creer dans ce repertoire
 
@@ -72,16 +76,31 @@ public class Config {
     /*
      * Place holders in Controller.tmpl
      */
-    public static final String [] placeHoldersController = {"[nameEntityMaj]","[nameEntity]","[idType]","[isAnyFieldNullOrEmpty]","[AutowiredchildEntity]","[RequestParamChildEntity]", "[AttributeChildEntity]", "[setChildEntity]"};
+    public static final String [] placeHoldersController = {"[nameEntityMaj]","[nameEntity]","[idType]","[isAnyFieldNullOrEmpty]","[AutowiredchildEntity]","[RequestParamChildEntity]", "[AttributeChildEntity]", "[setChildEntity]","[supplementMethods]"};
 
     /*
      * Place holders in ViewDetail.tmpl
      */
-    public static final String [] placeHoldersViewDetail = {"[nameEntity]","[fieldsTable]","[fieldChildTable]"};
+    public static final String [] placeHoldersViewDetail = {"[nameEntity]","[fieldsTable]","[fieldChildTable]","[linkAddChild]"};
 
     /*
      * place holders in ViewUpdate.tmpl
      */
-    public static final String [] placeHoldersViewUpdate ={"[nameEntity]","[inputs]"};
+    public static final String [] placeHoldersViewUpdate = {"[nameEntity]","[inputs]","[inputFK]"};
+
+    /*
+     * place holders in ViewModifieChildInParent.tmpl
+     */
+    public static final String [] placeHoldersViewUpdateChildInParent ={"[childEntity]","[parentEntity]","[inputs]","[secondFieldParent]"};
+
+    /*
+     * place holders in ViewModifieChildInParent.tmpl
+     */
+    public static final String [] placeHoldersViewUpdateParentInChild ={"[childEntity]","[parentEntity]","[parentEntityMaj]","[fieldsTable]","[parentEntitySecondField]"};
+    
+    /*
+     * place holders in ViewModifieChildInParent.tmpl
+     */
+    public static final String [] placeHoldersViewModelsList ={"[links]"};
 
 }

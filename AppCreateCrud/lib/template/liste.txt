@@ -3,13 +3,21 @@
     <head>
         <meta charset="UTF-8">
         <title>list</title>
+        <link rel="stylesheet" href="/assets/bootstrap/css/bootstrap.min.css">
     </head>
     <body>
-        <div>
+        <section class="py-5">
+        <div class="container py-5">
+			   <div class="row mb-5">
+				<div class="col-md-8 col-xl-6 text-center mx-auto">
+                <p class="fw-bold text-success mb-2">[nameEntity]</p>
             <h1>list</h1>
-            <table border=2>
+               </div>
+             </div> 
+            <table border=2 class="table">
             
             </table>
         </div>
+        <section>
     </body>
 </HTML>

@@ -1,9 +1,12 @@
 package function;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 import config.Config;
 import config.ConfigSystem;
+import model.EntityField;
 
 import java.io.*;
 
@@ -20,6 +23,95 @@ public class FunctionUtils {
     public static String formatToFileFtl(String arg){
         String newValue = String.format("%s.ftl",arg);
         return newValue;
+    }
+
+    public static List<String> ReadFileTypeHTML(){
+        List<String> lignes = new ArrayList<>();
+        try (BufferedReader br = new BufferedReader(new FileReader(ConfigSystem.path + Config.DATATYPE_HTML_PATH+"/MetaDataTypeHTML.txt"))) {
+           
+            String ligne;
+            while ((ligne = br.readLine()) != null) {
+                lignes.add(ligne);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }    
+        return lignes;
+    }
+
+
+
+    private static String templateinput(EntityField entityField,String nameEntity){
+        String newvalue="";
+        String namecolumn = entityField.getName();
+        String namecolumnupper=FunctionUtils.firstLetterToUpperCase(namecolumn);
+        String nametable = nameEntity;
+        String type = entityField.getType();
+        String typehtml=FunctionUtils.change(namecolumn,type);
+        if (typehtml.equals("number")) {
+            newvalue += "\t\t<p>"+namecolumn+":<input class=\"form-control\" name=\"" + namecolumn + "\" step =\"0.01\" type=\"" + typehtml + "\" value=\"${(" + nametable + ".get" + namecolumnupper + "()?string[\"0.###\"]?replace(\",\", \".\"))!}\"/><br></p>\n";
+        }
+        else{
+            newvalue = "\t\t<p>"+namecolumn+":<input class=\"form-control\" name=\"" + namecolumn + "\" type=\"" + typehtml + "\" value=\"${" + nametable + ".get" + namecolumnupper + "()}\"/><br></p>\n";
+        }
+        return newvalue;
+    }
+
+    public static String generateInput(EntityField [] entityFields,String nameEntity){
+        String result="";
+        for(EntityField entityField : entityFields){
+            // result.append(templateinput(entityFields,entitys));
+            if (!entityField.getName().equals("id")) {
+                result += templateinput(entityField, nameEntity);
+            }
+        }
+        return result;
+    }
+
+    public static String change(String nomColumn, String typeColumn){
+        String field = "";
+        List<String> getlist= FunctionUtils.ReadFileTypeHTML();
+        switch (nomColumn) {
+            case "telephone":
+                field = getlist.get(0);
+                break;
+            case "email":
+                field = getlist.get(1);
+                break;
+            case "password":    
+                field = getlist.get(2);
+                break;
+            default:
+                field = htmltype(typeColumn);
+                break;
+        }
+        return field;
+    }
+    public static String htmltype(String Type) {
+        switch (Type.toLowerCase()) {
+            case "int":
+            case "integer":
+            case "bigint":
+            case "smallint":
+            case "tinyint":
+                return "number";
+            case "float":
+            case "double":
+            case "decimal":
+                return "number";
+            case "char":
+            case "varchar":
+            case "text":
+            case "longtext":
+                return "text";
+            case "date":
+            case "datetime":
+            case "timestamp":
+            case"java.time.localdate":
+                return "date";
+            default:
+                return "text"; // Defaulting to text input for unknown types
+        }
     }
 
     public static String primitifToObject (String arg) {
@@ -89,7 +181,6 @@ public class FunctionUtils {
      * Copy the file from ./template/Model.tmpl to ..[destinationFolder]/ maj([EntityName.java] 
      * */ 
     public static void copyAndRenameFile(String destinationFileName) throws IOException {
-        System.out.println(ConfigSystem.path + Config.TEMPLATE_SOURCE_FOLDER_PATH);
         File sourceFile = new File(ConfigSystem.path + Config.TEMPLATE_SOURCE_FOLDER_PATH, Config.TEMPLATE_MODEL_SOURCE_FILE_NAME);
         File destinationFile = new File(ConfigSystem.path + Config.MODEL_DESTINATION_FOLDER_PATH, destinationFileName);
 
