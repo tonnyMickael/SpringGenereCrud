@@ -31,7 +31,7 @@
                                     </#list>
                                 </select>
 
-                                <input class="btn btn-primary" type="submit" value="valided">
+                                <input class="btn btn-primary" type="submit" value="Valider">
                             </form>
 						</td>
 					</tr>

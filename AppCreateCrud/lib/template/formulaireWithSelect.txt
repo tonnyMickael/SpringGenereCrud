@@ -8,29 +8,29 @@
     <body>
     <section class="py-5">
         <div class="container py-5">
-        <div class="row mb-5">
-				<div class="col-md-8 col-xl-6 text-center mx-auto">
-            <h1>formulaire</h1>
-                </div> 
-                    </div>
-                    	<div class="row d-flex justify-content-center">
-				            <div class="col-md-6 col-xl-4">
-            <form name="[nametable]" action="add" method="post">
-                [formulaire]
+            <div class="row mb-5">
+                    <div class="col-md-8 col-xl-6 text-center mx-auto">
+                        <h1>formulaire</h1>
+                    </div> 
+                        </div>
+                            <div class="row d-flex justify-content-center">
+                                <div class="col-md-6 col-xl-4">
+                <form name="[nametable]" action="add" method="post">
+                    [formulaire]
 
-                <p> [entityFkMaj]
-                    <select name="[entityFk]_id" class="form-control">
-                        <#list list[entityFkMaj] as [entityFk]>
-                            <option value="${[entityFk].id}">${[entityFk].[attributName]}</option>
-                        </#list>
-                    </select>
-                </p>
+                    <p> [entityFkMaj]
+                        <select name="[entityFk]_id" class="form-control">
+                            <#list list[entityFkMaj] as [entityFk]>
+                                <option value="${[entityFk].id}">${[entityFk].[attributName]}</option>
+                            </#list>
+                        </select>
+                    </p>
 
-                <input type="submit" value="valided" class="btn btn-primary">
-            </form>
-                        </div> 
-                    </div>
-        </div>
+                    <input type="submit" value="Valider" class="btn btn-primary">
+                </form>
+                            </div> 
+                        </div>
+            </div>
         </section>
     </body>
 </HTML>

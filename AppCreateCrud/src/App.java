@@ -61,7 +61,7 @@ public class App {
 
         // Ajouter les modele a proteger
         List <String> modelToSecure = new ArrayList<>();
-        System.out.println("Voulez-vous ajouter des configurations de sécurité pour des entités? Oui or Non?");
+        System.out.println("Voulez-vous ajouter des configurations de sécurité pour des entités? Oui ou Non?");
         String userResponse = saisie.nextLine();
         // Check if the user wants to add configurations
         if (userResponse.equalsIgnoreCase("Oui")) {

@@ -2,28 +2,29 @@
 <HTML>
     <head>
         <meta charset="UTF-8">
-        <title>formulaire</title>
+        <title>Formulaire [nameEntity]</title>
         <link rel="stylesheet" href="/assets/bootstrap/css/bootstrap.min.css">
     </head>
     <body>
         <section class="py-5">
-        <div class="container py-5">
-			   <div class="row mb-5">
-               <div class="col-md-8 col-xl-6 text-center mx-auto">
-                    <p class="fw-bold text-success mb-2">[nametable]</p>
-            <h1>formulaire</h1>
-                </div>
+            <div class="container py-5">
+                <div class="row mb-5">
+                    <div class="col-md-8 col-xl-6 text-center mx-auto">
+                        <p class="fw-bold text-success mb-2">[nametable]</p>
+                        <h1>Formulaire </h1>
+                        <a href="/[nameEntity]/list"><button class="btn btn-primary">Liste</button></a>
                     </div>
-                        <div class="row d-flex justify-content-center">
-				            <div class="col-md-6 col-xl-4">
-            <form name="[nametable]" action="add" method="post">
-                [formulaire]
+                </div>
+                <div class="row d-flex justify-content-center">
+                    <div class="col-md-6 col-xl-4">
+                        <form name="[nametable]" action="add" method="post">
+                            [formulaire]
 
-                <input type="submit" value="valided">
-            </form>
-                        </div>
-                            </div>
-        </div>
+                            <input class="btn btn-primary" type="submit" value="Valider">
+                        </form>
+                    </div>
+                </div>
+            </div>
         </section>
     </body>
 </HTML>
