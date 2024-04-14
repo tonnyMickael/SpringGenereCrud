@@ -43,5 +43,4 @@ public class RegisterController {
         theModel.addAttribute("user", theUsers);
         return "register-list";
     }
-
 }
