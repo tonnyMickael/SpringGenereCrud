@@ -246,7 +246,13 @@ public class ViewDetailGenerate {
             isBiDirectionnal){
             value += this.templateDetailInListArrayManyToMany(nameEntity,parentTable);
         }
-        
+        else if (nameEntity.equals(parentTable) && 
+            assocParentChild.equals("1-N") &&
+            assocChildParent.equals("1-N") && 
+            isBiDirectionnal){
+            value += this.templateDetailInListArrayManyToMany(nameEntity,childTable);
+        }
+
         else {
             value ="";
         }
@@ -272,6 +278,12 @@ public class ViewDetailGenerate {
             assocChildParent.equals("1-N") && 
             isBiDirectionnal) {
                 value += "<a href=\"${'/"+childEntity+"/detail/'+"+childEntity+".id+'/"+parentEntity+"/add' }\"><button class=\"btn btn-primary\">Ajouter "+parentEntity+"</button></a>";
+        }
+        else if(nameEntity.equals(parentEntity) && 
+            assocParentChild.equals("1-N") &&
+            assocChildParent.equals("1-N") && 
+            isBiDirectionnal) {
+                value += "<a href=\"${'/"+parentEntity+"/detail/'+"+parentEntity+".id+'/"+childEntity+"/add' }\"><button class=\"btn btn-primary\">Ajouter "+childEntity+"</button></a>";
         }
         else {
             value += "";

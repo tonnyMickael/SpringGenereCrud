@@ -73,6 +73,7 @@ public class ViewModifieChildInParentGenerate {
                     System.out.println(FunctionUtils.formatToFileFtl(formatEntityNameModife(parentEntity,childEntity))+" :File Already exist...");
                 }  
         }
+
         // Ajout des Object Input Parents dans Enfants
         // else if(nameEntity.equals(parentEntity) && 
         //     assocParentChild.equals("1-N") &&

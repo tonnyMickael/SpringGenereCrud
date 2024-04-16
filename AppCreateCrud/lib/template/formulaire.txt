@@ -2,7 +2,7 @@
 <HTML>
     <head>
         <meta charset="UTF-8">
-        <title>Formulaire [nameEntity]</title>
+        <title>Formulaire [nametable]</title>
         <link rel="stylesheet" href="/assets/bootstrap/css/bootstrap.min.css">
     </head>
     <body>
@@ -12,7 +12,7 @@
                     <div class="col-md-8 col-xl-6 text-center mx-auto">
                         <p class="fw-bold text-success mb-2">[nametable]</p>
                         <h1>Formulaire </h1>
-                        <a href="/[nameEntity]/list"><button class="btn btn-primary">Liste</button></a>
+                        <a href="/[nametable]/list"><button class="btn btn-primary">Liste</button></a>
                     </div>
                 </div>
                 <div class="row d-flex justify-content-center">

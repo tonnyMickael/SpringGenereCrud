@@ -17,13 +17,17 @@ public class ModelsController {
     @Autowired
 	private TokenService tokenService;
 
+    // @GetMapping("/list")
+    // public String listModels(@CookieValue(value = "cookie_user", defaultValue = "") String coockieUser){
+    //     if(tokenService.verifyCoockieUser(coockieUser)){
+    //         return "models-list";
+    //     }
+    //     else {
+    //         return"redirect:/login";
+    //     }
+    // }
     @GetMapping("/list")
-    public String listModels(@CookieValue(value = "cookie_user", defaultValue = "") String coockieUser){
-        if(tokenService.verifyCoockieUser(coockieUser)){
-            return "models-list";
-        }
-        else {
-            return"redirect:/login";
-        }
+    public String listModels(){
+        return "models-list";
     }
 }
