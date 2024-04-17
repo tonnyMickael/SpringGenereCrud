@@ -43,7 +43,10 @@ public class AuthController {
 
                 CookieGenerator cookieGenerator=new CookieGenerator();
                 cookieGenerator.setCookieName("cookie_user");
+
+                cookieGenerator.setCookieName("user_name");
                 cookieGenerator.addCookie(response, userService.genereToken(user.getId()).toString());
+                cookieGenerator.addCookie(response, user.getName());
                 return "redirect:/models/list";
             case 0:
                 model.addAttribute("title","Mot de passe incorrect");

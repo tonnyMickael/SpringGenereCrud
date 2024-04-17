@@ -24,13 +24,13 @@
                                 </svg></div>
                             <form action="/login/auth" method="post">
                                 <div class="mb-3">
-                                    <p><input name="email" type="text" placeholder="email" /></p>
+                                    <p><input class="form-control" name="email" type="text" placeholder="email" /></p>
                                 </div>
                                 <div class="mb-3">
-                                    <p><input name="password" type="password" placeholder="password" /></p>
+                                    <p><input class="form-control" name="password" type="password" placeholder="password" /></p>
                                 </div>
                                 <div class="mb-3">
-                                    <p><input type="submit" value="se connecter" /></p>
+                                    <p><input class="btn btn-primary" type="submit" value="se connecter" /></p>
                                 </div>
                             </form>
                             <p><a href="${'/register/add'}"><span class="text-decoration-none">s'inscrire</span></a></p>
@@ -38,7 +38,6 @@
                     </div>
                 </div>
             </div>
-            <div class="navbar-text">Copyright © dariawan.com</div>
         </div>
     </section>
 </body>

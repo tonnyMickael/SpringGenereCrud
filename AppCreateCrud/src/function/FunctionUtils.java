@@ -1,4 +1,4 @@
-package function;
+    package function;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -199,6 +199,22 @@ public class FunctionUtils {
         else {
             System.out.println("File already exists...");
             
+        }
+    }
+
+    public static void createFile(File file,String contentFile) throws IOException {
+        if(file.exists()){
+            file.delete();
+        }
+        
+        try {
+            FileWriter myWriter = new FileWriter(file);
+            myWriter.write(contentFile);
+            myWriter.close();
+            // System.out.println("Successfully wrote to the file.");
+        } catch (IOException e) {
+            System.out.println("An error occurred.");
+            e.printStackTrace();
         }
     }
     

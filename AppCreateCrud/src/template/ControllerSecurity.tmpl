@@ -1,0 +1,152 @@
+package com.dev.template_crud.controller;
+
+import java.util.*;
+import org.springframework.data.domain.*;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.*;
+import com.dev.template_crud.model.*;
+import com.dev.template_crud.service.*;
+
+@Controller
+@RequestMapping("/[nameEntity]")
+public class [nameEntityMaj]Controller {
+	
+	@Autowired
+	private [nameEntityMaj]Service [nameEntity]Service;
+
+    @Autowired
+	private TokenService tokenService;
+
+    [AutowiredchildEntity]
+	
+
+    @GetMapping(value = "/list")
+    public String list[nameEntityMaj]s(Model model, @RequestParam(value = "page", defaultValue = "1") int pageNumber, @CookieValue(value = "cookie_user", defaultValue = "") String coockieUser) {
+    	if(tokenService.verifyCoockieUser(coockieUser)){
+            int ROW_PER_PAGE = 3;
+            
+            Pageable pageable = PageRequest.of(pageNumber - 1, ROW_PER_PAGE);
+            Page<[nameEntityMaj]> list[nameEntityMaj] = [nameEntity]Service.listPaginated(pageable);
+            
+            int count = [nameEntity]Service.count();
+            boolean hasPrev = pageNumber > 1;
+            boolean hasNext = (pageNumber * ROW_PER_PAGE) < count;
+            model.addAttribute("[nameEntity]s", list[nameEntityMaj].getContent());
+            model.addAttribute("hasPrev", hasPrev);
+            model.addAttribute("prev", pageNumber - 1);
+            model.addAttribute("hasNext", hasNext);
+            model.addAttribute("next", pageNumber + 1);
+            return "[nameEntity]-list";
+        }
+        else {
+            return"redirect:/login";
+        }
+    }  
+
+    @GetMapping("/add")
+    public String showFormForAdd(Model theModel,  @CookieValue(value = "cookie_user", defaultValue = "") String coockieUser) {
+        if(tokenService.verifyCoockieUser(coockieUser)){
+            [nameEntityMaj] [nameEntity] = new [nameEntityMaj]();
+            theModel.addAttribute("[nameEntity]", [nameEntity]);
+            [AttributeChildEntity]
+            return "[nameEntity]-form";
+        } 
+        else {
+            return"redirect:/login";
+        }
+    }
+
+    @PostMapping("/add")
+    public String save(@ModelAttribute("[nameEntity]") [nameEntityMaj] [nameEntity] [RequestParamChildEntity], @CookieValue(value = "cookie_user", defaultValue = "") String coockieUser) {
+        if(tokenService.verifyCoockieUser(coockieUser)){
+            [setChildEntity]
+
+            [nameEntity]Service.add([nameEntity]);
+
+            return "redirect:/[nameEntity]/list";
+        } 
+        else {
+            return"redirect:/login";
+        }
+    }
+
+    private boolean isAnyFieldNullOrEmpty([nameEntityMaj] [nameEntity]) {
+    	if ([isAnyFieldNullOrEmpty]) {
+    		return true;
+		} else {
+			return false;
+		}
+    } 
+
+    @PostMapping("/update/{id}")
+    public String update(Model theModel, @PathVariable("id") [idType] theId, @ModelAttribute("[nameEntity]") [nameEntityMaj] [nameEntity] [RequestParamChildEntity], @CookieValue(value = "cookie_user", defaultValue = "") String coockieUser) throws Exception {
+        if(tokenService.verifyCoockieUser(coockieUser)){
+            [nameEntity].setId(theId);
+            [setChildEntity]
+            // Check if any field of the produit object is null or empty
+            if (isAnyFieldNullOrEmpty([nameEntity])) {
+                String errorMessage = "Some fields are null or empty.";
+                theModel.addAttribute("errorMessage", errorMessage);
+                [nameEntityMaj] [nameEntity]Detail = [nameEntity]Service.detail(theId);
+                theModel.addAttribute("[nameEntity]", [nameEntity]Detail);
+                return "redirect:/[nameEntity]/list";
+            }
+            else {
+                [insidUpdateMethodInElse]
+                this.[nameEntity]Service.update([nameEntity], theId);
+            }
+            return "redirect:/[nameEntity]/list";
+        }
+        else {
+            return"redirect:/login";
+        }
+    }
+    
+    @GetMapping("/update/{id}")
+    public String showFormForUpdate(Model theModel, @PathVariable("id") [idType] theId, @CookieValue(value = "cookie_user", defaultValue = "") String coockieUser) {
+        try {
+            if(tokenService.verifyCoockieUser(coockieUser)){
+                [nameEntityMaj] [nameEntity] = [nameEntity]Service.detail(theId);
+                theModel.addAttribute("[nameEntity]", [nameEntity]);
+                [AttributeChildEntity]
+                return "[nameEntity]-edit-form";
+            }
+            else {
+                return"redirect:/login";
+            }
+        } catch (Exception ex) {
+            theModel.addAttribute("errorMessage", ex.getMessage());
+        }
+        return null;
+    }
+
+    @GetMapping("/detail/{id}")
+    public String showDetail(Model theModel, @PathVariable("id") [idType] id, @CookieValue(value = "cookie_user", defaultValue = "") String coockieUser) {
+        try {
+            if(tokenService.verifyCoockieUser(coockieUser)){
+                [nameEntityMaj] [nameEntity] = [nameEntity]Service.detail(id);
+                theModel.addAttribute("[nameEntity]", [nameEntity]);
+            }
+            else {
+                return"redirect:/login";
+            }
+        } catch (Exception ex) {
+            theModel.addAttribute("errorMessage", ex.getMessage());
+        }
+        return "[nameEntity]-detail";
+    }
+
+    @GetMapping("/delete/{id}")
+    public String delete[nameEntityMaj](@PathVariable("id") [idType] theId, @CookieValue(value = "cookie_user", defaultValue = "") String coockieUser) {
+        if(tokenService.verifyCoockieUser(coockieUser)){
+            [nameEntity]Service.delete(theId);
+            return "redirect:/[nameEntity]/list";
+        }
+        else {
+            return"redirect:/login";
+        }
+    }
+    [supplementMethods]
+}

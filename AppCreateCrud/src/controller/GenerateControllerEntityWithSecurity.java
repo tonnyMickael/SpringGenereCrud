@@ -117,8 +117,9 @@ public class GenerateControllerEntityWithSecurity {
             assocParent.equals("1-N") && 
             assocChild.equals("1-1") && 
             isBiDirectionnal){
-                String nameFunction = FunctionUtils.firstLetterToUpperCase("list"+childEntityUpper);
-                newValue += String.format("|| %s.get%s() == null", parentEntity,nameFunction);
+                newValue += "";
+                // String nameFunction = FunctionUtils.firstLetterToUpperCase("list"+childEntityUpper);
+                // newValue += String.format("|| %s.get%s() == null", parentEntity,nameFunction);
         }
         else if(entityName.equals(childEntity) && 
             assocParent.equals("1-N") && 
@@ -148,8 +149,9 @@ public class GenerateControllerEntityWithSecurity {
             assocParent.equals("1-N") && 
             assocChild.equals("1-N") && 
             isBiDirectionnal){
-                String nameFunction = FunctionUtils.firstLetterToUpperCase("list"+childEntityUpper);
-                newValue += String.format("|| %s.get%s() == null", parentEntity,nameFunction);
+                newValue += "";
+                // String nameFunction = FunctionUtils.firstLetterToUpperCase("list"+childEntityUpper);
+                // newValue += String.format("|| %s.get%s() == null", parentEntity,nameFunction);
         }
         // else if(entityName.equals(childEntity) && 
         //     assocParent.equals("1-N") && 
@@ -193,7 +195,13 @@ public class GenerateControllerEntityWithSecurity {
                 }
                 else if(blocksName.equals("setChildEntity")){
                     value += String.format("%s childSelected = %sService.detail(%s_id);\r\n\t\t%s.set%s(childSelected);\t",childEntityUpper, childEntity ,childEntity,nameEntity,childEntityUpper);
+                }                else if(blocksName.equals("insidUpdateMethodInElse")){
+                    value += "";    
                 }
+                else {
+                    value += "";
+                }
+
         }
         // Option 1
         else if(nameEntity.equals(childEntity) && 
@@ -211,6 +219,12 @@ public class GenerateControllerEntityWithSecurity {
                 }
                 else if(blocksName.equals("setChildEntity")){
                     value += String.format("%s childSelected = %sService.detail(%s_id);\r\n\t\t%s.set%s(childSelected);\t",parentEntityUpper, parentEntity ,parentEntity,nameEntity,parentEntityUpper);
+                }
+                else if(blocksName.equals("insidUpdateMethodInElse")){
+                    value += "";    
+                }
+                else {
+                    value += "";
                 }
         }
         // Bidirectional
@@ -231,6 +245,12 @@ public class GenerateControllerEntityWithSecurity {
                 else if(blocksName.equals("setChildEntity")){
                     value += String.format("%s childSelected = %sService.detail(%s_id);\r\n\t\t%s.set%s(childSelected);\t",childEntityUpper, childEntity ,childEntity,nameEntity,childEntityUpper);
                 }
+                else if(blocksName.equals("insidUpdateMethodInElse")){
+                    value += "";    
+                }
+                else {
+                    value += "";
+                }
         }
         else if( nameEntity.equals(childEntity) && 
             assocParent.equals("1-1") && 
@@ -247,6 +267,12 @@ public class GenerateControllerEntityWithSecurity {
                 }
                 else if(blocksName.equals("setChildEntity")){
                     value += String.format("%s childSelected = %sService.detail(%s_id);\r\n\t\t%s.set%s(childSelected);\t",parentEntityUpper, parentEntity ,parentEntity,nameEntity,parentEntityUpper);
+                }
+                else if(blocksName.equals("insidUpdateMethodInElse")){
+                    value += "";    
+                }
+                else {
+                    value += "";
                 }
         }
         //Unidirectional
@@ -273,6 +299,12 @@ public class GenerateControllerEntityWithSecurity {
                     value = "";
                     // value += String.format("%s childSelected = %sService.detail(%s_id);\r\n\t\t%s.set%s(childSelected);\t",childEntityUpper, childEntity ,childEntity,nameEntity,childEntityUpper);
                 }
+                else if(blocksName.equals("insidUpdateMethodInElse")){
+                    value += "";    
+                }
+                else {
+                    value += "";
+                }
         }
         // ChildEntity
         else if(nameEntity.equals(childEntity) && 
@@ -295,6 +327,12 @@ public class GenerateControllerEntityWithSecurity {
                     value += String.format("%s dropDownSelected = %sService.detail(%s_id);\r\n\t\tdropDownSelected.getList%s().add(%s);\n",parentEntityUpper, parentEntity ,parentEntity,childEntityUpper,childEntity);
                     value += String.format("\r\t\t%sService.add(%s);\r\n\t\t%sService.add(dropDownSelected);\n",childEntity, childEntity ,parentEntity);
                 }
+                else if(blocksName.equals("insidUpdateMethodInElse")){
+                    value += "";    
+                }
+                else {
+                    value += "";
+                }
         }
         // Option 1
         else if (nameEntity.equals(childEntity) && 
@@ -313,6 +351,13 @@ public class GenerateControllerEntityWithSecurity {
                 else if(blocksName.equals("setChildEntity")){
                     value += String.format("%s childSelected = %sService.detail(%s_id);\r\n\t\t%s.set%s(childSelected);\t",parentEntityUpper, parentEntity ,parentEntity,nameEntity,parentEntityUpper);
                 }
+                else if(blocksName.equals("insidUpdateMethodInElse")){
+                    value += "";    
+                }
+                else {
+                    value += "";
+                }
+
         }
         // Bidirectional
         // 1-N et 1-1
@@ -344,6 +389,9 @@ public class GenerateControllerEntityWithSecurity {
                     value += this.templateUpdateChildInDetailParentGet(idTypeEntity, parentEntity, childEntity);
                     value += this.templateUpdateChildInDetailParentPost(idTypeEntity, parentEntity, childEntity);
                 }
+                else if(blocksName.equals("insidUpdateMethodInElse")){
+                    value += "";    
+                }
                 else {
                     value += "";
                 }
@@ -365,6 +413,12 @@ public class GenerateControllerEntityWithSecurity {
                     value += String.format("%s childSelected = %sService.detail(%s_id);\r\n\t\t%s.set%s(childSelected);\t",parentEntityUpper, parentEntity ,parentEntity,nameEntity,parentEntityUpper);
 
                 }
+                else if(blocksName.equals("insidUpdateMethodInElse")){
+                    value += "";    
+                }
+                else {
+                    value += "";
+                }
         }
         // Unidirectional
         // 1-N et 1-N
@@ -385,6 +439,12 @@ public class GenerateControllerEntityWithSecurity {
                 else if(blocksName.equals("setChildEntity")){
                     value += String.format("%s childSelected = %sService.detail(%s_id);\r\n\t\t%s.set%s(childSelected);\t",childEntityUpper, childEntity ,childEntity,nameEntity,childEntityUpper);
                 }
+                else if(blocksName.equals("insidUpdateMethodInElse")){
+                    value += "";    
+                }
+                else {
+                    value += "";
+                }
         }
         // Option 1
         else if (nameEntity.equals(childEntity) && 
@@ -403,6 +463,13 @@ public class GenerateControllerEntityWithSecurity {
                 else if(blocksName.equals("setChildEntity")){
                     value += String.format("%s childSelected = %sService.detail(%s_id);\r\n\t\t%s.set%s(childSelected);\t",parentEntityUpper, parentEntity ,parentEntity,nameEntity,parentEntityUpper);
                 }
+                else if(blocksName.equals("insidUpdateMethodInElse")){
+                    value += "";    
+                }
+                else {
+                    value += "";
+                }
+
         }
         // Bidirectional
         else if (nameEntity.equals(parentEntity) && 
@@ -421,6 +488,15 @@ public class GenerateControllerEntityWithSecurity {
                 // else if(blocksName.equals("setChildEntity")){
                 //     value += String.format("%s childSelected = %sService.detail(%s_id);\r\n\t\t%s.set%s(childSelected);\t",childEntityUpper, childEntity ,childEntity,nameEntity,childEntityUpper);
                 // }
+                else if(blocksName.equals("insidUpdateMethodInElse")){
+                    value += parentEntityUpper+" "+parentEntity+"Update = this."+parentEntity+"Service.detail(theId);\n"+
+                    "\t\t\t\tList<"+childEntityUpper+"> "+childEntity+"In"+parentEntityUpper+" =  "+parentEntity+"Update.getList"+childEntityUpper+"();\n"+
+                    "\t\t\t\t"+parentEntity+"Update.setList"+childEntityUpper+"("+childEntity+"In"+parentEntityUpper+");\n"+
+                    "\t\t\t\t"+parentEntity+".setList"+childEntityUpper+"("+childEntity+"In"+parentEntityUpper+");";    
+                }
+                else {
+                    value += "";
+                }
         }
         else if (nameEntity.equals(childEntity) && 
             assocParent.equals("1-N") && 
@@ -447,6 +523,9 @@ public class GenerateControllerEntityWithSecurity {
                     value += this.templateUpdateManyToManyParentInDetailChildPost(idTypeEntity, parentEntity, childEntity);
                     value += this.templateDeleteManyToManyParentInDetailChild(idTypeEntity, parentEntity, childEntity);
                 }
+                else if(blocksName.equals("insidUpdateMethodInElse")){
+                    value += "";    
+                }
                 else {
                     value += "";
                 }
@@ -467,7 +546,6 @@ public class GenerateControllerEntityWithSecurity {
         }
         return value;
     }
-
 
     // OneToMany Bidirectional
     private String templateAddOneToManyChildInDetailParentGet(String idType,String parentEntity, String childEntity){
@@ -567,8 +645,7 @@ public class GenerateControllerEntityWithSecurity {
         "\tpublic String update"+childEntityUpper+"InDetail"+parentEntityUpper+"(@ModelAttribute(\""+childEntity+"\") "+childEntityUpper+" "+childEntity+",@RequestParam(\""+parentEntity+"_id\") Integer "+parentEntity+"_id, @CookieValue(value = \"cookie_user\", defaultValue = \"\") String coockieUser) {\n"+
             "\t\ttry {\n"+
                 "\t\t\tif(tokenService.verifyCoockieUser(coockieUser)){\n"+
-                "\t\t\t\t"+parentEntityUpper+" "+parentEntity+" = new "+parentEntityUpper+"();\n"+
-                "\t\t\t\t"+parentEntity+".setId("+parentEntity+"_id);\n"+
+                "\t\t\t\t"+parentEntityUpper+" "+parentEntity+" = this."+parentEntity+"Service.detail("+parentEntity+"_id);\n"+
                 "\t\t\t\t"+childEntity+".set"+parentEntityUpper+"("+parentEntity+");\n"+
                 "\t\t\t\tthis."+childEntity+"Service.update("+childEntity+", "+childEntity+".getId());\n"+
                 "\t\t\t\treturn \"redirect:/"+parentEntity+"/detail/\"+"+parentEntity+"_id;\n"+
@@ -685,6 +762,7 @@ public class GenerateControllerEntityWithSecurity {
                 "\t\t\t\t\t"+childEntity+".setList"+parentEntityUpper+"(list"+parentEntityUpper+");\n"+
                 "\t\t\t\t\tthis."+childEntity+"Service.update("+childEntity+", "+childEntity+".getId());\n"+
                 "\t\t\t\t\treturn \"redirect:/person/detail/\"+"+childEntity+"_id;\n"+
+                "\t\t\t\t}\n"+
                 "\t\t\t}\n"+
                 "\t\t\telse {\n"+
                 "\t\t\t\treturn \"redirect:/login\";\n"+
@@ -738,7 +816,8 @@ public class GenerateControllerEntityWithSecurity {
             this.generateChildEntityInIt(configORM,"RequestParam"),
             this.generateChildEntityInIt(configORM,"AttributeChildEntity"),
             this.generateChildEntityInIt(configORM,"setChildEntity"),
-            this.generateChildEntityInIt(configORM,"supplementMethods")
+            this.generateChildEntityInIt(configORM,"supplementMethods"),
+            this.generateChildEntityInIt(configORM, "insidUpdateMethodInElse")
         };
         return values;
     }

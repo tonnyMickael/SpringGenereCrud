@@ -1,3 +1,4 @@
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -5,6 +6,7 @@ import java.util.Scanner;
 import Creating.ConstructionHTML;
 import MetaData.Meta;
 import MetaData.MetaTable;
+import config.Config;
 import config.ConfigORM;
 import config.ConfigSystem;
 import controller.ControllerEntity;
@@ -61,7 +63,7 @@ public class App {
 
         // Ajouter les modele a proteger
         List <String> modelToSecure = new ArrayList<>();
-        System.out.println("Voulez-vous ajouter des configurations de sécurité pour des entités? Oui or Non?");
+        System.out.println("Voulez-vous ajouter des configurations de sécurité pour des entités? Oui ou Non?");
         String userResponse = saisie.nextLine();
         // Check if the user wants to add configurations
         if (userResponse.equalsIgnoreCase("Oui")) {
@@ -82,9 +84,9 @@ public class App {
             System.out.println("Aucun configurations a ajouté.");
         }
 
-        String continued = "No";
+        String continued = "Non";
         List<ConfigORM> initConfiguration = new ArrayList<>();
-        while (continued.equals("No")) {
+        while (continued.equals("Non")) {
             // saisie de la table parent qui a la cle primaire/ primary key
             System.out.print("Table parent:");
             String TableParent = saisie.nextLine();
@@ -108,18 +110,21 @@ public class App {
             String associateChildParent = saisie.nextLine();
         
             //saisie specification relation des table
-            System.out.println("Relation between table parent and table child");
-            System.out.println("Si la relation est unidirectional");
-            System.out.println("=> unidirectional:true et bidirectional:false");
-            System.err.println("Si la relation est bidirectionnal");
-            System.out.println("=> unidirectional:false et bidirectional:true");
-            System.out.println("unidirectionnal:");
-            String unidirectionalStr = saisie.nextLine();
-            boolean unidirectional = Boolean.parseBoolean(unidirectionalStr);
-            System.out.println("bidirectional:");
-            String bidirectionalStr = saisie.nextLine();
-            boolean bidirectional = Boolean.parseBoolean(bidirectionalStr);
-                    
+            // System.out.println("Relation between table parent and table child");
+            // System.out.println("Si la relation est unidirectional");
+            // System.out.println("=> unidirectional:true et bidirectional:false");
+            // System.err.println("Si la relation est bidirectionnal");
+            // System.out.println("=> unidirectional:false et bidirectional:true");
+            // System.out.println("unidirectionnal:");
+            // String unidirectionalStr = saisie.nextLine();
+            // boolean unidirectional = Boolean.parseBoolean(unidirectionalStr);
+            // System.out.println("bidirectional:");
+            // String bidirectionalStr = saisie.nextLine();
+            // boolean bidirectional = Boolean.parseBoolean(bidirectionalStr);
+
+            boolean unidirectional = false;
+            boolean bidirectional = true;
+
             String sense ="";
             if (unidirectional == true) {
                 
@@ -153,7 +158,7 @@ public class App {
             initConfiguration.add(new ConfigORM(TableParent, Tablechild, associateParentChild, associateChildParent, unidirectional, bidirectional, cascade, sense,"","2"));
             
             //condition de fin de la configuration
-            System.out.println("Avez vous fini de configurer? Oui ou No");
+            System.out.println("Avez vous fini de configurer? Oui ou Non");
             String poursuivre = saisie.next();
             continued = poursuivre;
         }
@@ -178,6 +183,14 @@ public class App {
             Meta data = new Meta();
             ArrayList<MetaTable> dataTable = data.metaDataBase(dbConnection.getConnection());
             ConstructionHTML htmlPage = new ConstructionHTML(dataTable,dbManager, listConfigORM);
+            String contentFileToKeep = "";
+            String contentFileDirectories = "";
+            String filesToRemove = "";
+            String viewAbString = new  String (ConfigSystem.path+Config.VIEWDETAIL_DESTINATION_FOLDER_PATH).replace("\\","/");
+            String modelAbsPath = new String(ConfigSystem.path+Config.MODEL_DESTINATION_FOLDER_PATH).replace("\\","/");
+            String repAbsPath = new  String (ConfigSystem.path+Config.REPOSITORY_DESTINATION_FOLDER_PATH).replace("\\","/");
+            String serAbsPath = new  String (ConfigSystem.path+Config.SERVICE_DESTINATION_FOLDER_PATH).replace("\\","/");
+            String conAbString = new  String (ConfigSystem.path+Config.CONTROLLER_DESTINATION_FOLDER_PATH).replace("\\","/");
 
             // List view, service, repository, model, controller
             String[] tables = dbManager.allTables();
@@ -261,17 +274,59 @@ public class App {
                     generateService.createServiceEntity(configOrm,valueMethodInUpdate);
 
                     // Creation Controller 
-                    for (int j = 0; j < modeleToSecureInString.length; j++) {
-                        String modelIndexToSecure = modeleToSecureInString[i];
-                        if(table.equals(modelIndexToSecure)){
-                            GenerateControllerEntityWithSecurity.createControllerEntitySecurity(configOrm);
-                        }
-                        else {
-                            generateControllerEntity.createControllerEntity(configOrm);
+                    if(modeleToSecureInString.length > 0){
+                        for (int j = 0; j < modeleToSecureInString.length; j++) {
+                            String modelIndexToSecure = modeleToSecureInString[j];
+                            if(table.equals(modelIndexToSecure)){
+                                GenerateControllerEntityWithSecurity.createControllerEntitySecurity(configOrm);
+                                // in order to restart
+                            }
+                            // else {
+                            //     generateControllerEntity.createControllerEntity(configOrm);
+                            // }
                         }
                     }
+                    else{
+                        generateControllerEntity.createControllerEntity(configOrm);
+                    }
+                    
+                    if(table.equals(configOrm.getName_table_parent())){
+                        filesToRemove += viewAbString+"/"+configOrm.getName_table_child()+"-"+configOrm.getName_table_parent()+"-form.ftl\n";
+                        filesToRemove += viewAbString+"/"+configOrm.getName_table_child()+"-"+configOrm.getName_table_parent()+"-edit-form.ftl\n";
+                    }
+                    else if(table.equals(configOrm.getName_table_child())){
+                        filesToRemove += viewAbString+"/"+configOrm.getName_table_parent()+"-"+configOrm.getName_table_child()+"-form.ftl\n";
+                        filesToRemove += viewAbString+"/"+configOrm.getName_table_parent()+"-"+configOrm.getName_table_child()+"-edit-form.ftl\n";
+                    }
+
+                    // String tableUpper = FunctionUtils.firstLetterToUpperCase(table);
+
+
+                    // Model
+                    filesToRemove += modelAbsPath+"/"+FunctionUtils.formatToFileJava(table)+"\n";
+                    // Repository
+                    filesToRemove += repAbsPath+"/"+FunctionUtils.formatToFileJava(table+"Repository")+"\n";
+                    // Service
+                    filesToRemove += serAbsPath+"/"+FunctionUtils.formatToFileJava(table+"Service")+"\n";
+                    // Controller
+                    filesToRemove += conAbString+"/"+FunctionUtils.formatToFileJava(table+"Controller")+"\n";
+                    // Views
+                    // Add
+                    filesToRemove += viewAbString+"/"+FunctionUtils.formatToFileFtl(table+"-form")+"\n";
+                    // update
+                    filesToRemove += viewAbString+"/"+FunctionUtils.formatToFileFtl(table+"-edit-form")+"\n";
+                    // detail
+                    filesToRemove += viewAbString+"/"+FunctionUtils.formatToFileFtl(table+"-detail")+"\n";
+                    // list
+                    filesToRemove += viewAbString+"/"+FunctionUtils.formatToFileFtl(table+"-list")+"\n";
                 }
-            }  
+            } 
+            filesToRemove += viewAbString+"/"+FunctionUtils.formatToFileFtl("models-list");
+
+            File fToRemove = new File(ConfigSystem.path+"\\AppCreateCrud","filesToRemove.txt");
+
+            FunctionUtils.createFile(fToRemove, filesToRemove);
+
             ViewModelsListGenerate viewModelsListGenerate = new ViewModelsListGenerate(tables);
             viewModelsListGenerate.createViewModelsList();
         } catch (ClassNotFoundException e) {

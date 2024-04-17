@@ -25,7 +25,7 @@ public class ViewModelsListGenerate {
     private String generateLinks(){
         String value = "";
         for (int i = 0; i < models.length; i++) {
-            value += "<p><a href=\"/"+models[i]+"/list\">region</a></p>\n\t\t\t";
+            value += "<p><a href=\"/"+models[i]+"/list\"><button class=\"btn btn-primary\">"+models[i]+"</button></a></p>\n\t\t\t";
         }
         return value;
     }

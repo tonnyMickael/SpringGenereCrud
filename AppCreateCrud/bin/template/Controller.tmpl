@@ -75,6 +75,7 @@ public class [nameEntityMaj]Controller {
             return "redirect:/[nameEntity]/list";
         }
         else {
+            [insidUpdateMethodInElse]
         	this.[nameEntity]Service.update([nameEntity], theId);
         }
         return "redirect:/[nameEntity]/list";
