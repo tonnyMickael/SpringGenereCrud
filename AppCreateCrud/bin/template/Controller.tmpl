@@ -46,8 +46,8 @@ public class [nameEntityMaj]Controller {
     }
 
     @PostMapping("/add")
-    public String save(@ModelAttribute("[nameEntity]") [nameEntityMaj] [nameEntity] [RequestParamChildEntity]) {
-        [setChildEntity]
+    public String save(@ModelAttribute("[nameEntity]") [nameEntityMaj] [nameEntity] [RequestParamChildEntityInAdd]) {
+        [setChildEntityInAdd]
 
         [nameEntity]Service.add([nameEntity]);
 
@@ -63,9 +63,9 @@ public class [nameEntityMaj]Controller {
     } 
 
     @PostMapping("/update/{id}")
-    public String update(Model theModel, @PathVariable("id") [idType] theId, @ModelAttribute("[nameEntity]") [nameEntityMaj] [nameEntity] [RequestParamChildEntity]) throws Exception {
+    public String update(Model theModel, @PathVariable("id") [idType] theId, @ModelAttribute("[nameEntity]") [nameEntityMaj] [nameEntity] [RequestParamChildEntityInUpdate]) throws Exception {
         [nameEntity].setId(theId);
-        [setChildEntity]
+        [setChildEntityInUpdate]
         // Check if any field of the produit object is null or empty
         if (isAnyFieldNullOrEmpty([nameEntity])) {
             String errorMessage = "Some fields are null or empty.";

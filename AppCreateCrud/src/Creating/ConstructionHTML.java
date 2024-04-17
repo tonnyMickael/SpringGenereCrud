@@ -64,34 +64,41 @@ public class ConstructionHTML {
                     }
                     writePageFormAddInDetail(dataTable.get(i).getNameTable(),nameForm,dataTable.get(i).getInfoTable(),configORM);
                 }
-                // child
                 else if(tableName.equals(childEntity) &&
                     assocParentChild.equals("1-N") && 
                     assocChildParent.equals("1-N") && isBiDirectionnal){
 
-                    String outPutName = childEntity+"-"+parentEntity;
-                    String nameForm = outPutName+"-form";
-                    File fichier = new File(ConfigSystem.path + Config.VIEWFORM_PAGE_DESTINATION_FOLDER_PATH+"/"+nameForm+".ftl");
-                    if (!fichier.exists()) {
-                        fichier.createNewFile();    
-                        // writePageFormAddInDetail(dataTable.get(i).getNameTable(),nameForm,dataTable.get(i).getInfoTable(),configORM);
-                    }
-                    writePageFormAddInDetail(dataTable.get(i).getNameTable(),nameForm,dataTable.get(i).getInfoTable(),configORM);
-                }
-                // parent
-                else if(tableName.equals(parentEntity) &&
-                    assocParentChild.equals("1-N") && 
-                    assocChildParent.equals("1-N") && isBiDirectionnal){
+                    String outPutNameInChild = childEntity+"-"+parentEntity;
+                    String nameFormChild = outPutNameInChild+"-form";
 
-                    String outPutName = parentEntity+"-"+childEntity;
-                    String nameForm = outPutName+"-form";
-                    File fichier = new File(ConfigSystem.path + Config.VIEWFORM_PAGE_DESTINATION_FOLDER_PATH+"/"+nameForm+".ftl");
+                    String outPutNameInParent = parentEntity+"-"+childEntity;
+                    String nameFormParent = outPutNameInParent+"-form";
+                    File fichier = new File(ConfigSystem.path + Config.VIEWFORM_PAGE_DESTINATION_FOLDER_PATH+"/"+nameFormChild+".ftl");
+                    File fichier2 = new File(ConfigSystem.path + Config.VIEWFORM_PAGE_DESTINATION_FOLDER_PATH+"/"+nameFormParent+".ftl");
                     if (!fichier.exists()) {
                         fichier.createNewFile();    
                         // writePageFormAddInDetail(dataTable.get(i).getNameTable(),nameForm,dataTable.get(i).getInfoTable(),configORM);
                     }
-                    writePageFormAddInDetail(dataTable.get(i).getNameTable(),nameForm,dataTable.get(i).getInfoTable(),configORM);
+                    if (!fichier2.exists()) {
+                        fichier2.createNewFile();    
+                        // writePageFormAddInDetail(dataTable.get(i).getNameTable(),nameForm,dataTable.get(i).getInfoTable(),configORM);
+                    }
+                    writePageFormAddInDetail(dataTable.get(i).getNameTable(),nameFormChild,dataTable.get(i).getInfoTable(),configORM);
+                    writePageFormAddInDetail(dataTable.get(i).getNameTable(),nameFormParent,dataTable.get(i).getInfoTable(),configORM);
                 }
+                // else if(tableName.equals(parentEntity) &&
+                //     assocParentChild.equals("1-N") && 
+                //     assocChildParent.equals("1-N") && isBiDirectionnal){
+
+                //         String outPutName = parentEntity+"-"+childEntity;
+                //         String nameForm = outPutName+"-form";
+                //         File fichier = new File(ConfigSystem.path + Config.VIEWFORM_PAGE_DESTINATION_FOLDER_PATH+"/"+nameForm+".ftl");
+                //         if (!fichier.exists()) {
+                //             fichier.createNewFile();    
+                //             // writePageFormAddInDetail(dataTable.get(i).getNameTable(),nameForm,dataTable.get(i).getInfoTable(),configORM);
+                //         }
+                //         writePageFormAddInDetail(dataTable.get(i).getNameTable(),nameForm,dataTable.get(i).getInfoTable(),configORM);
+                // }
             }
         }   
     }
@@ -121,9 +128,9 @@ public class ConstructionHTML {
             attributName = this.dManager.columnContainsName(parentEntity);
             replacements = new String[4][2];
             replacements[0][0] = "[parentEntity]";
-            replacements[0][1] = childEntity;
+            replacements[0][1] = parentEntity;
             replacements[1][0] = "[childEntity]";
-            replacements[1][1] = parentEntity;
+            replacements[1][1] = childEntity;
             replacements[2][0] = "[parentEntitySecondField]";
             replacements[2][1] = attributName;
             replacements[3][0] = "[formulaire]";
@@ -142,35 +149,63 @@ public class ConstructionHTML {
             assocParentChild.equals("1-N") && 
             assocChildParent.equals("1-N") && isBiDirectionnal){
 
-            templatePath = ConfigSystem.path + Config.DATATYPE_HTML_PATH+"/template/ChildParentForm.txt";
-            // String formulaire = champSaisie(column);
+            String[] entities = nameform.split("-");
+            if(entities[0].equals(childEntity) && entities[1].equals(parentEntity)){
 
-            replacements = new String[5][2];
-
-            String parentEntityMaj = FunctionUtils.firstLetterToUpperCase(parentEntity);
-
-            attributName = this.dManager.columnContainsName(parentEntity);
-            // replacements = new String[4][2];
-            replacements[0][0] = "[parentEntity]";
-            replacements[0][1] = parentEntity;
-            replacements[1][0] = "[childEntity]";
-            replacements[1][1] = childEntity;
-            replacements[2][0] = "[parentEntitySecondField]";
-            replacements[2][1] = attributName;
-            replacements[3][0] = "[fieldsTable]";
-            replacements[3][1] = this.generateFieldsTable(childEntity);
-            replacements[4][0] = "[parentEntityMaj]";
-            replacements[4][1] = parentEntityMaj;
-            String templateContent = readFromFile(templatePath);
-
-            // Apply replacements
-            for (String[] replacement : replacements) {
-                templateContent = templateContent.replace( replacement[0] , replacement[1]);
-            }
+                templatePath = ConfigSystem.path + Config.DATATYPE_HTML_PATH+"/template/ChildParentForm.txt";
+                // String formulaire = champSaisie(column);
     
-            // Write the modified content to a new file
-            writeToFile(outputPath, templateContent);
-        } 
+                replacements = new String[5][2];
+    
+                String parentEntityMaj = FunctionUtils.firstLetterToUpperCase(parentEntity);
+    
+                attributName = this.dManager.columnContainsName(parentEntity);
+                // replacements = new String[4][2];
+                replacements[0][0] = "[parentEntity]";
+                replacements[0][1] = parentEntity;
+                replacements[1][0] = "[childEntity]";
+                replacements[1][1] = childEntity;
+                replacements[2][0] = "[parentEntitySecondField]";
+                replacements[2][1] = attributName;
+                replacements[3][0] = "[fieldsTable]";
+                replacements[3][1] = this.generateFieldsTable(childEntity);
+                replacements[4][0] = "[parentEntityMaj]";
+                replacements[4][1] = parentEntityMaj;
+                String templateContent = readFromFile(templatePath);
+    
+                // Apply replacements
+                for (String[] replacement : replacements) {
+                    templateContent = templateContent.replace( replacement[0] , replacement[1]);
+                }
+        
+                // Write the modified content to a new file
+                writeToFile(outputPath, templateContent);
+            }
+            else if(entities[0].equals(parentEntity) && entities[1].equals(childEntity)){
+                templatePath = ConfigSystem.path + Config.DATATYPE_HTML_PATH+"/template/ParentChildForm.txt";
+                String formulaire = champSaisie(column);
+                // replacements = new String[3][2];
+                attributName = this.dManager.columnContainsName(parentEntity);
+                replacements = new String[4][2];
+                replacements[0][0] = "[parentEntity]";
+                replacements[0][1] = parentEntity;
+                replacements[1][0] = "[childEntity]";
+                replacements[1][1] = childEntity;
+                replacements[2][0] = "[parentEntitySecondField]";
+                replacements[2][1] = attributName;
+                replacements[3][0] = "[formulaire]";
+                replacements[3][1] = formulaire;
+                String templateContent = readFromFile(templatePath);
+    
+                // Apply replacements
+                for (String[] replacement : replacements) {
+                    templateContent = templateContent.replace( replacement[0] , replacement[1]);
+                }
+        
+                // Write the modified content to a new file
+                writeToFile(outputPath, templateContent);
+            }
+        }
         else {
             System.out.println("Fichier creer fotsiny...");
         }

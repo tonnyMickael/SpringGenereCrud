@@ -328,18 +328,25 @@ public class GenerateControllerEntity {
                 if (blocksName.equals("Autowired")) {
                     value += String.format("@Autowired\r\n\tprivate %sService %sService;",childEntityUpper, childEntity);   
                 }
-                else if(blocksName.equals("RequestParam")){
+                else if(blocksName.equals("RequestParamInAdd")){
+                    // value += String.format(", @RequestParam(\"%s_id\") %s %s_id",childEntity, idTypeEntity ,childEntity);
+                    value += "";
+                }
+                else if(blocksName.equals("RequestParamInUpdate")){
                     // value += String.format(", @RequestParam(\"%s_id\") %s %s_id",childEntity, idTypeEntity ,childEntity);
                     value += "";
                 }
                 else if(blocksName.equals("AttributeChildEntity")){
                     value += String.format("theModel.addAttribute(\"list%s\", %sService.fetch());",childEntityUpper, childEntity );
                 }
-                else if(blocksName.equals("setChildEntity")){
+                else if(blocksName.equals("setChildEntityInUpdate")){
                     value += "";
                     // value += String.format("%s childSelected = %sService.detail(%s_id);\r\n\t\t%s.set%s(childSelected);\t",childEntityUpper, childEntity ,childEntity,nameEntity,childEntityUpper);
                     // value += String.format("%s dropDownSelected = %sService.detail(%s_id);\r\n\t\tdropDownSelected.getList%s().add(%s);\n",parentEntityUpper, parentEntity ,parentEntity,childEntityUpper,childEntity);
                     // value += String.format("\r\t\t%sService.add(%s);\r\n\t\t%sService.add(dropDownSelected);\n",childEntity, childEntity ,parentEntity);
+                }
+                else if(blocksName.equals("setChildEntityInAdd")){
+                    value += "";
                 }
                 else if(blocksName.equals("supplementMethods")){
                     // value += this.generateSupplementMethods(idTypeEntity,parentEntity, childEntity);
@@ -360,15 +367,20 @@ public class GenerateControllerEntity {
                 if (blocksName.equals("Autowired")) {
                     value += String.format("@Autowired\r\n\tprivate %sService %sService;",parentEntityUpper, parentEntity);   
                 }
-                else if(blocksName.equals("RequestParam")){
+                else if(blocksName.equals("RequestParamInAdd")){
+                    value += String.format(", @RequestParam(\"%s_id\") %s %s_id",parentEntity, idTypeEntity ,parentEntity);
+                }
+                else if(blocksName.equals("RequestParamInUpdate")){
                     value += String.format(", @RequestParam(\"%s_id\") %s %s_id",parentEntity, idTypeEntity ,parentEntity);
                 }
                 else if(blocksName.equals("AttributeChildEntity")){
                     value += String.format("theModel.addAttribute(\"list%s\", %sService.fetch());",parentEntityUpper, parentEntity );
                 }
-                else if(blocksName.equals("setChildEntity")){
+                else if(blocksName.equals("setChildEntityInAdd")){
                     value += String.format("%s childSelected = %sService.detail(%s_id);\r\n\t\t%s.set%s(childSelected);\t",parentEntityUpper, parentEntity ,parentEntity,nameEntity,parentEntityUpper);
-
+                }
+                else if(blocksName.equals("setChildEntityInUpdate")){
+                    value += String.format("%s childSelected = %sService.detail(%s_id);\r\n\t\t%s.set%s(childSelected);\t",parentEntityUpper, parentEntity ,parentEntity,nameEntity,parentEntityUpper);
                 }
         }
         // Unidirectional
@@ -387,7 +399,10 @@ public class GenerateControllerEntity {
                 else if(blocksName.equals("AttributeChildEntity")){
                     value += String.format("theModel.addAttribute(\"list%s\", %sService.fetch());",childEntityUpper, childEntity );
                 }
-                else if(blocksName.equals("setChildEntity")){
+                else if(blocksName.equals("setChildEntityInUpdate")){
+                    value += String.format("%s childSelected = %sService.detail(%s_id);\r\n\t\t%s.set%s(childSelected);\t",childEntityUpper, childEntity ,childEntity,nameEntity,childEntityUpper);
+                }
+                else if(blocksName.equals("setChildEntityInAdd")){
                     value += String.format("%s childSelected = %sService.detail(%s_id);\r\n\t\t%s.set%s(childSelected);\t",childEntityUpper, childEntity ,childEntity,nameEntity,childEntityUpper);
                 }
         }
@@ -417,15 +432,37 @@ public class GenerateControllerEntity {
                 if (blocksName.equals("Autowired")) {
                     value += String.format("@Autowired\r\n\tprivate %sService %sService;",childEntityUpper, childEntity);   
                 }
-                // else if(blocksName.equals("RequestParam")){
-                //     value += String.format(", @RequestParam(\"%s_id\") %s %s_id",childEntity, idTypeEntity ,childEntity);
-                // }
+                else if(blocksName.equals("RequestParamInAdd")){
+                    value += "";
+                    // value += String.format(", @RequestParam(\"%s_id\") %s %s_id",childEntity, idTypeEntity ,childEntity);
+                }
+                else if(blocksName.equals("RequestParamInUpdate")){
+                    value += String.format(", @RequestParam(\"%s_id\") %s %s_id",childEntity, idTypeEntity ,childEntity);
+                }
                 else if(blocksName.equals("AttributeChildEntity")){
                     value += String.format("theModel.addAttribute(\"list%s\", %sService.fetch());",childEntityUpper, childEntity );
                 }
-                // else if(blocksName.equals("setChildEntity")){
-                //     value += String.format("%s childSelected = %sService.detail(%s_id);\r\n\t\t%s.set%s(childSelected);\t",childEntityUpper, childEntity ,childEntity,nameEntity,childEntityUpper);
-                // }
+                else if(blocksName.equals("setChildEntityInAdd")){
+                    value += "";
+                    // value += String.format("%s childSelected = %sService.detail(%s_id);\n"+
+                    // "\t\t%s.setList%s(Arrays.asList(childSelected));\n",childEntityUpper,childEntity,childEntity,parentEntity,childEntityUpper);
+                    // value += String.format("%s childSelected = %sService.detail(%s_id);\r\n\t\t%s.set%s(childSelected);\t",childEntityUpper, childEntity ,childEntity,nameEntity,childEntityUpper);
+                }
+                else if(blocksName.equals("setChildEntityInUpdate")){
+                    value += String.format("%s childSelected = %sService.detail(%s_id);\n"+
+                    "\t\t%s.setList%s(Arrays.asList(childSelected));\n",childEntityUpper,childEntity,childEntity,parentEntity,childEntityUpper);
+                    // value += String.format("%s childSelected = %sService.detail(%s_id);\r\n\t\t%s.set%s(childSelected);\t",childEntityUpper, childEntity ,childEntity,nameEntity,childEntityUpper);
+                }
+                else if(blocksName.equals("supplementMethods")){
+                    value += this.templateAddManyToManyChildInDetailParentGet(idTypeEntity, parentEntity, childEntity); 
+                    value += this.templateAddManyToManyChildInDetailParentPost(idTypeEntity, parentEntity, childEntity);
+                    value += this.templateDeleteManyToManyChildInDetailParent(idTypeEntity, parentEntity, childEntity);
+                    value += this.templateUpdateManyToManyChildInDetailParentGet(idTypeEntity, parentEntity, childEntity);
+                    value += this.templateUpdateManyToManyChildInDetailParentPost(idTypeEntity, parentEntity, childEntity);
+                }
+                else {
+                    value += "";
+                }
         }
         // bidirectional
         else if (nameEntity.equals(childEntity) && 
@@ -435,13 +472,25 @@ public class GenerateControllerEntity {
                 if (blocksName.equals("Autowired")) {
                     value += String.format("@Autowired\r\n\tprivate %sService %sService;",parentEntityUpper, parentEntity);   
                 }
-                else if(blocksName.equals("RequestParam")){
+                else if(blocksName.equals("RequestParamInAdd")){
                     value += String.format(", @RequestParam(\"%s_id\") %s %s_id",parentEntity, idTypeEntity ,parentEntity);
+                    // value += "";
+                }
+                else if(blocksName.equals("RequestParamInUpdate")){
+                    value += String.format(", @RequestParam(\"%s_id\") %s %s_id",parentEntity, idTypeEntity ,parentEntity);
+                    // value += "";
                 }
                 else if(blocksName.equals("AttributeChildEntity")){
                     value += String.format("theModel.addAttribute(\"list%s\", %sService.fetch());",parentEntityUpper, parentEntity );
                 }
-                else if(blocksName.equals("setChildEntity")){
+                else if(blocksName.equals("setChildEntityInAdd")){
+                    value += "";
+                    value += String.format("%s childSelected = %sService.detail(%s_id);\n"+
+                    "\t\t%s.setList%s(Arrays.asList(childSelected));\n",parentEntityUpper,parentEntity,parentEntity,childEntity,parentEntityUpper);
+                    // value += String.format("%s childSelected = %sService.detail(%s_id);\r\n\t\t%s.set%s(childSelected);\t",childEntityUpper, childEntity ,childEntity,nameEntity,childEntityUpper);
+                }
+                else if(blocksName.equals("setChildEntityInUpdate")){
+                    // value += "";
                     value += String.format("%s childSelected = %sService.detail(%s_id);\n"+
                     "\t\t%s.setList%s(Arrays.asList(childSelected));\n",parentEntityUpper,parentEntity,parentEntity,childEntity,parentEntityUpper);
                     // value += String.format("%s childSelected = %sService.detail(%s_id);\r\n\t\t%s.set%s(childSelected);\t",childEntityUpper, childEntity ,childEntity,nameEntity,childEntityUpper);
@@ -457,34 +506,34 @@ public class GenerateControllerEntity {
                     value += "";
                 }
         }
-        else if (nameEntity.equals(parentEntity) && 
-            assocParent.equals("1-N") && 
-            assocChild.equals("1-N") && 
-            isBiDirectionnal ){
-                if (blocksName.equals("Autowired")) {
-                    value += String.format("@Autowired\r\n\tprivate %sService %sService;",childEntityUpper, childEntity);   
-                }
-                else if(blocksName.equals("RequestParam")){
-                    value += String.format(", @RequestParam(\"%s_id\") %s %s_id",childEntity, idTypeEntity ,childEntity);
-                }
-                else if(blocksName.equals("AttributeChildEntity")){
-                    value += String.format("theModel.addAttribute(\"list%s\", %sService.fetch());",childEntityUpper, childEntity );
-                }
-                else if(blocksName.equals("setChildEntity")){
-                    value += String.format("%s childSelected = %sService.detail(%s_id);\n"+
-                    "\t\t%s.setList%s(Arrays.asList(childSelected));\n",childEntityUpper,childEntity,childEntity,parentEntity,childEntityUpper);
-                }
-                else if(blocksName.equals("supplementMethods")){
-                    value += this.templateAddOneToManyChildInDetailParentGet(idTypeEntity, parentEntity, childEntity); 
-                    value += this.templateAddOneToManyChildInDetailParentPost(idTypeEntity, parentEntity, childEntity);
-                    value += this.templateDeleteChildInDetailParent(idTypeEntity, parentEntity, childEntity);
-                    value += this.templateUpdateChildInDetailParentGet(idTypeEntity, parentEntity, childEntity);
-                    value += this.templateUpdateChildInDetailParentPost(idTypeEntity, parentEntity, childEntity);
-                }
-                else {
-                    value += "";
-                }
-        }
+        // else if (nameEntity.equals(parentEntity) && 
+        //     assocParent.equals("1-N") && 
+        //     assocChild.equals("1-N") && 
+        //     isBiDirectionnal ){
+        //         if (blocksName.equals("Autowired")) {
+        //             value += String.format("@Autowired\r\n\tprivate %sService %sService;",childEntityUpper, childEntity);   
+        //         }
+        //         else if(blocksName.equals("RequestParam")){
+        //             value += String.format(", @RequestParam(\"%s_id\") %s %s_id",childEntity, idTypeEntity ,childEntity);
+        //         }
+        //         else if(blocksName.equals("AttributeChildEntity")){
+        //             value += String.format("theModel.addAttribute(\"list%s\", %sService.fetch());",childEntityUpper, childEntity );
+        //         }
+        //         else if(blocksName.equals("setChildEntity")){
+        //             value += String.format("%s childSelected = %sService.detail(%s_id);\n"+
+        //             "\t\t%s.setList%s(Arrays.asList(childSelected));\n",childEntityUpper,childEntity,childEntity,parentEntity,childEntityUpper);
+        //         }
+        //         else if(blocksName.equals("supplementMethods")){
+        //             value += this.templateAddOneToManyChildInDetailParentGet(idTypeEntity, parentEntity, childEntity); 
+        //             value += this.templateAddOneToManyChildInDetailParentPost(idTypeEntity, parentEntity, childEntity);
+        //             value += this.templateDeleteChildInDetailParent(idTypeEntity, parentEntity, childEntity);
+        //             value += this.templateUpdateChildInDetailParentGet(idTypeEntity, parentEntity, childEntity);
+        //             value += this.templateUpdateChildInDetailParentPost(idTypeEntity, parentEntity, childEntity);
+        //         }
+        //         else {
+        //             value += "";
+        //         }
+        // }
 
         else{
             value = "";
@@ -666,7 +715,7 @@ public class GenerateControllerEntity {
                 "\t\t\t\tlist"+parentEntityUpper+".set(indexToRemove, "+parentEntity+"Updated);\n"+
                 "\t\t\t\t"+childEntity+".setList"+parentEntityUpper+"(list"+parentEntityUpper+");\n"+
                 "\t\t\t\tthis."+childEntity+"Service.update("+childEntity+", "+childEntity+".getId());\n"+
-                "\t\t\t\treturn \"redirect:/person/detail/\"+"+childEntity+"_id;\n"+
+                "\t\t\t\treturn \"redirect:/"+childEntity+"/detail/\"+"+childEntity+"_id;\n"+
                 "\t\t\t}\n"+
             "\t\t} catch (Exception ex) {\n"+
                 "\t\t\tex.getMessage();\n"+
@@ -699,6 +748,107 @@ public class GenerateControllerEntity {
         return value;
     }
 
+    // From parent to add child
+    private String templateAddManyToManyChildInDetailParentGet(String idType,String parentEntity, String childEntity){
+        String parentEntityUpper = FunctionUtils.firstLetterToUpperCase(parentEntity);
+        String childEntityUpper = FunctionUtils.firstLetterToUpperCase(childEntity);
+
+        String value = "@GetMapping(\"/detail/{id}/"+childEntity+"/add\")\n"+
+        "\tpublic String add"+childEntityUpper+"InDetail"+parentEntityUpper+"(Model theModel, @PathVariable(\"id\") "+idType+" id) {\n"+
+            "\t\t"+childEntityUpper+" "+childEntity+" = new "+childEntityUpper+"();\n"+
+            "\t\ttry {\n"+
+                "\t\t\ttheModel.addAttribute(\""+childEntity+"\", "+childEntity+");\n"+
+                "\t\t\t"+parentEntityUpper+" "+parentEntity+" = "+parentEntity+"Service.detail(id);\n"+
+                "\t\t\ttheModel.addAttribute(\""+parentEntity+"\", "+parentEntity+");\n"+
+            "\t\t} catch (Exception ex) {\n"+
+                "\t\t\ttheModel.addAttribute(\"errorMessage\", ex.getMessage());\n"+
+            "\t\t}\n"+
+            "\t\treturn \""+parentEntity+"-"+childEntity+"-form\";\n"+
+        "\t}\n\n"; 
+        return value;
+    }
+
+    private String templateAddManyToManyChildInDetailParentPost(String idType,String parentEntity, String childEntity){
+        String parentEntityUpper = FunctionUtils.firstLetterToUpperCase(parentEntity);
+        String childEntityUpper = FunctionUtils.firstLetterToUpperCase(childEntity);
+
+        String value = "\t@PostMapping(\"/detail/"+childEntity+"/add\")\n"+
+        "\tpublic String save"+childEntityUpper+"InDetail"+parentEntityUpper+"(@ModelAttribute(\""+childEntity+"\") "+childEntityUpper+" "+childEntity+",@RequestParam(\""+parentEntity+"_id\") "+idType+" "+parentEntity+"_id) {\n"+
+            "\t\ttry {\n"+
+                "\t\t\t"+parentEntityUpper+" "+parentEntity+" = this."+parentEntity+"Service.detail("+parentEntity+"_id);\n"+
+                "\t\t\t"+childEntity+".setList"+parentEntityUpper+"(Arrays.asList("+parentEntity+"));\n"+
+                "\t\t\tthis."+childEntity+"Service.add("+childEntity+");\n"+
+                "\t\t\treturn \"redirect:/"+parentEntity+"/detail/\"+"+parentEntity+"_id;\n"+
+            "\t\t} catch (Exception ex) {\n"+
+                "\t\t\tex.getMessage();\n"+
+            "\t\t}\n"+
+            "\t\treturn null;\n"+
+        "\t}\n\n"; 
+        return value;
+    }
+
+    private String templateDeleteManyToManyChildInDetailParent(String idType, String parentEntity, String childEntity){
+        // String parentEntityUpper = FunctionUtils.firstLetterToUpperCase(parentEntity);
+        String childEntityUpper = FunctionUtils.firstLetterToUpperCase(childEntity);
+
+        String value = "\t@GetMapping(\"/detail/"+childEntity+"/delete/{"+parentEntity+"_id}/{id}\")\n"+
+        "\tpublic String delete"+childEntityUpper+"InDetail(@PathVariable(\""+parentEntity+"_id\") Integer "+parentEntity+"_id, @PathVariable(\"id\") "+idType+" theId) {\n"+
+            "\t\t"+childEntity+"Service.delete(theId);\n"+
+            "\t\treturn \"redirect:/"+parentEntity+"/detail/\"+"+parentEntity+"_id;\n"+
+        "\t}\n\n";
+        return value;
+    }
+
+    private String templateUpdateManyToManyChildInDetailParentGet(String idType,String parentEntity, String childEntity){ 
+        String parentEntityUpper = FunctionUtils.firstLetterToUpperCase(parentEntity);
+        String childEntityUpper = FunctionUtils.firstLetterToUpperCase(childEntity);
+
+        String value = "@GetMapping(\"/detail/"+childEntity+"/update/{"+parentEntity+"_id}/{"+childEntity+"_id}\")\n"+
+        "\tpublic String update"+childEntityUpper+"InDetailForm (Model theModel, @PathVariable(\""+parentEntity+"_id\") "+idType+" "+parentEntity+"_id, @PathVariable(\""+childEntity+"_id\") "+idType+" "+childEntity+"_id) {\n"+
+            "\t\ttry {\n"+
+                "\t\t\t"+childEntityUpper+" "+childEntity+" = "+childEntity+"Service.detail("+childEntity+"_id);\n"+
+                "\t\t\t"+parentEntityUpper+" "+parentEntity+" = "+parentEntity+"Service.detail("+parentEntity+"_id);\n"+
+                "\t\t\ttheModel.addAttribute(\""+childEntity+"\", "+childEntity+");\n"+
+                "\t\t\ttheModel.addAttribute(\""+parentEntity+"\", "+parentEntity+");\n"+
+            "\t\t} catch (Exception ex) {\n"+
+                "\t\t\ttheModel.addAttribute(\"errorMessage\", ex.getMessage());\n"+
+            "\t\t}\n"+
+            "\t\treturn \""+parentEntity+"-"+childEntity+"-edit-form\";\n"+
+        "\t}\n\n"; 
+        return value;  
+    }
+
+    private String templateUpdateManyToManyChildInDetailParentPost(String idType,String parentEntity, String childEntity){
+        String parentEntityUpper = FunctionUtils.firstLetterToUpperCase(parentEntity);
+        String childEntityUpper = FunctionUtils.firstLetterToUpperCase(childEntity);
+
+        String value = "\t@PostMapping(\"/detail/"+childEntity+"/update\")\n"+
+        "\tpublic String update"+childEntityUpper+"InDetail"+parentEntityUpper+"(@ModelAttribute(\""+childEntity+"\") "+childEntityUpper+" "+childEntity+", @RequestParam(\"id\") "+idType+" "+childEntity+"_id, @RequestParam(\""+parentEntity+"_id\") Integer "+parentEntity+"_id) {\n"+
+            "\t\ttry {\n"+
+                "\t\t\t"+parentEntityUpper+" "+parentEntity+" = this."+parentEntity+"Service.detail("+parentEntity+"_id);\n"+
+                "\t\t\tList<"+childEntityUpper+"> list"+childEntityUpper+" = "+parentEntity+".getList"+childEntityUpper+"();\n"+
+                "\t\t\t"+childEntityUpper+" "+childEntity+"Updated = this."+childEntity+"Service.detail("+childEntity+".getId());\n"+
+                "\t\t\tint indexToRemove = -1;\n"+
+                "\t\t\tfor (int i = 0; i < list"+childEntityUpper+".size(); i++) {\n"+
+                "\t\t\t\tif (list"+childEntityUpper+".get(i).getId() == ("+childEntity+"_id)) {\n"+
+                "\t\t\t\t\tindexToRemove = i;\n"+
+                "\t\t\t\t\tbreak;\n"+
+                "\t\t\t\t}\n"+
+                "\t\t\t}\n"+
+                "\t\t\tif (indexToRemove != -1) {\n"+
+                "\t\t\t\tlist"+childEntityUpper+".set(indexToRemove, "+childEntity+"Updated);\n"+
+                "\t\t\t\t"+parentEntity+".setList"+childEntityUpper+"(list"+childEntityUpper+");\n"+
+                "\t\t\t\tthis."+parentEntity+"Service.update("+parentEntity+", "+parentEntity+".getId());\n"+
+                "\t\t\t\treturn \"redirect:/"+parentEntity+"/detail/\"+"+parentEntity+"_id;\n"+
+                "\t\t\t}\n"+
+            "\t\t} catch (Exception ex) {\n"+
+                "\t\t\tex.getMessage();\n"+
+            "\t\t}\n"+
+            "\t\treturn null;\n"+
+        "\t}\n\n"; 
+        return value;
+    }
+   
     // Generate the supplements method
     // private String generateSupplementMethods(String idType,String parentEntity, String childEntity){
 
@@ -721,9 +871,11 @@ public class GenerateControllerEntity {
             idType,
             this.isAnyFieldNullOrEmpty()+isChildEntityNull(configORM),
             this.generateChildEntityInIt(configORM,"Autowired"),
-            this.generateChildEntityInIt(configORM,"RequestParam"),
+            this.generateChildEntityInIt(configORM,"RequestParamInAdd"),
+            this.generateChildEntityInIt(configORM,"RequestParamInUpdate"),
             this.generateChildEntityInIt(configORM,"AttributeChildEntity"),
-            this.generateChildEntityInIt(configORM,"setChildEntity"),
+            this.generateChildEntityInIt(configORM,"setChildEntityInAdd"),
+            this.generateChildEntityInIt(configORM,"setChildEntityInUpdate"),
             this.generateChildEntityInIt(configORM,"supplementMethods")
         };
         return values;

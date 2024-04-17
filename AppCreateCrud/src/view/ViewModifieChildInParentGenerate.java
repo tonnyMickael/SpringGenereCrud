@@ -67,7 +67,7 @@ public class ViewModifieChildInParentGenerate {
                 File destinationFile = new File(Config.VIEWSUPDATE_DESTINATION_FOLDER_PATH, FunctionUtils.formatToFileFtl(this.formatEntityNameModife(parentEntity,childEntity)));
                 
                 if(!destinationFile.exists()){
-                    FunctionUtils.replacePholders(FunctionUtils.formatToFileFtl(formatEntityNameModife(parentEntity,childEntity)), Config.placeHoldersViewUpdateChildInParent,realValues,ConfigSystem.path + Config.TEMPLATE_SOURCE_FOLDER_PATH,Config.TEMPLATE_VIEWSUPDATE_CHILD_IN_PARENT_SOURCE_FILE_NAME,ConfigSystem.path + Config.VIEWSUPDATE_DESTINATION_FOLDER_PATH);
+                    FunctionUtils.replacePholders(FunctionUtils.formatToFileFtl(formatEntityNameModife(parentEntity,childEntity)), Config.placeHoldersViewUpdateChildInParent,realValues,ConfigSystem.path + Config.TEMPLATE_SOURCE_FOLDER_PATH,Config.TEMPLATE_VIEWSUPDATE_CHILD_IN_PARENT_SOURCE_FILE_NAME,ConfigSystem.path+Config.VIEWSUPDATE_DESTINATION_FOLDER_PATH);
                 }
                 else{
                     System.out.println(FunctionUtils.formatToFileFtl(formatEntityNameModife(parentEntity,childEntity))+" :File Already exist...");
@@ -75,21 +75,21 @@ public class ViewModifieChildInParentGenerate {
         }
 
         // Ajout des Object Input Parents dans Enfants
-        // else if(nameEntity.equals(parentEntity) && 
-        //     assocParentChild.equals("1-N") &&
-        //     assocChildParent.equals("1-N") && 
-        //     isBiDirectionnal){
-        //         EntityField [] entityFields = this.dbManager.entityFieldColumnsFromTable(childEntity);
-        //         String[] realValues = listRealValues(entityFields,childEntity,parentEntity);
-        //         File destinationFile = new File(Config.VIEWSUPDATE_DESTINATION_FOLDER_PATH, FunctionUtils.formatToFileFtl(this.formatEntityNameModife(childEntity,parentEntity)));
+        else if(nameEntity.equals(parentEntity) && 
+            assocParentChild.equals("1-N") &&
+            assocChildParent.equals("1-N") && 
+            isBiDirectionnal){
+                EntityField [] entityFields = this.dbManager.entityFieldColumnsFromTable(childEntity);
+                String[] realValues = listRealValues(entityFields,childEntity,parentEntity);
+                File destinationFile = new File(Config.VIEWSUPDATE_DESTINATION_FOLDER_PATH, FunctionUtils.formatToFileFtl(this.formatEntityNameModife(parentEntity,childEntity)));
                 
-        //         if(!destinationFile.exists()){
-        //             FunctionUtils.replacePholders(FunctionUtils.formatToFileFtl(formatEntityNameModife(childEntity,parentEntity)), Config.placeHoldersViewUpdateChildInParent,realValues,Config.TEMPLATE_SOURCE_FOLDER_PATH,Config.TEMPLATE_VIEWSUPDATE_CHILD_IN_PARENT_SOURCE_FILE_NAME,Config.VIEWSUPDATE_DESTINATION_FOLDER_PATH);
-        //         }
-        //         else{
-        //             System.out.println(FunctionUtils.formatToFileFtl(formatEntityNameModife(childEntity,parentEntity))+" :File Already exist...");
-        //         }  
-        // }
+                if(!destinationFile.exists()){
+                    FunctionUtils.replacePholders(FunctionUtils.formatToFileFtl(formatEntityNameModife(parentEntity,childEntity)), Config.placeHoldersViewUpdateChildInParent,realValues,ConfigSystem.path + Config.TEMPLATE_SOURCE_FOLDER_PATH,Config.TEMPLATE_VIEWSUPDATE_CHILD_IN_PARENT_SOURCE_FILE_NAME,ConfigSystem.path+Config.VIEWSUPDATE_DESTINATION_FOLDER_PATH);
+                }
+                else{
+                    System.out.println(FunctionUtils.formatToFileFtl(formatEntityNameModife(parentEntity,childEntity))+" :File Already exist...");
+                }  
+        }
     }
 
 }

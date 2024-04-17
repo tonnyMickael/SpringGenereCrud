@@ -2,7 +2,7 @@
 <HTML>
     <head>
         <meta charset="UTF-8">
-        <title>Formulaire [parentEntity] dans [childEntity] </title>
+        <title>Formulaire [childEntity] dans [parentEntity] </title>
         <link rel="stylesheet" href="/assets/bootstrap/css/bootstrap.min.css">
     </head>
     <body>
@@ -10,7 +10,7 @@
 		<div class="container py-5">
 			<div class="row mb-5">
 				<div class="col-md-8 col-xl-6 text-center mx-auto">
-            <h1>Formulaire [parentEntity] dans [childEntity]</h1>
+            <h1>Formulaire [childEntity] dans [parentEntity]</h1>
             </div>
                 </div>
                 <div class="row d-flex justify-content-center">

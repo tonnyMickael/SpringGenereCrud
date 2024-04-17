@@ -110,18 +110,21 @@ public class App {
             String associateChildParent = saisie.nextLine();
         
             //saisie specification relation des table
-            System.out.println("Relation between table parent and table child");
-            System.out.println("Si la relation est unidirectional");
-            System.out.println("=> unidirectional:true et bidirectional:false");
-            System.err.println("Si la relation est bidirectionnal");
-            System.out.println("=> unidirectional:false et bidirectional:true");
-            System.out.println("unidirectionnal:");
-            String unidirectionalStr = saisie.nextLine();
-            boolean unidirectional = Boolean.parseBoolean(unidirectionalStr);
-            System.out.println("bidirectional:");
-            String bidirectionalStr = saisie.nextLine();
-            boolean bidirectional = Boolean.parseBoolean(bidirectionalStr);
-                    
+            // System.out.println("Relation between table parent and table child");
+            // System.out.println("Si la relation est unidirectional");
+            // System.out.println("=> unidirectional:true et bidirectional:false");
+            // System.err.println("Si la relation est bidirectionnal");
+            // System.out.println("=> unidirectional:false et bidirectional:true");
+            // System.out.println("unidirectionnal:");
+            // String unidirectionalStr = saisie.nextLine();
+            // boolean unidirectional = Boolean.parseBoolean(unidirectionalStr);
+            // System.out.println("bidirectional:");
+            // String bidirectionalStr = saisie.nextLine();
+            // boolean bidirectional = Boolean.parseBoolean(bidirectionalStr);
+
+            boolean unidirectional = false;
+            boolean bidirectional = true;
+
             String sense ="";
             if (unidirectional == true) {
                 

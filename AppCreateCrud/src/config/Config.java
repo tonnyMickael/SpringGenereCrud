@@ -76,7 +76,7 @@ public class Config {
     /*
      * Place holders in Controller.tmpl
      */
-    public static final String [] placeHoldersController = {"[nameEntityMaj]","[nameEntity]","[idType]","[isAnyFieldNullOrEmpty]","[AutowiredchildEntity]","[RequestParamChildEntity]", "[AttributeChildEntity]", "[setChildEntity]","[supplementMethods]"};
+    public static final String [] placeHoldersController = {"[nameEntityMaj]","[nameEntity]","[idType]","[isAnyFieldNullOrEmpty]","[AutowiredchildEntity]","[RequestParamChildEntityInAdd]", "[RequestParamChildEntityInUpdate]","[AttributeChildEntity]", "[setChildEntityInAdd]","[setChildEntityInUpdate]","[supplementMethods]"};
 
     /*
      * Place holders in ViewDetail.tmpl
