@@ -10,16 +10,17 @@
         <div class="container py-5">
 			   <div class="row mb-5">
                <div class="col-md-8 col-xl-6 text-center mx-auto">
-                    <p class="fw-bold text-success mb-2">[nametable]</p>
+                    <p class="fw-bold text-success mb-2">region</p>
             <h1>formulaire</h1>
                 </div>
                     </div>
                         <div class="row d-flex justify-content-center">
 				            <div class="col-md-6 col-xl-4">
-            <form name="[nametable]" action="add" method="post">
-                [formulaire]
+            <form name="region" action="add" method="post">
+                <p>name: <input class="form-control" type = "text" name = "name"> </p>
+				
 
-                <input clas="btn btn-primary" type="submit" value="Valider">
+                <input class="btn btn-primary" type="submit" value="Valider">
             </form>
                         </div>
                             </div>

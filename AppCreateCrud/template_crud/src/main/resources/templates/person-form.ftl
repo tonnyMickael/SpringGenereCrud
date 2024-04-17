@@ -15,13 +15,17 @@
                     </div>
                     	<div class="row d-flex justify-content-center">
 				            <div class="col-md-6 col-xl-4">
-            <form name="[nametable]" action="add" method="post">
-                [formulaire]
+            <form name="person" action="add" method="post">
+                <p>firstname: <input class="form-control" type = "text" name = "firstname"> </p>
+				<p>lastname: <input class="form-control" type = "text" name = "lastname"> </p>
+				<p>cin: <input class="form-control" type = "text" name = "cin"> </p>
+				<p>bithday: <input class="form-control" type = "date" name = "bithday"> </p>
+				
 
-                <p> [entityFkMaj]
-                    <select name="[entityFk]_id" class="form-control">
-                        <#list list[entityFkMaj] as [entityFk]>
-                            <option value="${[entityFk].id}">${[entityFk].[attributName]}</option>
+                <p> Region
+                    <select name="region_id" class="form-control">
+                        <#list listRegion as region>
+                            <option value="${region.id}">${region.name}</option>
                         </#list>
                     </select>
                 </p>
