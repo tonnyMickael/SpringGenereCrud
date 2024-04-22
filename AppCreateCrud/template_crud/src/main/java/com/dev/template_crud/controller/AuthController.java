@@ -31,7 +31,18 @@ public class AuthController {
     public String home(){
         return "index";
     }
-
+    @SuppressWarnings("deprecation")
+    @GetMapping("/logout")
+    public String logout(  HttpServletResponse response){
+     CookieGenerator cookieGenerator= new CookieGenerator();
+     cookieGenerator.setCookieName("cookie_user");
+     cookieGenerator.setCookieMaxAge(0);
+    cookieGenerator.addCookie(response, null);
+     cookieGenerator.setCookieName("user_name");
+     cookieGenerator.setCookieMaxAge(0);
+     cookieGenerator.addCookie(response, null);
+    return "redirect:/login";
+    }
     @SuppressWarnings("deprecation")
     @PostMapping("/auth")
     public  String authentify(@RequestParam("email")String email,@RequestParam("password")String password,Model model,HttpServletResponse response )throws Exception{
@@ -43,10 +54,10 @@ public class AuthController {
 
                 CookieGenerator cookieGenerator=new CookieGenerator();
                 cookieGenerator.setCookieName("cookie_user");
-
-                // cookieGenerator.setCookieName("user_name");
                 cookieGenerator.addCookie(response, userService.genereToken(user.getId()).toString());
-                // cookieGenerator.addCookie(response, user.getName());
+                cookieGenerator.setCookieName("user_name");
+            
+                cookieGenerator.addCookie(response, user.getName());
                 return "redirect:/models/list";
             case 0:
                 model.addAttribute("title","Mot de passe incorrect");
