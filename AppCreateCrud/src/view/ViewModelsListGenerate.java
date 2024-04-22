@@ -9,6 +9,8 @@ import function.FunctionUtils;
 
 public class ViewModelsListGenerate {
     private String [] models;
+    private String navBarLogOut;
+    
 
     public String[] getModels() {
         return models;
@@ -31,10 +33,19 @@ public class ViewModelsListGenerate {
     }
 
     private String [] listRealValues(){
-        String [] values = {
-            this.generateLinks()
-        };
-        return values;
+        if(!navBarLogOut.isEmpty()){
+            String [] values = {
+                this.generateLinks(),
+                FunctionUtils.logOutTmpl()
+            };
+            return values;
+        }
+        else{
+            String [] values = {
+                this.generateLinks()
+            };
+            return values;
+        }
     }
 
     private String formatModelsNameList(){
@@ -50,5 +61,13 @@ public class ViewModelsListGenerate {
         else{
             System.out.println(FunctionUtils.formatToFileFtl(formatModelsNameList())+" :File Already exist...");
         }  
+    }
+
+    public String getNavBarLogOut() {
+        return navBarLogOut;
+    }
+
+    public void setNavBarLogOut(String navBarLogOut) {
+        this.navBarLogOut = navBarLogOut;
     }
 }

@@ -13,6 +13,15 @@ import model.EntityField;
 public class ViewDetailGenerate {
     private ViewDetail viewDetail;
     private DBManager dbManager;
+    private String navBarLogOut;
+
+    public String getNavBarLogOut() {
+        return navBarLogOut;
+    }
+
+    public void setNavBarLogOut(String navBarLogOut) {
+        this.navBarLogOut = navBarLogOut;
+    }
 
     public ViewDetailGenerate(ViewDetail viewDetail, DBManager dbManager) {
         this.dbManager = dbManager;
@@ -293,13 +302,26 @@ public class ViewDetailGenerate {
     
     private String [] listRealValues(ConfigORM configORM){
         String nameEntity = this.viewDetail.getNameTable();
-        String [] values = {
-            nameEntity,
-            generateFieldsTable(),
-            generateFieldChildTable(configORM),
-            generateLinkToAddChild(configORM)
-        };
-        return values;
+        if(nameEntity.equals(this.navBarLogOut)){
+            String [] values = {
+                nameEntity,
+                generateFieldsTable(),
+                generateFieldChildTable(configORM),
+                generateLinkToAddChild(configORM),
+                FunctionUtils.logOutTmpl()
+            };
+            return values;            
+        }
+        else {
+            String [] values = {
+                nameEntity,
+                generateFieldsTable(),
+                generateFieldChildTable(configORM),
+                generateLinkToAddChild(configORM),
+                ""
+            };
+            return values;
+        }
     }
 
     private String formatEntityNameDetail(){

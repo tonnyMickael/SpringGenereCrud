@@ -12,6 +12,15 @@ import model.EntityField;
 public class ViewModifieParentInChildGenerate {
     private ViewModifieParentInChild viewModifieParentInChild;
     private DBManager dbManager;
+    private String navBarLogOut;
+
+    public String getNavBarLogOut() {
+        return navBarLogOut;
+    }
+
+    public void setNavBarLogOut(String navBarLogOut) {
+        this.navBarLogOut = navBarLogOut;
+    }
 
     public ViewModifieParentInChild getViewModifieParentInChild() {
         return viewModifieParentInChild;
@@ -60,13 +69,29 @@ public class ViewModifieParentInChildGenerate {
         String fieldsTable = this.generateFieldsTable(entityInInput);
         String attributName = this.dbManager.columnContainsName(entityInDropDown);
         String entityInDropDownMaj = FunctionUtils.firstLetterToUpperCase(entityInDropDown);
-        String[] values = { 
-            entityInInput, 
-            entityInDropDown, 
-            entityInDropDownMaj,
-            fieldsTable, 
-            attributName };
-        return values;
+        if(this.viewModifieParentInChild.getNameEntity().equals(navBarLogOut)){
+            String[] values = { 
+                entityInInput, 
+                entityInDropDown, 
+                entityInDropDownMaj,
+                fieldsTable, 
+                attributName,
+                FunctionUtils.logOutTmpl() 
+            };
+            return values;            
+        }
+        else{
+            String[] values = { 
+                entityInInput, 
+                entityInDropDown, 
+                entityInDropDownMaj,
+                fieldsTable, 
+                attributName,
+                "" 
+            };
+            return values;
+        }
+
     }
 
     private String formatEntityNameModife(String childEntity, String parentEntity){

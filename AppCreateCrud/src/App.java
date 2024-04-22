@@ -182,7 +182,9 @@ public class App {
             // Formulaire
             Meta data = new Meta();
             ArrayList<MetaTable> dataTable = data.metaDataBase(dbConnection.getConnection());
-            ConstructionHTML htmlPage = new ConstructionHTML(dataTable,dbManager, listConfigORM);
+            ConstructionHTML htmlPage = new ConstructionHTML(dataTable,dbManager, listConfigORM,modeleToSecureInString);
+
+
             String contentFileToKeep = "";
             String contentFileDirectories = "";
             String filesToRemove = "";
@@ -199,6 +201,8 @@ public class App {
             GenerateEntity generateEntity = new GenerateEntity(entity);
             GenerateRepository generateRepository = new GenerateRepository(null);
             GenerateService generateService = new GenerateService();
+            // instance Generate models list
+            ViewModelsListGenerate viewModelsListGenerate = new ViewModelsListGenerate(tables);
             for (String table : tables) {
                 entity.setName(table);
                 entity.columnsToEntityField();
@@ -229,7 +233,6 @@ public class App {
                 // List
                 ViewList viewList = new ViewList(entity.getName(), entityFields,"detail","update","delete");
                 ViewListGenerate viewListGenerate = new ViewListGenerate(viewList);
-                viewListGenerate.createViewListEntity();
 
                 // Generate ViewsUpdate
                 ViewModife viewmodife = new ViewModife(entity.getName(), entityFields);
@@ -256,9 +259,39 @@ public class App {
                 GenerateControllerEntityWithSecurity GenerateControllerEntityWithSecurity = new GenerateControllerEntityWithSecurity(controllerEnity);
                 // generateControllerEntity.createControllerEntity(); 
 
+
                 for (int i = 0; i < listConfigORM.length; i++) {
                     ConfigORM configOrm = listConfigORM[i];
                     
+                    // Creation Controller 
+                    if(modeleToSecureInString.length > 0){
+                        for (int j = 0; j < modeleToSecureInString.length; j++) {
+                            String modelIndexToSecure = modeleToSecureInString[j];
+                            if(table.equals(modelIndexToSecure)){
+                                GenerateControllerEntityWithSecurity.createControllerEntitySecurity(configOrm);
+                                viewListGenerate.setNavBarLogOut(modelIndexToSecure);
+                                viewDetailGenerate.setNavBarLogOut(modelIndexToSecure);
+                                viewModelsListGenerate.setNavBarLogOut(modelIndexToSecure);
+                                viewModifeGenerate.setNavBarLogOut(modelIndexToSecure);
+                                viewModifieChildInParentGenerate.setNavBarLogOut(modelIndexToSecure);
+                                viewModifieParentInChildGenerate.setNavBarLogOut(modelIndexToSecure);
+                                // in order to restart
+                                // Set logout
+                                
+                                // viewList.set(modelToSecure);
+                            }
+                            // else {
+                            //     generateControllerEntity.createControllerEntity(configOrm);
+                            // }
+                        }
+                    }
+                    else{
+                        generateControllerEntity.createControllerEntity(configOrm);
+                    }
+
+                    // Creation liste
+                    viewListGenerate.createViewListEntity();
+
                     // Creation of entity class or the entity
                     generateEntity.createAndWriteClass(configOrm);
 
@@ -272,23 +305,6 @@ public class App {
 
                     // Creation service 
                     generateService.createServiceEntity(configOrm,valueMethodInUpdate);
-
-                    // Creation Controller 
-                    if(modeleToSecureInString.length > 0){
-                        for (int j = 0; j < modeleToSecureInString.length; j++) {
-                            String modelIndexToSecure = modeleToSecureInString[j];
-                            if(table.equals(modelIndexToSecure)){
-                                GenerateControllerEntityWithSecurity.createControllerEntitySecurity(configOrm);
-                                // in order to restart
-                            }
-                            // else {
-                            //     generateControllerEntity.createControllerEntity(configOrm);
-                            // }
-                        }
-                    }
-                    else{
-                        generateControllerEntity.createControllerEntity(configOrm);
-                    }
                     
                     if(table.equals(configOrm.getName_table_parent())){
                         filesToRemove += viewAbString+"/"+configOrm.getName_table_child()+"-"+configOrm.getName_table_parent()+"-form.ftl\n";
@@ -327,7 +343,7 @@ public class App {
 
             FunctionUtils.createFile(fToRemove, filesToRemove);
 
-            ViewModelsListGenerate viewModelsListGenerate = new ViewModelsListGenerate(tables);
+            
             viewModelsListGenerate.createViewModelsList();
         } catch (ClassNotFoundException e) {
             e.printStackTrace();

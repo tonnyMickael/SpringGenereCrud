@@ -17,6 +17,8 @@ import model.EntityField;
 public class ViewModifeGenerate {
     private ViewModife viewModife;
     private DBManager dbManager;
+    private String navBarLogOut;
+    
 
     public ViewModifeGenerate(ViewModife viewModife, DBManager dbManager){
         this.dbManager = dbManager;
@@ -137,8 +139,24 @@ public class ViewModifeGenerate {
         // String nameEntity = this.viewModife.getNameEntity();
         String inputs = generateInput(entityField,nameEntity);
         String inputFK = generateInputFK(configORM);
-        String[] values = { nameEntity, inputs, inputFK };
-        return values;
+        if(this.viewModife.getNameEntity().equals(navBarLogOut)){
+            String[] values = { 
+                nameEntity, 
+                inputs, 
+                inputFK,
+                FunctionUtils.logOutTmpl() 
+            };
+            return values;
+        }
+        else{
+            String[] values = { 
+                nameEntity, 
+                inputs, 
+                inputFK,
+                "" 
+            };
+            return values;
+        }
     }
 
     private String formatEntityNameModife(){
@@ -162,6 +180,14 @@ public class ViewModifeGenerate {
         else{
             System.out.println(FunctionUtils.formatToFileFtl(formatEntityNameModife())+" :File Already exist...");
         }  
+    }
+
+    public String getNavBarLogOut() {
+        return navBarLogOut;
+    }
+
+    public void setNavBarLogOut(String navBarLogOut) {
+        this.navBarLogOut = navBarLogOut;
     }
 
 }

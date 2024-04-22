@@ -10,6 +10,15 @@ import model.EntityField;
 
 public class ViewListGenerate {
     private ViewList viewList;
+    private String navBarLogOut;
+    
+    public String getNavBarLogOut() {
+        return navBarLogOut;
+    }
+
+    public void setNavBarLogOut(String navBarLogOut) {
+        this.navBarLogOut = navBarLogOut;
+    }
 
     public ViewListGenerate(ViewList viewList) {
         this.viewList = viewList;
@@ -68,15 +77,31 @@ public class ViewListGenerate {
 
     private String [] listRealValues(){
         String nameEntity = this.viewList.getNameEntity();
-        String [] values = {
-            nameEntity,
-            generateColumns(),
-            generateRows(),
-            this.viewList.getDetailNameLink(),
-            this.viewList.getUpdateNameLink(),
-            this.viewList.getDeleteNameLink()
-        };
-        return values;
+        if(nameEntity.equals(navBarLogOut)){
+            String [] values = {
+                nameEntity,
+                generateColumns(),
+                generateRows(),
+                this.viewList.getDetailNameLink(),
+                this.viewList.getUpdateNameLink(),
+                this.viewList.getDeleteNameLink(),
+                FunctionUtils.logOutTmpl()
+            };
+            return values;
+        }
+        else {
+            String [] values = {
+                nameEntity,
+                generateColumns(),
+                generateRows(),
+                this.viewList.getDetailNameLink(),
+                this.viewList.getUpdateNameLink(),
+                this.viewList.getDeleteNameLink(),
+                ""
+            };
+            return values;
+        }
+
     }
 
     private String formatEntityNameList(){
@@ -93,5 +118,7 @@ public class ViewListGenerate {
             System.out.println(FunctionUtils.formatToFileFtl(formatEntityNameList())+" :File Already exist...");
         }  
     }
+
+
 
 }

@@ -71,7 +71,7 @@ public class Config {
     /*
      * Place holders in ViewListe.tmpl
      */
-    public static final String [] placeHoldersViewList = {"[nameEntity]","[columns]","[rows]","[detailName]","[updateName]","[deleteName]"};
+    public static final String [] placeHoldersViewList = {"[nameEntity]","[columns]","[rows]","[detailName]","[updateName]","[deleteName]","[navBarLogOut]"};
 
     /*
      * Place holders in Controller.tmpl
@@ -81,26 +81,26 @@ public class Config {
     /*
      * Place holders in ViewDetail.tmpl
      */
-    public static final String [] placeHoldersViewDetail = {"[nameEntity]","[fieldsTable]","[fieldChildTable]","[linkAddChild]"};
+    public static final String [] placeHoldersViewDetail = {"[nameEntity]","[fieldsTable]","[fieldChildTable]","[linkAddChild]","[navBarLogOut]"};
 
     /*
      * place holders in ViewUpdate.tmpl
      */
-    public static final String [] placeHoldersViewUpdate = {"[nameEntity]","[inputs]","[inputFK]"};
+    public static final String [] placeHoldersViewUpdate = {"[nameEntity]","[inputs]","[inputFK]","[navBarLogOut]"};
 
     /*
      * place holders in ViewModifieChildInParent.tmpl
      */
-    public static final String [] placeHoldersViewUpdateChildInParent ={"[childEntity]","[parentEntity]","[inputs]","[secondFieldParent]"};
+    public static final String [] placeHoldersViewUpdateChildInParent ={"[childEntity]","[parentEntity]","[inputs]","[secondFieldParent]","[navBarLogOut]"};
 
     /*
      * place holders in ViewModifieChildInParent.tmpl
      */
-    public static final String [] placeHoldersViewUpdateParentInChild ={"[childEntity]","[parentEntity]","[parentEntityMaj]","[fieldsTable]","[parentEntitySecondField]"};
+    public static final String [] placeHoldersViewUpdateParentInChild ={"[childEntity]","[parentEntity]","[parentEntityMaj]","[fieldsTable]","[parentEntitySecondField]","[navBarLogOut]"};
     
     /*
      * place holders in ViewModifieChildInParent.tmpl
      */
-    public static final String [] placeHoldersViewModelsList ={"[links]"};
+    public static final String [] placeHoldersViewModelsList ={"[links]","[navBarLogOut]"};
 
 }

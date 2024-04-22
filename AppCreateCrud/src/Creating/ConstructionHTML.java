@@ -21,13 +21,13 @@ public class ConstructionHTML {
 
     DBManager dManager;
 
-    public ConstructionHTML(ArrayList<MetaTable> dataTable,DBManager dbManager, ConfigORM[] configORM) throws IOException{
+    public ConstructionHTML(ArrayList<MetaTable> dataTable,DBManager dbManager, ConfigORM[] configORM,String [] entitesSecure) throws IOException{
         this.dManager = dbManager;
-        createFormulaire(dataTable,configORM);
-        createFormInDetail(dataTable,configORM);
+        createFormulaire(dataTable,configORM, entitesSecure);
+        createFormInDetail(dataTable,configORM, entitesSecure);
     }
 
-    private void createFormulaire(ArrayList<MetaTable> dataTable,ConfigORM [] listConfigORM) throws IOException{
+    private void createFormulaire(ArrayList<MetaTable> dataTable,ConfigORM [] listConfigORM,String [] entitesSecure) throws IOException{
         for (int i = 0; i < dataTable.size(); i++) {
             String nameForm = dataTable.get(i).getNameTable()+"-form";
             // Créer un objet File représentant le fichier à créer.
@@ -36,12 +36,12 @@ public class ConstructionHTML {
             if (!fichier.exists()) {
                 fichier.createNewFile();    
             }
-            WritePageForm(dataTable.get(i).getNameTable(),nameForm,dataTable.get(i).getInfoTable(),listConfigORM);
+            WritePageForm(dataTable.get(i).getNameTable(),nameForm,dataTable.get(i).getInfoTable(),listConfigORM, entitesSecure);
 
         }      
     }
 
-    private void createFormInDetail(ArrayList<MetaTable> dataTable, ConfigORM [] listConfigORM) throws IOException{
+    private void createFormInDetail(ArrayList<MetaTable> dataTable, ConfigORM [] listConfigORM, String [] entitesSecure) throws IOException{
         for (int i = 0; i < dataTable.size(); i++) {
             String tableName = dataTable.get(i).getNameTable();
             // Créer un objet File représentant le fichier à créer.
@@ -52,6 +52,7 @@ public class ConstructionHTML {
                 String assocParentChild = configORM.getAssoc_parent_child();
                 String assocChildParent = configORM.getAssoc_child_parent();
                 boolean isBiDirectionnal = configORM.isBiDirectionnal();
+
                 if (tableName.equals(childEntity) &&
                     assocParentChild.equals("1-N") && 
                     assocChildParent.equals("1-1") && isBiDirectionnal){
@@ -62,7 +63,7 @@ public class ConstructionHTML {
                     if (!fichier.exists()) {
                         fichier.createNewFile();    
                     }
-                    writePageFormAddInDetail(dataTable.get(i).getNameTable(),nameForm,dataTable.get(i).getInfoTable(),configORM);
+                    writePageFormAddInDetail(dataTable.get(i).getNameTable(),nameForm,dataTable.get(i).getInfoTable(),configORM,entitesSecure);
                 }
                 else if(tableName.equals(childEntity) &&
                     assocParentChild.equals("1-N") && 
@@ -79,12 +80,16 @@ public class ConstructionHTML {
                         fichier.createNewFile();    
                         // writePageFormAddInDetail(dataTable.get(i).getNameTable(),nameForm,dataTable.get(i).getInfoTable(),configORM);
                     }
+<<<<<<< Updated upstream
                     if (!fichier2.exists()) {
                         fichier2.createNewFile();    
                         // writePageFormAddInDetail(dataTable.get(i).getNameTable(),nameForm,dataTable.get(i).getInfoTable(),configORM);
                     }
                     writePageFormAddInDetail(dataTable.get(i).getNameTable(),nameFormChild,dataTable.get(i).getInfoTable(),configORM);
                     writePageFormAddInDetail(dataTable.get(i).getNameTable(),nameFormParent,dataTable.get(i).getInfoTable(),configORM);
+=======
+                    writePageFormAddInDetail(dataTable.get(i).getNameTable(),nameForm,dataTable.get(i).getInfoTable(),configORM,entitesSecure);
+>>>>>>> Stashed changes
                 }
                 // else if(tableName.equals(parentEntity) &&
                 //     assocParentChild.equals("1-N") && 
@@ -103,7 +108,7 @@ public class ConstructionHTML {
         }   
     }
 
-    private void writePageFormAddInDetail(String nametable, String nameform, ArrayList<MetaColumn> column,ConfigORM configORM) throws IOException{
+    private void writePageFormAddInDetail(String nametable, String nameform, ArrayList<MetaColumn> column,ConfigORM configORM, String [] entitesSecure) throws IOException{
         String outputPath = ConfigSystem.path + Config.VIEWFORM_PAGE_DESTINATION_FOLDER_PATH+"/"+nameform+".ftl";    
         // String templatePath = "/template/ParentChildForm.txt";
         String templatePath = "";
@@ -118,37 +123,86 @@ public class ConstructionHTML {
         String assocChildParent = configORM.getAssoc_child_parent();
         boolean isBiDirectionnal = configORM.isBiDirectionnal();
 
-        if (nametable.equals(childEntity) &&
+        for (int i = 0; i < entitesSecure.length; i++) {
+            String entiteSecure = entitesSecure[i];
+
+            if (nametable.equals(childEntity) &&
             assocParentChild.equals("1-N") && 
             assocChildParent.equals("1-1") && isBiDirectionnal){
 
-            templatePath = ConfigSystem.path + Config.DATATYPE_HTML_PATH+"/template/ParentChildForm.txt";
-            String formulaire = champSaisie(column);
-            // replacements = new String[3][2];
-            attributName = this.dManager.columnContainsName(parentEntity);
-            replacements = new String[4][2];
-            replacements[0][0] = "[parentEntity]";
-            replacements[0][1] = parentEntity;
-            replacements[1][0] = "[childEntity]";
-            replacements[1][1] = childEntity;
-            replacements[2][0] = "[parentEntitySecondField]";
-            replacements[2][1] = attributName;
-            replacements[3][0] = "[formulaire]";
-            replacements[3][1] = formulaire;
-            String templateContent = readFromFile(templatePath);
+                templatePath = ConfigSystem.path + Config.DATATYPE_HTML_PATH+"/template/ParentChildForm.txt";
+                String formulaire = champSaisie(column);
+                // replacements = new String[3][2];
+                attributName = this.dManager.columnContainsName(parentEntity);
+                if(nametable.equals(entiteSecure)){
+                    replacements = new String[5][2];
+                    replacements[0][0] = "[parentEntity]";
+                    replacements[0][1] = parentEntity;
+                    replacements[1][0] = "[childEntity]";
+                    replacements[1][1] = childEntity;
+                    replacements[2][0] = "[parentEntitySecondField]";
+                    replacements[2][1] = attributName;
+                    replacements[3][0] = "[formulaire]";
+                    replacements[3][1] = formulaire;
+                    replacements[4][0] = "[navBarLogOut]";
+                    replacements[4][1] = FunctionUtils.logOutTmpl();
+                }
+                else {
+                    replacements = new String[5][2];
+                    replacements[0][0] = "[parentEntity]";
+                    replacements[0][1] = parentEntity;
+                    replacements[1][0] = "[childEntity]";
+                    replacements[1][1] = childEntity;
+                    replacements[2][0] = "[parentEntitySecondField]";
+                    replacements[2][1] = attributName;
+                    replacements[3][0] = "[formulaire]";
+                    replacements[3][1] = formulaire;
+                    replacements[4][0] = "[navBarLogOut]";
+                    replacements[4][1] = "";
+                }
+                String templateContent = readFromFile(templatePath);
 
-            // Apply replacements
-            for (String[] replacement : replacements) {
-                templateContent = templateContent.replace( replacement[0] , replacement[1]);
+                // Apply replacements
+                for (String[] replacement : replacements) {
+                    templateContent = templateContent.replace( replacement[0] , replacement[1]);
+                }
+        
+                // Write the modified content to a new file
+                writeToFile(outputPath, templateContent);
             }
-    
-            // Write the modified content to a new file
-            writeToFile(outputPath, templateContent);
-        }
-        else if(nametable.equals(childEntity) &&
-            assocParentChild.equals("1-N") && 
-            assocChildParent.equals("1-N") && isBiDirectionnal){
+            else if(nametable.equals(childEntity) &&
+                assocParentChild.equals("1-N") && 
+                assocChildParent.equals("1-N") && isBiDirectionnal){
 
+                
+
+                templatePath = ConfigSystem.path + Config.DATATYPE_HTML_PATH+"/template/ChildParentForm.txt";
+                // String formulaire = champSaisie(column);
+
+                if(nametable.equals(entiteSecure)){
+                    replacements = new String[6][2];
+
+                    String parentEntityMaj = FunctionUtils.firstLetterToUpperCase(parentEntity);
+    
+                    attributName = this.dManager.columnContainsName(parentEntity);
+                    // replacements = new String[4][2];
+                    replacements[0][0] = "[parentEntity]";
+                    replacements[0][1] = parentEntity;
+                    replacements[1][0] = "[childEntity]";
+                    replacements[1][1] = childEntity;
+                    replacements[2][0] = "[parentEntitySecondField]";
+                    replacements[2][1] = attributName;
+                    replacements[3][0] = "[fieldsTable]";
+                    replacements[3][1] = this.generateFieldsTable(childEntity);
+                    replacements[4][0] = "[parentEntityMaj]";
+                    replacements[4][1] = parentEntityMaj;
+                    replacements[5][0] = "[navBarLogOut]";
+                    replacements[5][1] = FunctionUtils.logOutTmpl();
+                }
+                else {
+                    replacements = new String[6][2];
+
+<<<<<<< Updated upstream
             String[] entities = nameform.split("-");
             if(entities[0].equals(childEntity) && entities[1].equals(parentEntity)){
 
@@ -173,6 +227,27 @@ public class ConstructionHTML {
                 replacements[4][1] = parentEntityMaj;
                 String templateContent = readFromFile(templatePath);
     
+=======
+                    String parentEntityMaj = FunctionUtils.firstLetterToUpperCase(parentEntity);
+    
+                    attributName = this.dManager.columnContainsName(parentEntity);
+                    // replacements = new String[4][2];
+                    replacements[0][0] = "[parentEntity]";
+                    replacements[0][1] = parentEntity;
+                    replacements[1][0] = "[childEntity]";
+                    replacements[1][1] = childEntity;
+                    replacements[2][0] = "[parentEntitySecondField]";
+                    replacements[2][1] = attributName;
+                    replacements[3][0] = "[fieldsTable]";
+                    replacements[3][1] = this.generateFieldsTable(childEntity);
+                    replacements[4][0] = "[parentEntityMaj]";
+                    replacements[4][1] = parentEntityMaj;
+                    replacements[5][0] = "[navBarLogOut]";
+                    replacements[5][1] = "";  
+                }
+                String templateContent = readFromFile(templatePath);
+
+>>>>>>> Stashed changes
                 // Apply replacements
                 for (String[] replacement : replacements) {
                     templateContent = templateContent.replace( replacement[0] , replacement[1]);
@@ -181,6 +256,7 @@ public class ConstructionHTML {
                 // Write the modified content to a new file
                 writeToFile(outputPath, templateContent);
             }
+<<<<<<< Updated upstream
             else if(entities[0].equals(parentEntity) && entities[1].equals(childEntity)){
                 templatePath = ConfigSystem.path + Config.DATATYPE_HTML_PATH+"/template/ParentChildForm.txt";
                 String formulaire = champSaisie(column);
@@ -208,6 +284,11 @@ public class ConstructionHTML {
         }
         else {
             System.out.println("Fichier creer fotsiny...");
+=======
+            else {
+                System.out.println("Fichier creer fotsiny...");
+            }
+>>>>>>> Stashed changes
         }
     }
 
@@ -237,7 +318,7 @@ public class ConstructionHTML {
         return value;
     }
 
-    private void WritePageForm(String nametable, String nameform, ArrayList<MetaColumn> column,ConfigORM [] listConfigORM) throws IOException{
+    private void WritePageForm(String nametable, String nameform, ArrayList<MetaColumn> column,ConfigORM [] listConfigORM, String [] entitesSecure) throws IOException{
         // File paths (replace with your actual paths)
         // String templatePath = Config.DATATYPE_HTML_PATH+"/template/formulaire.txt";
         String templatePath = "";
@@ -268,61 +349,152 @@ public class ConstructionHTML {
             // String childEntity = configORMIndex.getTable_name_child();
             boolean isUniDirectionnal = configORMIndex.isUniDirectionnal();
             boolean isBiDirectionnal = configORMIndex.isBiDirectionnal();
-            if(nametable.equals(childEntity) && inputFkChild.equals("2")){
 
-                templatePath = ConfigSystem.path + Config.DATATYPE_HTML_PATH+"/template/formulaireWithSelect.txt";
-                entityFk = parentEntity;
-                entityFkMaj = parentEntityUpper;
-                attributName = this.dManager.columnContainsName(parentEntity);
-                replacements = new String[5][2];
-                replacements[0][0] = "[nametable]";
-                replacements[0][1] = nametable;
-                replacements[1][0] = "[formulaire]";
-                replacements[1][1] = formulaire;
-                replacements[2][0] = "[entityFk]";
-                replacements[2][1] = entityFk;
-                replacements[3][0] = "[entityFkMaj]";
-                replacements[3][1] = entityFkMaj;
-                replacements[4][0] = "[attributName]";
-                replacements[4][1] = attributName;
-                break;
-            }
-            else if(nametable.equals(parentEntity) && inputFkParent.equals("2")){
+            for (int j = 0; j < entitesSecure.length; j++) {
+                String entiteSecure = entitesSecure[j];
+                if(nametable.equals(childEntity) && inputFkChild.equals("2")){
 
-                templatePath = ConfigSystem.path + Config.DATATYPE_HTML_PATH+"/template/formulaireWithSelect.txt";
-                entityFk = childEntity;
-                entityFkMaj = childEntityUpper;
-                attributName = this.dManager.columnContainsName(childEntity);
-                replacements = new String[5][2];
-                replacements[0][0] = "[nametable]";
-                replacements[0][1] = nametable;
-                replacements[1][0] = "[formulaire]";
-                replacements[1][1] = formulaire;
-                replacements[2][0] = "[entityFk]";
-                replacements[2][1] = entityFk;
-                replacements[3][0] = "[entityFkMaj]";
-                replacements[3][1] = entityFkMaj;
-                replacements[4][0] = "[attributName]";
-                replacements[4][1] = attributName;
-                break;
-            }
-            else if(nametable.equals(parentEntity) && (inputFkParent.equals("") || inputFkChild.equals(""))){
-                templatePath = ConfigSystem.path + Config.DATATYPE_HTML_PATH+"/template/formulaire.txt";
-                replacements = new String[2][2];
-                replacements[0][0] = "[nametable]";
-                replacements[0][1] = nametable;
-                replacements[1][0] = "[formulaire]";
-                replacements[1][1] = formulaire;
-                break;
-            }
-            else {
-                templatePath = ConfigSystem.path + Config.DATATYPE_HTML_PATH+"/template/formulaire.txt";
-                replacements = new String[2][2];
-                replacements[0][0] = "[nametable]";
-                replacements[0][1] = nametable;
-                replacements[1][0] = "[formulaire]";
-                replacements[1][1] = formulaire;
-                break;
+                    templatePath = ConfigSystem.path + Config.DATATYPE_HTML_PATH+"/template/formulaireWithSelect.txt";
+                    entityFk = parentEntity;
+                    entityFkMaj = parentEntityUpper;
+                    attributName = this.dManager.columnContainsName(parentEntity);
+                    if(childEntity.equals(entiteSecure)){
+                        replacements = new String[6][2];
+                        replacements[0][0] = "[nametable]";
+                        replacements[0][1] = nametable;
+                        replacements[1][0] = "[formulaire]";
+                        replacements[1][1] = formulaire;
+                        replacements[2][0] = "[entityFk]";
+                        replacements[2][1] = entityFk;
+                        replacements[3][0] = "[entityFkMaj]";
+                        replacements[3][1] = entityFkMaj;
+                        replacements[4][0] = "[attributName]";
+                        replacements[4][1] = attributName;
+                        replacements[5][0] = "[navBarLogOut]";
+                        replacements[5][1] = FunctionUtils.logOutTmpl();
+                        break;                        
+                    }
+                    else if(parentEntity.equals(entiteSecure)){
+                        replacements = new String[6][2];
+                        replacements[0][0] = "[nametable]";
+                        replacements[0][1] = nametable;
+                        replacements[1][0] = "[formulaire]";
+                        replacements[1][1] = formulaire;
+                        replacements[2][0] = "[entityFk]";
+                        replacements[2][1] = entityFk;
+                        replacements[3][0] = "[entityFkMaj]";
+                        replacements[3][1] = entityFkMaj;
+                        replacements[4][0] = "[attributName]";
+                        replacements[4][1] = attributName;
+                        replacements[5][0] = "[navBarLogOut]";
+                        replacements[5][1] = FunctionUtils.logOutTmpl();
+                        break;                        
+                    }
+                    else{
+                        replacements = new String[6][2];
+                        replacements[0][0] = "[nametable]";
+                        replacements[0][1] = nametable;
+                        replacements[1][0] = "[formulaire]";
+                        replacements[1][1] = formulaire;
+                        replacements[2][0] = "[entityFk]";
+                        replacements[2][1] = entityFk;
+                        replacements[3][0] = "[entityFkMaj]";
+                        replacements[3][1] = entityFkMaj;
+                        replacements[4][0] = "[attributName]";
+                        replacements[4][1] = attributName;
+                        replacements[5][0] = "[navBarLogOut]";
+                        replacements[5][1] = "";
+                        break;
+                    }
+                }
+                else if(nametable.equals(parentEntity) && inputFkParent.equals("2")){
+    
+                    templatePath = ConfigSystem.path + Config.DATATYPE_HTML_PATH+"/template/formulaireWithSelect.txt";
+                    entityFk = childEntity;
+                    entityFkMaj = childEntityUpper;
+                    attributName = this.dManager.columnContainsName(childEntity);
+                    if(nametable.equals(entiteSecure)){
+                        replacements = new String[6][2];
+                        replacements[0][0] = "[nametable]";
+                        replacements[0][1] = nametable;
+                        replacements[1][0] = "[formulaire]";
+                        replacements[1][1] = formulaire;
+                        replacements[2][0] = "[entityFk]";
+                        replacements[2][1] = entityFk;
+                        replacements[3][0] = "[entityFkMaj]";
+                        replacements[3][1] = entityFkMaj;
+                        replacements[4][0] = "[attributName]";
+                        replacements[4][1] = attributName;
+                        replacements[5][0] = "[navBarLogOut]";
+                        replacements[5][1] = FunctionUtils.logOutTmpl();
+                        break; 
+                    }
+                    else{
+                        replacements = new String[6][2];
+                        replacements[0][0] = "[nametable]";
+                        replacements[0][1] = nametable;
+                        replacements[1][0] = "[formulaire]";
+                        replacements[1][1] = formulaire;
+                        replacements[2][0] = "[entityFk]";
+                        replacements[2][1] = entityFk;
+                        replacements[3][0] = "[entityFkMaj]";
+                        replacements[3][1] = entityFkMaj;
+                        replacements[4][0] = "[attributName]";
+                        replacements[4][1] = attributName;
+                        replacements[5][0] = "[navBarLogOut]";
+                        replacements[5][1] = "";
+                        break;                        
+                    }
+                }
+                else if(nametable.equals(parentEntity) && (inputFkParent.equals("") || inputFkChild.equals(""))){
+
+                    templatePath = ConfigSystem.path + Config.DATATYPE_HTML_PATH+"/template/formulaire.txt";
+                    if(nametable.equals(entiteSecure)){
+                        replacements = new String[3][2];
+                        replacements[0][0] = "[nametable]";
+                        replacements[0][1] = nametable;
+                        replacements[1][0] = "[formulaire]";
+                        replacements[1][1] = formulaire;
+                        replacements[2][0] = "[navBarLogOut]";
+                        replacements[2][1] = FunctionUtils.logOutTmpl();
+                        break;
+                    }
+                    else{
+                        replacements = new String[3][2];
+                        replacements[0][0] = "[nametable]";
+                        replacements[0][1] = nametable;
+                        replacements[1][0] = "[formulaire]";
+                        replacements[1][1] = formulaire;
+                        replacements[2][0] = "[navBarLogOut]";
+                        replacements[2][1] = "";
+                        break;
+                    }
+
+                }
+                else {
+                    templatePath = ConfigSystem.path + Config.DATATYPE_HTML_PATH+"/template/formulaire.txt";
+                    if(nametable.equals(entiteSecure)){
+                        replacements = new String[3][2];
+                        replacements[0][0] = "[nametable]";
+                        replacements[0][1] = nametable;
+                        replacements[1][0] = "[formulaire]";
+                        replacements[1][1] = formulaire;
+                        replacements[2][0] = "[navBarLogOut]";
+                        replacements[2][1] = FunctionUtils.logOutTmpl();
+                        break;
+                    }
+                    else {
+                        templatePath = ConfigSystem.path + Config.DATATYPE_HTML_PATH+"/template/formulaire.txt";
+                        replacements = new String[2][2];
+                        replacements[0][0] = "[nametable]";
+                        replacements[0][1] = nametable;
+                        replacements[1][0] = "[formulaire]";
+                        replacements[1][1] = formulaire;
+                        replacements[2][0] = "[navBarLogOut]";
+                        replacements[2][1] = "";
+                        break;
+                    }
+                }   
             }
         }
 

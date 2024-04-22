@@ -12,6 +12,8 @@ import model.EntityField;
 public class ViewModifieChildInParentGenerate {
     private ViewModifieChildInParent viewModifieChildInParent;
     private DBManager dbManager;
+    private String navBarLogOut;
+    
     
     public ViewModifieChildInParentGenerate(ViewModifieChildInParent viewModifieChildInParent, DBManager dbManager) {
         this.viewModifieChildInParent = viewModifieChildInParent;
@@ -40,8 +42,27 @@ public class ViewModifieChildInParentGenerate {
         String inputs = FunctionUtils.generateInput(entityField,entityInInput);
         String attributName = this.dbManager.columnContainsName(entityInDropDown);
         // String inputFK = generateInputFK(configORM);
-        String[] values = { entityInInput, entityInDropDown, inputs, attributName };
-        return values;
+        if(this.viewModifieChildInParent.getNameEntity().equals(navBarLogOut)){
+            String[] values = { 
+                entityInInput, 
+                entityInDropDown, 
+                inputs, 
+                attributName,
+                FunctionUtils.logOutTmpl() 
+            };
+            return values;   
+        }
+        else{
+            String[] values = { 
+                entityInInput, 
+                entityInDropDown, 
+                inputs, 
+                attributName,
+                "" 
+            };
+            return values;
+        }
+
     }
 
     private String formatEntityNameModife(String parentEntity, String childEntity){
@@ -89,6 +110,14 @@ public class ViewModifieChildInParentGenerate {
                     System.out.println(FunctionUtils.formatToFileFtl(formatEntityNameModife(parentEntity,childEntity))+" :File Already exist...");
                 }  
         }
+    }
+
+    public String getNavBarLogOut() {
+        return navBarLogOut;
+    }
+
+    public void setNavBarLogOut(String navBarLogOut) {
+        this.navBarLogOut = navBarLogOut;
     }
 
 }
