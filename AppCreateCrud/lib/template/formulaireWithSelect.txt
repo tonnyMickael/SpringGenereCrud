@@ -13,7 +13,7 @@
             <h1>formulaire</h1>
                 </div>
 			<div class="col-md-8 col-xl-6 text-center mx-auto">
-                <a href="/[nameEntity]/list"><button class="btn btn-primary">Liste</button></a>
+                <a href="/[nametable]/list"><button class="btn btn-primary">Liste</button></a>
                 <br/><br/>
 			</div>
                     </div>

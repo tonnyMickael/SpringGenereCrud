@@ -148,9 +148,9 @@ public class GenerateControllerEntityWithSecurity {
             assocParent.equals("1-N") && 
             assocChild.equals("1-N") && 
             isBiDirectionnal){
-                // newValue += "";
-                String nameFunction = FunctionUtils.firstLetterToUpperCase("list"+childEntityUpper);
-                newValue += String.format("|| %s.get%s() == null", parentEntity,nameFunction);
+                newValue += "";
+                // String nameFunction = FunctionUtils.firstLetterToUpperCase("list"+childEntityUpper);
+                // newValue += String.format("|| %s.get%s() == null", parentEntity,nameFunction);
         }
         // else if(entityName.equals(childEntity) && 
         //     assocParent.equals("1-N") && 
@@ -498,7 +498,8 @@ public class GenerateControllerEntityWithSecurity {
                     // value += String.format(", @RequestParam(\"%s_id\") %s %s_id",childEntity, idTypeEntity ,childEntity);
                 }
                 else if(blocksName.equals("RequestParamInUpdate")){
-                    value += String.format(", @RequestParam(\"%s_id\") %s %s_id",childEntity, idTypeEntity ,childEntity);
+                    value += "";
+                    // value += String.format(", @RequestParam(\"%s_id\") %s %s_id",childEntity, idTypeEntity ,childEntity);
                 }
                 else if(blocksName.equals("AttributeChildEntity")){
                     value += String.format("theModel.addAttribute(\"list%s\", %sService.fetch());",childEntityUpper, childEntity );
@@ -510,8 +511,9 @@ public class GenerateControllerEntityWithSecurity {
                     // value += String.format("%s childSelected = %sService.detail(%s_id);\r\n\t\t%s.set%s(childSelected);\t",childEntityUpper, childEntity ,childEntity,nameEntity,childEntityUpper);
                 }
                 else if(blocksName.equals("setChildEntityInUpdate")){
-                    value += String.format("%s childSelected = %sService.detail(%s_id);\n"+
-                    "\t\t%s.setList%s(Arrays.asList(childSelected));\n",childEntityUpper,childEntity,childEntity,parentEntity,childEntityUpper);
+                    value += "";
+                    // value += String.format("%s childSelected = %sService.detail(%s_id);\n"+
+                    // "\t\t%s.setList%s(Arrays.asList(childSelected));\n",childEntityUpper,childEntity,childEntity,parentEntity,childEntityUpper);
                     // value += String.format("%s childSelected = %sService.detail(%s_id);\r\n\t\t%s.set%s(childSelected);\t",childEntityUpper, childEntity ,childEntity,nameEntity,childEntityUpper);
                 }
                 else if(blocksName.equals("supplementMethods")){
