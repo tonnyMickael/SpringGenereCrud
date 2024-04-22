@@ -84,7 +84,7 @@ public class ViewListGenerate {
     }
 
     public void createViewListEntity(){
-        File destinationFile = new File(Config.VIEWSLIST_DESTINATION_FOLDER_PATH, FunctionUtils.formatToFileFtl(this.formatEntityNameList()));
+        File destinationFile = new File(ConfigSystem.path + Config.VIEWSLIST_DESTINATION_FOLDER_PATH, FunctionUtils.formatToFileFtl(this.formatEntityNameList()));
         
         if(!destinationFile.exists()){
             FunctionUtils.replacePholders(FunctionUtils.formatToFileFtl(formatEntityNameList()), Config.placeHoldersViewList, listRealValues(),ConfigSystem.path + Config.TEMPLATE_SOURCE_FOLDER_PATH,Config.TEMPLATE_VIEWSLIST_SOURCE_FILE_NAME,ConfigSystem.path + Config.VIEWSLIST_DESTINATION_FOLDER_PATH);

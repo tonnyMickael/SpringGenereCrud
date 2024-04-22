@@ -25,11 +25,13 @@
 						<td>
                             <form name="[parentEntity]" action="/[childEntity]/detail/[parentEntity]/add" method="post">
                                 <input class="form-control" name="[childEntity]_id" type="hidden" value="${[childEntity].getId()}"/>
-                                <select name="id" class="form-control">
-                                    <#list list[parentEntityMaj] as [parentEntity]>
-                                        <option value="${[parentEntity].id}">${[parentEntity].[parentEntitySecondField]}</option>
-                                    </#list>
-                                </select>
+                                <p>
+                                    <select name="id" class="form-control">
+                                        <#list list[parentEntityMaj] as [parentEntity]>
+                                            <option value="${[parentEntity].id}">${[parentEntity].[parentEntitySecondField]}</option>
+                                        </#list>
+                                    </select>
+                                </p>
 
                                 <input class="btn btn-primary" type="submit" value="Valider">
                             </form>

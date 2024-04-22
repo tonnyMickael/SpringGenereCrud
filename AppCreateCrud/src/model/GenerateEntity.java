@@ -119,11 +119,11 @@ public class GenerateEntity {
                     }
                     cascadeTypes = cascadeTypes.trim().substring(0,cascadeTypes.length()-2);
                     String realCascadeTypes = String.format("{%s}", cascadeTypes); 
-                    value += "\n\t@OneToMany(mappedBy = \""+ownerFkField+"\", cascade = "+realCascadeTypes+", orphanRemoval = true)\n\t"+this.generateField(typeVariable, nameVariable)+"\n";
+                    value += "\n\t@OneToMany(mappedBy = \""+ownerFkField+"\", cascade = "+realCascadeTypes+")\n\t"+this.generateField(typeVariable, nameVariable)+"\n";
                 }
                 else if(type_cascade != null && type_cascade.length == 1){
                     String tc = type_cascade[0];
-                    value += "\n\t@OneToMany(mappedBy = \""+ownerFkField+"\", cascade = CascadeType."+tc+", orphanRemoval = true)\n\t"+this.generateField(typeVariable, nameVariable)+"\n"; 
+                    value += "\n\t@OneToMany(mappedBy = \""+ownerFkField+"\", cascade = CascadeType."+tc+")\n\t"+this.generateField(typeVariable, nameVariable)+"\n"; 
                 }
                 else {
                     value += "\n\t@OneToMany(mappedBy = \""+ownerFkField+"\")\n\t"+this.generateField(typeVariable, nameVariable)+"\n";                    
@@ -133,6 +133,29 @@ public class GenerateEntity {
             assoc_parent_child.equals("1-N") && 
             assoc_child_parent.equals("1-1") &&
             isBiDirectionnal ){
+                // String nameTableReferenced = parentNameConfigORM+"_"+childNameConfigORM;
+                // if(type_cascade != null && type_cascade.length > 1 ){
+                //     String cascadeTypes = "";
+                //     for (int i = 0; i < type_cascade.length; i++) {
+                //         String tc = type_cascade[i];  
+                //         cascadeTypes += "CascadeType."+tc+", ";  
+                //     }
+                //     cascadeTypes = cascadeTypes.trim().substring(0,cascadeTypes.length()-2);
+                //     String realCascadeTypes = String.format("{%s}", cascadeTypes); 
+                //     // value += "\n\t@OneToMany(mappedBy = \""+ownerFkField+"\", cascade = "+realCascadeTypes+", orphanRemoval = true)\n\t"+this.generateField(typeVariable, nameVariable)+"\n";
+                //     value += "\n\t@ManyToOne(cascade = "+realCascadeTypes+")\n\t@JoinColumn(name = \""+ownerFkField+"_id\", foreignKey = @ForeignKey(name=\"fk_"+nameTableReferenced+"\"),nullable = false)\n";
+                //     value += this.generateField(parentNameConfigORMUpper, parentNameConfigORM)+"\n";    
+                // }
+                // else if(type_cascade != null && type_cascade.length == 1){
+                //     String tc = type_cascade[0];
+                //     // value += "\n\t@OneToMany(mappedBy = \""+ownerFkField+"\", cascade = CascadeType."+tc+", orphanRemoval = true)\n\t"+this.generateField(typeVariable, nameVariable)+"\n"; 
+                //     value += "\n\t@ManyToOne(cascade = CascadeType."+tc+")\n\t@JoinColumn(name = \""+ownerFkField+"_id\", foreignKey = @ForeignKey(name=\"fk_"+nameTableReferenced+"\"),nullable = false)\n";
+                //     value += this.generateField(parentNameConfigORMUpper, parentNameConfigORM)+"\n";       
+                // }
+                // else {
+                //     value += "\n\t@ManyToOne\n\t@JoinColumn(name = \""+ownerFkField+"_id\", foreignKey = @ForeignKey(name=\"fk_"+nameTableReferenced+"\"),nullable = false)\n";
+                //     value += this.generateField(parentNameConfigORMUpper, parentNameConfigORM)+"\n";                
+                // }  
                 String nameTableReferenced = parentNameConfigORM+"_"+childNameConfigORM;
                 value += "\n\t@ManyToOne\n\t@JoinColumn(name = \""+ownerFkField+"_id\", foreignKey = @ForeignKey(name=\"fk_"+nameTableReferenced+"\"),nullable = false)\n";
                 value += this.generateField(parentNameConfigORMUpper, parentNameConfigORM)+"\n";
@@ -536,7 +559,7 @@ public class GenerateEntity {
      * function which replace all parameters in the file
      */
     public void createAndWriteClass(ConfigORM configORM){
-        File destinationFile = new File(Config.MODEL_DESTINATION_FOLDER_PATH, FunctionUtils.formatToFileJava(this.entityTable.getName()));
+        File destinationFile = new File(ConfigSystem.path + Config.MODEL_DESTINATION_FOLDER_PATH, FunctionUtils.formatToFileJava(this.entityTable.getName()));
         
         if(!destinationFile.exists()){
             FunctionUtils.replacePholders(FunctionUtils.formatToFileJava(this.entityTable.getName()), Config.placeHoldersModel, listRealValues(configORM),ConfigSystem.path + Config.TEMPLATE_SOURCE_FOLDER_PATH,Config.TEMPLATE_MODEL_SOURCE_FILE_NAME,ConfigSystem.path + Config.MODEL_DESTINATION_FOLDER_PATH);

@@ -42,7 +42,7 @@ public class ViewModelsListGenerate {
     }
 
     public void createViewModelsList(){
-        File destinationFile = new File(Config.VIEWSLIST_DESTINATION_FOLDER_PATH, formatModelsNameList());
+        File destinationFile = new File(ConfigSystem.path + Config.VIEWSLIST_DESTINATION_FOLDER_PATH, formatModelsNameList());
         
         if(!destinationFile.exists()){
             FunctionUtils.replacePholders(FunctionUtils.formatToFileFtl(formatModelsNameList()), Config.placeHoldersViewModelsList, listRealValues(),ConfigSystem.path + Config.TEMPLATE_SOURCE_FOLDER_PATH,Config.TEMPLATE_VIEWSMODELSLIST_SOURCE_FILE_NAME,ConfigSystem.path + Config.VIEWSLIST_DESTINATION_FOLDER_PATH);

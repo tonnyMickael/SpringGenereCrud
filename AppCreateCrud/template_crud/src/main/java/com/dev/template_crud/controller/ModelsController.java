@@ -28,6 +28,8 @@ public class ModelsController {
     // }
     @GetMapping("/list")
     public String listModels(){
-        return "models-list";
+      
+            return "models-list";
+      
     }
 }

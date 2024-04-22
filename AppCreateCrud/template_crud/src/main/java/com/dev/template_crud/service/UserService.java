@@ -81,7 +81,10 @@ public class UserService {
         if(roles == null){
             roles = checkRoleExist();
         }
-        userRepository.save(user);
+        User userCrypt = user;
+        userCrypt.setPassword(encryptUserPassword(user.getPassword()));
+        userRepository.save(userCrypt);
+        // userRepository.save(user);
         user.setListRole(Arrays.asList(roles));
         User founduser =userRepository.findByEmail(user.getEmail());
         String token = genereToken(founduser.getId());
@@ -130,11 +133,43 @@ public class UserService {
             return null;
         }
     }
+
+    public static String encryptUserPassword(String password) {
+        try {
+            // Création d'un objet MessageDigest avec l'algorithme SHA-256
+            MessageDigest digest = MessageDigest.getInstance("SHA-256");
+
+            // Conversion de l'ID de l'utilisateur en une séquence d'octets
+            byte[] idBytes = String.valueOf(password).getBytes();
+
+            // Application du hachage sur l'ID de l'utilisateur
+            byte[] hashBytes = digest.digest(idBytes);
+
+            // Conversion du hachage en une chaîne hexadécimale
+            StringBuilder hexString = new StringBuilder();
+            for (byte hashByte : hashBytes) {
+                // Convertir chaque octet en sa représentation hexadécimale
+                String hex = Integer.toHexString(0xff & hashByte);
+                // S'assurer que chaque octet est représenté par deux caractères hexadécimaux
+                if (hex.length() == 1) {
+                    hexString.append('0'); // Si la représentation hexadécimale est un seul caractère, ajouter un '0' pour la compléter
+                }
+                hexString.append(hex);
+            }
+
+            // Retourner la chaîne hexadécimale résultante
+            return hexString.toString();
+            
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
     public int login(String email,String password) throws Exception{
         // List<User> users=userRepository.findAll();
         User user = this.userRepository.findByEmail(email);
         if(user.getEmail().equals(email)){
-            if (user.getPassword().equals(password)) {
+            if (user.getPassword().equals(encryptUserPassword(password))) {
                 return 1;
             }
             else {

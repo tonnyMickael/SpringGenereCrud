@@ -37,7 +37,7 @@ public class GenerateRepository {
     }
 
     public void createRepositoryEntity(){
-        File destinationFile = new File(Config.REPOSITORY_DESTINATION_FOLDER_PATH, FunctionUtils.formatToFileJava(formatClassNameRepository()));
+        File destinationFile = new File(ConfigSystem.path + Config.REPOSITORY_DESTINATION_FOLDER_PATH, FunctionUtils.formatToFileJava(formatClassNameRepository()));
         
         if(!destinationFile.exists()){
             FunctionUtils.replacePholders(FunctionUtils.formatToFileJava(formatClassNameRepository()), Config.placeHoldersRepository, listRealValues(),ConfigSystem.path + Config.TEMPLATE_SOURCE_FOLDER_PATH,Config.TEMPLATE_REPOSITORY_SOURCE_FILE_NAME,ConfigSystem.path + Config.REPOSITORY_DESTINATION_FOLDER_PATH);

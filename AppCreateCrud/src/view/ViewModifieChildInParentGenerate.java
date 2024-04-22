@@ -64,16 +64,15 @@ public class ViewModifieChildInParentGenerate {
 
                 EntityField [] entityFields = this.dbManager.entityFieldColumnsFromTable(childEntity);
                 String[] realValues = listRealValues(entityFields,childEntity,parentEntity);
-                File destinationFile = new File(Config.VIEWSUPDATE_DESTINATION_FOLDER_PATH, FunctionUtils.formatToFileFtl(this.formatEntityNameModife(parentEntity,childEntity)));
+                File destinationFile = new File(ConfigSystem.path + Config.VIEWSUPDATE_DESTINATION_FOLDER_PATH, FunctionUtils.formatToFileFtl(this.formatEntityNameModife(parentEntity,childEntity)));
                 
                 if(!destinationFile.exists()){
-                    FunctionUtils.replacePholders(FunctionUtils.formatToFileFtl(formatEntityNameModife(parentEntity,childEntity)), Config.placeHoldersViewUpdateChildInParent,realValues,ConfigSystem.path + Config.TEMPLATE_SOURCE_FOLDER_PATH,Config.TEMPLATE_VIEWSUPDATE_CHILD_IN_PARENT_SOURCE_FILE_NAME,ConfigSystem.path+Config.VIEWSUPDATE_DESTINATION_FOLDER_PATH);
+                    FunctionUtils.replacePholders(FunctionUtils.formatToFileFtl(formatEntityNameModife(parentEntity,childEntity)), Config.placeHoldersViewUpdateChildInParent,realValues,ConfigSystem.path + Config.TEMPLATE_SOURCE_FOLDER_PATH,Config.TEMPLATE_VIEWSUPDATE_CHILD_IN_PARENT_SOURCE_FILE_NAME,ConfigSystem.path + Config.VIEWSUPDATE_DESTINATION_FOLDER_PATH);
                 }
                 else{
                     System.out.println(FunctionUtils.formatToFileFtl(formatEntityNameModife(parentEntity,childEntity))+" :File Already exist...");
                 }  
         }
-
         // Ajout des Object Input Parents dans Enfants
         else if(nameEntity.equals(parentEntity) && 
             assocParentChild.equals("1-N") &&
@@ -81,10 +80,10 @@ public class ViewModifieChildInParentGenerate {
             isBiDirectionnal){
                 EntityField [] entityFields = this.dbManager.entityFieldColumnsFromTable(childEntity);
                 String[] realValues = listRealValues(entityFields,childEntity,parentEntity);
-                File destinationFile = new File(Config.VIEWSUPDATE_DESTINATION_FOLDER_PATH, FunctionUtils.formatToFileFtl(this.formatEntityNameModife(parentEntity,childEntity)));
+                File destinationFile = new File(ConfigSystem.path + Config.VIEWSUPDATE_DESTINATION_FOLDER_PATH, FunctionUtils.formatToFileFtl(this.formatEntityNameModife(parentEntity,childEntity)));
                 
                 if(!destinationFile.exists()){
-                    FunctionUtils.replacePholders(FunctionUtils.formatToFileFtl(formatEntityNameModife(parentEntity,childEntity)), Config.placeHoldersViewUpdateChildInParent,realValues,ConfigSystem.path + Config.TEMPLATE_SOURCE_FOLDER_PATH,Config.TEMPLATE_VIEWSUPDATE_CHILD_IN_PARENT_SOURCE_FILE_NAME,ConfigSystem.path+Config.VIEWSUPDATE_DESTINATION_FOLDER_PATH);
+                    FunctionUtils.replacePholders(FunctionUtils.formatToFileFtl(formatEntityNameModife(parentEntity,childEntity)), Config.placeHoldersViewUpdateChildInParent,realValues,ConfigSystem.path + Config.TEMPLATE_SOURCE_FOLDER_PATH,Config.TEMPLATE_VIEWSUPDATE_CHILD_IN_PARENT_SOURCE_FILE_NAME,ConfigSystem.path + Config.VIEWSUPDATE_DESTINATION_FOLDER_PATH);
                 }
                 else{
                     System.out.println(FunctionUtils.formatToFileFtl(formatEntityNameModife(parentEntity,childEntity))+" :File Already exist...");

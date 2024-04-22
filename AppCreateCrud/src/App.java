@@ -276,14 +276,14 @@ public class App {
                     // Creation Controller 
                     if(modeleToSecureInString.length > 0){
                         for (int j = 0; j < modeleToSecureInString.length; j++) {
-                            String modelIndexToSecure = modeleToSecureInString[i];
+                            String modelIndexToSecure = modeleToSecureInString[j];
                             if(table.equals(modelIndexToSecure)){
                                 GenerateControllerEntityWithSecurity.createControllerEntitySecurity(configOrm);
                                 // in order to restart
                             }
-                            else {
-                                generateControllerEntity.createControllerEntity(configOrm);
-                            }
+                            // else {
+                            //     generateControllerEntity.createControllerEntity(configOrm);
+                            // }
                         }
                     }
                     else{

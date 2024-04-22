@@ -28,11 +28,13 @@
                             <form name="[parentEntity]" action="/[childEntity]/detail/[parentEntity]/update" method="post">
                                 <input class="form-control" name="[childEntity]_id" type="hidden" value="${[childEntity].getId()}"/>
                                 <input class="form-control" name="[parentEntity]_id" type="hidden" value="${[parentEntity].getId()}">
-                                <select name="id" class="from-control">
-                                    <#list list[parentEntityMaj] as [parentEntity]Index>
-                                        <option value="${[parentEntity]Index.id}"<#if [parentEntity]Index.getId() == [parentEntity].getId()> selected</#if>>${[parentEntity]Index.[parentEntitySecondField]}</option>
-                                    </#list>
-                                </select>
+                                <p>
+                                    <select name="id" class="form-control">
+                                        <#list list[parentEntityMaj] as [parentEntity]Index>
+                                            <option value="${[parentEntity]Index.id}"<#if [parentEntity]Index.getId() == [parentEntity].getId()> selected</#if>>${[parentEntity]Index.[parentEntitySecondField]}</option>
+                                        </#list>
+                                    </select>
+                                </p>
 
                                 <input type="submit" value="Valider" class="btn btn-primary">
                             </form>

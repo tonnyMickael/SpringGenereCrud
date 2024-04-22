@@ -59,9 +59,9 @@ public class [nameEntityMaj]Controller {
     }
 
     @PostMapping("/add")
-    public String save(@ModelAttribute("[nameEntity]") [nameEntityMaj] [nameEntity] [RequestParamChildEntity], @CookieValue(value = "cookie_user", defaultValue = "") String coockieUser) {
+    public String save(@ModelAttribute("[nameEntity]") [nameEntityMaj] [nameEntity] [RequestParamChildEntityInAdd], @CookieValue(value = "cookie_user", defaultValue = "") String coockieUser) {
         if(tokenService.verifyCoockieUser(coockieUser)){
-            [setChildEntity]
+            [setChildEntityInAdd]
 
             [nameEntity]Service.add([nameEntity]);
 
@@ -81,10 +81,10 @@ public class [nameEntityMaj]Controller {
     } 
 
     @PostMapping("/update/{id}")
-    public String update(Model theModel, @PathVariable("id") [idType] theId, @ModelAttribute("[nameEntity]") [nameEntityMaj] [nameEntity] [RequestParamChildEntity], @CookieValue(value = "cookie_user", defaultValue = "") String coockieUser) throws Exception {
+    public String update(Model theModel, @PathVariable("id") [idType] theId, @ModelAttribute("[nameEntity]") [nameEntityMaj] [nameEntity] [RequestParamChildEntityInUpdate], @CookieValue(value = "cookie_user", defaultValue = "") String coockieUser) throws Exception {
         if(tokenService.verifyCoockieUser(coockieUser)){
             [nameEntity].setId(theId);
-            [setChildEntity]
+            [setChildEntityInUpdate]
             // Check if any field of the produit object is null or empty
             if (isAnyFieldNullOrEmpty([nameEntity])) {
                 String errorMessage = "Some fields are null or empty.";
@@ -94,6 +94,7 @@ public class [nameEntityMaj]Controller {
                 return "redirect:/[nameEntity]/list";
             }
             else {
+                [insidUpdateMethodInElse]
                 this.[nameEntity]Service.update([nameEntity], theId);
             }
             return "redirect:/[nameEntity]/list";

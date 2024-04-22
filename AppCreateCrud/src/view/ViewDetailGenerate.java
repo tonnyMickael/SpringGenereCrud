@@ -252,7 +252,7 @@ public class ViewDetailGenerate {
             isBiDirectionnal){
             value += this.templateDetailInListArrayManyToMany(nameEntity,childTable);
         }
-
+        
         else {
             value ="";
         }
@@ -307,7 +307,7 @@ public class ViewDetailGenerate {
     }
 
     public void createViewDetailEntity(ConfigORM configORM){
-        File destinationFile = new File(Config.VIEWDETAIL_DESTINATION_FOLDER_PATH, FunctionUtils.formatToFileFtl(this.formatEntityNameDetail()));
+        File destinationFile = new File(ConfigSystem.path + Config.VIEWDETAIL_DESTINATION_FOLDER_PATH, FunctionUtils.formatToFileFtl(this.formatEntityNameDetail()));
         
         if(!destinationFile.exists()){
             FunctionUtils.replacePholders(FunctionUtils.formatToFileFtl(formatEntityNameDetail()), Config.placeHoldersViewDetail, listRealValues(configORM),ConfigSystem.path + Config.TEMPLATE_SOURCE_FOLDER_PATH,Config.TEMPLATE_VIEWDETAIL_SOURCE_FILE_NAME,ConfigSystem.path + Config.VIEWDETAIL_DESTINATION_FOLDER_PATH);
