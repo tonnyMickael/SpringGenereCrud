@@ -50,8 +50,14 @@ public class DBManager {
 		Connection con = null;
 		try {
             con = dbConnection.getConnection();
-			DatabaseMetaData metaData = con.getMetaData();
-			ResultSet rs = metaData.getTables(null, null, "%", new String[] { "TABLE" });
+            String query = "SELECT table_name "+
+            "FROM information_schema.tables "+
+            "WHERE table_schema = 'public' AND table_name NOT IN ('users', 'roles', 'users_roles', 'token')";
+            // Get table names from the database
+            PreparedStatement statement = con.prepareStatement(query);
+            ResultSet rs = statement.executeQuery();
+			// DatabaseMetaData metaData = con.getMetaData();
+			// ResultSet rs = metaData.getTables(null, null, "%", new String[] { "TABLE" });
 			while (rs.next()) {
                 // String tableName = rs.getString("TABLE_NAME");
                 // Exclude "configorm" and "person_address" tables
