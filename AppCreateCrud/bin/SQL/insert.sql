@@ -21,7 +21,7 @@ INSERT INTO person (firstName, lastName, birthday, cin) VALUES
     
 INSERT INTO region (name,person_id) VALUES
     ('Analamanga',1), -- Region ID 1
-    ('Atsinanana',); -- Region ID 1
+    ('Atsinanana',2); -- Region ID 1
     
     
 -- Test @ManyToMany mappedBy

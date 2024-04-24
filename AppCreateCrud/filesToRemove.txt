@@ -19,3 +19,4 @@ C:/Users/akjea/OneDrive/Documents/Git/SpringGenereCrud/AppCreateCrud/template_cr
 C:/Users/akjea/OneDrive/Documents/Git/SpringGenereCrud/AppCreateCrud/template_crud/src/main/resources/templates/region-detail.ftl
 C:/Users/akjea/OneDrive/Documents/Git/SpringGenereCrud/AppCreateCrud/template_crud/src/main/resources/templates/region-list.ftl
 C:/Users/akjea/OneDrive/Documents/Git/SpringGenereCrud/AppCreateCrud/template_crud/src/main/resources/templates/models-list.ftl
+C:/Users/akjea/OneDrive/Documents/Git/SpringGenereCrud/AppCreateCrud/template_crud/src/main/resources/application.properties
