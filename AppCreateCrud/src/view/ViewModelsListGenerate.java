@@ -33,16 +33,21 @@ public class ViewModelsListGenerate {
     }
 
     private String [] listRealValues(){
-        if(!navBarLogOut.isEmpty()){
-            String [] values = {
-                this.generateLinks(),
-                FunctionUtils.logOutTmpl()
-            };
-            return values;
+        if(navBarLogOut != null){
+            if (!navBarLogOut.isEmpty()){
+                String [] values = {
+                    this.generateLinks(),
+                    FunctionUtils.logOutTmpl()
+                };
+                return values;
+            }
+            return null;
         }
+
         else{
             String [] values = {
-                this.generateLinks()
+                this.generateLinks(),
+                ""
             };
             return values;
         }

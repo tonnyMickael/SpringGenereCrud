@@ -3,6 +3,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
+import Creating.ApplicationProperties;
 import Creating.ConstructionHTML;
 import MetaData.Meta;
 import MetaData.MetaTable;
@@ -137,29 +138,31 @@ public class App {
             }
             
             //saisie de la cascade pour les tables
-            System.out.println("Choisissez les types de cascades pour les tables");
-            System.out.println("Choix: ALL or PERSIST or MERGE or REMOVE or none");
-            System.out.println("Nombre de cascade utiliser");
-            int nbr = saisie.nextInt();
-            String[] cascade = new String[nbr];
-            for (int i = 0; i < cascade.length; i++) {
-                System.out.println("Choisissez le(s) type(s) de cascade(s)");
-                cascade[i] = saisie.next();
-                if (cascade[i].equals("none")) {
-                    cascade[i] = "";
-                }
-            }
+            // System.out.println("Choisissez les types de cascades pour les tables");
+            // System.out.println("Choix: ALL or PERSIST or MERGE or REMOVE or none");
+            // System.out.println("Nombre de cascade utiliser");
+            // int nbr = saisie.nextInt();
+            // String[] cascade = new String[nbr];
+            // for (int i = 0; i < cascade.length; i++) {
+            //     System.out.println("Choisissez le(s) type(s) de cascade(s)");
+            //     cascade[i] = saisie.next();
+            //     if (cascade[i].equals("none")) {
+            //         cascade[i] = "";
+            //     }
+            // }
+
+            String cascade [] = {"ALL"}; 
             
-            for (String cascades : cascade) {
-                System.out.println(cascades);
-            }
+            // for (String cascades : cascade) {
+            //     System.out.println(cascades);
+            // }
         
             //list des configuration de table
             initConfiguration.add(new ConfigORM(TableParent, Tablechild, associateParentChild, associateChildParent, unidirectional, bidirectional, cascade, sense,"","2"));
             
             //condition de fin de la configuration
             System.out.println("Avez vous fini de configurer? Oui ou Non");
-            String poursuivre = saisie.next();
+            String poursuivre = saisie.nextLine();
             continued = poursuivre;
         }
         system.close();
@@ -175,6 +178,8 @@ public class App {
         String[] modeleToSecureInString = modelToSecure.toArray(new String [0]);
         
         DBConnection dbConnection = new DBConnection(port,database,user,password);
+        ApplicationProperties applicationProperties = new ApplicationProperties(dbConnection);
+        applicationProperties.createApplicationPropreties();
         // DBConnection dbConnection = new DBConnection("5432","dbconfigcrudgenere","postgres","1234");
         DBManager dbManager = new DBManager(dbConnection);
 
@@ -193,6 +198,8 @@ public class App {
             String repAbsPath = new  String (ConfigSystem.path+Config.REPOSITORY_DESTINATION_FOLDER_PATH).replace("\\","/");
             String serAbsPath = new  String (ConfigSystem.path+Config.SERVICE_DESTINATION_FOLDER_PATH).replace("\\","/");
             String conAbString = new  String (ConfigSystem.path+Config.CONTROLLER_DESTINATION_FOLDER_PATH).replace("\\","/");
+            String appProp = new  String (ConfigSystem.path+Config.APPLICATION_PROPERTIES_DESTINATION_FOLDER_PATH).replace("\\","/");
+
 
             // List view, service, repository, model, controller
             String[] tables = dbManager.allTables();
@@ -337,7 +344,8 @@ public class App {
                     filesToRemove += viewAbString+"/"+FunctionUtils.formatToFileFtl(table+"-list")+"\n";
                 }
             } 
-            filesToRemove += viewAbString+"/"+FunctionUtils.formatToFileFtl("models-list");
+            filesToRemove += viewAbString+"/"+FunctionUtils.formatToFileFtl("models-list")+"\n";
+            filesToRemove += appProp+"/application.properties";
 
             File fToRemove = new File(ConfigSystem.path+"\\AppCreateCrud","filesToRemove.txt");
 

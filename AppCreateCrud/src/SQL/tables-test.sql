@@ -14,7 +14,7 @@ CREATE TABLE region (
 create table address (
     id SERIAL  not null,
     streetname varchar(255) NOT NULL,
-    zipcode varchar(255) NOT NULL
+    zipcode varchar(255) NOT NULL,
     primary key (id)
 );
 
