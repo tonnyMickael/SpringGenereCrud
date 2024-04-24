@@ -11,16 +11,16 @@ CREATE TABLE region (
     name VARCHAR(250) NOT NULL
 );
 
-create table address (
-    id SERIAL  not null,
-    streetname varchar(255) NOT NULL,
-    zipcode varchar(255) NOT NULL
-    primary key (id)
-);
+-- create table address (
+--     id SERIAL  not null,
+--     streetname varchar(255) NOT NULL,
+--     zipcode varchar(255) NOT NULL
+--     primary key (id)
+-- );
 
-CREATE TABLE employee (
-    id SERIAL PRIMARY KEY,
-    postname VARCHAR(50) NOT NULL,
-    matricule VARCHAR(50) NOT NULL
-);
+-- CREATE TABLE employee (
+--     id SERIAL PRIMARY KEY,
+--     postname VARCHAR(50) NOT NULL,
+--     matricule VARCHAR(50) NOT NULL
+-- );
 

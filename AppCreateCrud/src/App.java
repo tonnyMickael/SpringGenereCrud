@@ -199,6 +199,8 @@ public class App {
             String serAbsPath = new  String (ConfigSystem.path+Config.SERVICE_DESTINATION_FOLDER_PATH).replace("\\","/");
             String conAbString = new  String (ConfigSystem.path+Config.CONTROLLER_DESTINATION_FOLDER_PATH).replace("\\","/");
             String appProp = new  String (ConfigSystem.path+Config.APPLICATION_PROPERTIES_DESTINATION_FOLDER_PATH).replace("\\","/");
+            String targetPath = new  String (ConfigSystem.path+Config.TARGET_DESTINATION_FOLDER_PATH).replace("\\","/");
+
 
 
             // List view, service, repository, model, controller
@@ -336,12 +338,16 @@ public class App {
                     // Views
                     // Add
                     filesToRemove += viewAbString+"/"+FunctionUtils.formatToFileFtl(table+"-form")+"\n";
+                    filesToRemove += targetPath +"/"+FunctionUtils.formatToFileFtl(table+"-form")+"\n";
                     // update
                     filesToRemove += viewAbString+"/"+FunctionUtils.formatToFileFtl(table+"-edit-form")+"\n";
+                    filesToRemove += targetPath+"/"+FunctionUtils.formatToFileFtl(table+"-edit-form")+"\n";
                     // detail
                     filesToRemove += viewAbString+"/"+FunctionUtils.formatToFileFtl(table+"-detail")+"\n";
+                    filesToRemove += targetPath+"/"+FunctionUtils.formatToFileFtl(table+"-detail")+"\n";
                     // list
                     filesToRemove += viewAbString+"/"+FunctionUtils.formatToFileFtl(table+"-list")+"\n";
+                    filesToRemove += targetPath+"/"+FunctionUtils.formatToFileFtl(table+"-list")+"\n";
                 }
             } 
             filesToRemove += viewAbString+"/"+FunctionUtils.formatToFileFtl("models-list")+"\n";

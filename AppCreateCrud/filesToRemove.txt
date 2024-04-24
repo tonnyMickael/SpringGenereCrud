@@ -5,9 +5,13 @@ C:/Users/akjea/OneDrive/Documents/Git/SpringGenereCrud/AppCreateCrud/template_cr
 C:/Users/akjea/OneDrive/Documents/Git/SpringGenereCrud/AppCreateCrud/template_crud/src/main/java/com/dev/template_crud/service/PersonService.java
 C:/Users/akjea/OneDrive/Documents/Git/SpringGenereCrud/AppCreateCrud/template_crud/src/main/java/com/dev/template_crud/controller/PersonController.java
 C:/Users/akjea/OneDrive/Documents/Git/SpringGenereCrud/AppCreateCrud/template_crud/src/main/resources/templates/person-form.ftl
+C:/Users/akjea/OneDrive/Documents/Git/SpringGenereCrud/AppCreateCrud/template_crud/target/classes/templates/person-form.ftl
 C:/Users/akjea/OneDrive/Documents/Git/SpringGenereCrud/AppCreateCrud/template_crud/src/main/resources/templates/person-edit-form.ftl
+C:/Users/akjea/OneDrive/Documents/Git/SpringGenereCrud/AppCreateCrud/template_crud/target/classes/templates/person-edit-form.ftl
 C:/Users/akjea/OneDrive/Documents/Git/SpringGenereCrud/AppCreateCrud/template_crud/src/main/resources/templates/person-detail.ftl
+C:/Users/akjea/OneDrive/Documents/Git/SpringGenereCrud/AppCreateCrud/template_crud/target/classes/templates/person-detail.ftl
 C:/Users/akjea/OneDrive/Documents/Git/SpringGenereCrud/AppCreateCrud/template_crud/src/main/resources/templates/person-list.ftl
+C:/Users/akjea/OneDrive/Documents/Git/SpringGenereCrud/AppCreateCrud/template_crud/target/classes/templates/person-list.ftl
 C:/Users/akjea/OneDrive/Documents/Git/SpringGenereCrud/AppCreateCrud/template_crud/src/main/resources/templates/person-region-form.ftl
 C:/Users/akjea/OneDrive/Documents/Git/SpringGenereCrud/AppCreateCrud/template_crud/src/main/resources/templates/person-region-edit-form.ftl
 C:/Users/akjea/OneDrive/Documents/Git/SpringGenereCrud/AppCreateCrud/template_crud/src/main/java/com/dev/template_crud/model/Region.java
@@ -15,8 +19,12 @@ C:/Users/akjea/OneDrive/Documents/Git/SpringGenereCrud/AppCreateCrud/template_cr
 C:/Users/akjea/OneDrive/Documents/Git/SpringGenereCrud/AppCreateCrud/template_crud/src/main/java/com/dev/template_crud/service/RegionService.java
 C:/Users/akjea/OneDrive/Documents/Git/SpringGenereCrud/AppCreateCrud/template_crud/src/main/java/com/dev/template_crud/controller/RegionController.java
 C:/Users/akjea/OneDrive/Documents/Git/SpringGenereCrud/AppCreateCrud/template_crud/src/main/resources/templates/region-form.ftl
+C:/Users/akjea/OneDrive/Documents/Git/SpringGenereCrud/AppCreateCrud/template_crud/target/classes/templates/region-form.ftl
 C:/Users/akjea/OneDrive/Documents/Git/SpringGenereCrud/AppCreateCrud/template_crud/src/main/resources/templates/region-edit-form.ftl
+C:/Users/akjea/OneDrive/Documents/Git/SpringGenereCrud/AppCreateCrud/template_crud/target/classes/templates/region-edit-form.ftl
 C:/Users/akjea/OneDrive/Documents/Git/SpringGenereCrud/AppCreateCrud/template_crud/src/main/resources/templates/region-detail.ftl
+C:/Users/akjea/OneDrive/Documents/Git/SpringGenereCrud/AppCreateCrud/template_crud/target/classes/templates/region-detail.ftl
 C:/Users/akjea/OneDrive/Documents/Git/SpringGenereCrud/AppCreateCrud/template_crud/src/main/resources/templates/region-list.ftl
+C:/Users/akjea/OneDrive/Documents/Git/SpringGenereCrud/AppCreateCrud/template_crud/target/classes/templates/region-list.ftl
 C:/Users/akjea/OneDrive/Documents/Git/SpringGenereCrud/AppCreateCrud/template_crud/src/main/resources/templates/models-list.ftl
 C:/Users/akjea/OneDrive/Documents/Git/SpringGenereCrud/AppCreateCrud/template_crud/src/main/resources/application.properties

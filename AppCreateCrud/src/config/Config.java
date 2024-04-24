@@ -57,6 +57,8 @@ public class Config {
     // Tonny
     public static final String TEMPLATE_CONTROLLER_PAGE_PATH = "\\AppCreateCrud\\template_crud\\src\\main\\java\\com\\dev\\template_crud\\controller";   // utilise le fichier model.txt pour generer le contenu des controller et place les fichier creer dans ce repertoire
 
+    // Target app path
+    public static final String TARGET_DESTINATION_FOLDER_PATH = "\\AppCreateCrud\\template_crud\\target\\classes\\templates";
     /*
      * Place Holders in Model.tmpl
      */
