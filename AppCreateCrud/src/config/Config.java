@@ -46,6 +46,10 @@ public class Config {
     public static final String VIEWDETAIL_DESTINATION_FOLDER_PATH="\\AppCreateCrud\\template_crud\\src\\main\\resources\\templates";
     public static final String TEMPLATE_VIEWDETAIL_SOURCE_FILE_NAME="DetailFromListe.tmpl";
 
+    // Application properties
+    public static final String APPLICATION_PROPERTIES_DESTINATION_FOLDER_PATH="\\AppCreateCrud\\template_crud\\src\\main\\resources";
+    public static final String TEMPLATE_APPLICATION_PROPERTIES_SOURCE_FILE_NAME="application.properties.tmpl";
+
     //Controller 
     public static final String CONTROLLER_DESTINATION_FOLDER_PATH="\\AppCreateCrud\\template_crud\\src\\main\\java\\com\\dev\\template_crud\\controller";
     public static final String TEMPLATE_CONTROLLER_SOURCE_FILE_NAME="Controller.tmpl";  
@@ -102,5 +106,11 @@ public class Config {
      * place holders in ViewModifieChildInParent.tmpl
      */
     public static final String [] placeHoldersViewModelsList ={"[links]","[navBarLogOut]"};
+
+    /*
+     * place holders in application prope
+     */
+    public static final String [] placeHoldersApplicationProperties ={"[port]","[databasename]","[username]","[password]"};
+
 
 }
